@@ -1,0 +1,517 @@
+### Eclipse Workspace Patch 1.0
+#P ComputacaoGrafica20162
+diff --git .classpath .classpath
+new file mode 100644
+index 0000000..fceb480
+--- /dev/null
++++ .classpath
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<classpath>
++	<classpathentry kind="src" path="src"/>
++	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
++	<classpathentry kind="output" path="bin"/>
++</classpath>
+diff --git .gitignore .gitignore
+new file mode 100644
+index 0000000..ae3c172
+--- /dev/null
++++ .gitignore
+@@ -0,0 +1 @@
++/bin/
+diff --git .project .project
+new file mode 100644
+index 0000000..6b3e2b3
+--- /dev/null
++++ .project
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<projectDescription>
++	<name>ComputacaoGrafica20162</name>
++	<comment></comment>
++	<projects>
++	</projects>
++	<buildSpec>
++		<buildCommand>
++			<name>org.eclipse.jdt.core.javabuilder</name>
++			<arguments>
++			</arguments>
++		</buildCommand>
++	</buildSpec>
++	<natures>
++		<nature>org.eclipse.jdt.core.javanature</nature>
++	</natures>
++</projectDescription>
+diff --git .settings/org.eclipse.jdt.core.prefs .settings/org.eclipse.jdt.core.prefs
+new file mode 100644
+index 0000000..3a21537
+--- /dev/null
++++ .settings/org.eclipse.jdt.core.prefs
+@@ -0,0 +1,11 @@
++eclipse.preferences.version=1
++org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
++org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.8
++org.eclipse.jdt.core.compiler.codegen.unusedLocal=preserve
++org.eclipse.jdt.core.compiler.compliance=1.8
++org.eclipse.jdt.core.compiler.debug.lineNumber=generate
++org.eclipse.jdt.core.compiler.debug.localVariable=generate
++org.eclipse.jdt.core.compiler.debug.sourceFile=generate
++org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
++org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
++org.eclipse.jdt.core.compiler.source=1.8
+diff --git src/algoritmos/Desenhos2D.java src/algoritmos/Desenhos2D.java
+new file mode 100644
+index 0000000..93d18c2
+--- /dev/null
++++ src/algoritmos/Desenhos2D.java
+@@ -0,0 +1,65 @@
++package algoritmos;
++
++import java.util.ArrayList;
++import java.util.List;
++import view.Ponto;
++
++public class Desenhos2D {
++	
++	private List<Ponto> pontos;
++	
++	public Desenhos2D() {
++		if (pontos== null)
++			pontos = new ArrayList<>();
++	}
++	
++	public List<Ponto> DDA(Ponto a, Ponto b) {
++		
++		int xa, ya, xb, yb;
++		xa = a.getX();
++		ya = a.getY();
++		xb = b.getX();
++		yb = b.getY();
++		
++		int dx = xb - xa, dy = yb - ya, steps;
++		float xInc, yInc, x = xa, y = ya;
++		
++		if (Math.abs(dx) > Math.abs(dy)) {
++			steps = Math.abs(dx);
++		} else {
++			steps = Math.abs(dy);
++		}
++		
++		xInc = dx / (float) steps;
++		yInc = dy / (float) steps;
++		
++		
++		pontos.add(new Ponto((int) Math.abs(x), (int) Math.abs(y)));
++		
++		for (int k = 0; k < steps; k++) {
++			x += xInc;
++			y += yInc;
++			pontos.add(new Ponto((int) Math.abs(x), (int) Math.abs(y)));
++		}
++		
++		
++		return pontos;
++	}
++	
++	public List<Ponto> circ_explicita(int x, int y, int raio) {//M�todo explicita
++		pontos.clear();
++		
++		for (int i = -raio; i < raio; i++) {
++			pontos.add(new Ponto(i, (int) Math.sqrt(raio*raio - i*i)));
++			pontos.add(new Ponto(i, -1*(int) Math.sqrt(raio*raio - i*i)));
++		}
++
++		return pontos;
++	}
++	
++	public static int pitagoras(int a, int b) {
++		return (int) Math.sqrt((a*a) + (b*b));
++	}
++	
++	
++}
+diff --git src/view/Controle2D.java src/view/Controle2D.java
+new file mode 100644
+index 0000000..de3b1d2
+--- /dev/null
++++ src/view/Controle2D.java
+@@ -0,0 +1,71 @@
++package view;
++
++import java.awt.Color;
++import java.awt.Panel;
++import java.awt.event.ItemEvent;
++import java.awt.event.ItemListener;
++
++import javax.swing.ButtonGroup;
++import javax.swing.JComboBox;
++import javax.swing.JLabel;
++import javax.swing.JPanel;
++import javax.swing.JRadioButton;
++
++
++public class Controle2D extends JPanel {
++
++	/**
++	 * 
++	 */
++	private static final long serialVersionUID = -5080474631482001415L;
++	
++	public static PlanoCartesiano cartesiano;
++	public static JComboBox<String> cb;
++	public static JLabel label;
++	public static JPanel circunferencia;
++
++	
++	public Controle2D() {
++		cartesiano = new PlanoCartesiano();
++		
++		setBackground(Color.DARK_GRAY);	
++		setBounds(0, 0, 1100, 500);
++		setLayout(null);
++
++		cartesiano.setBounds(cartesiano.POS_X, cartesiano.POS_Y, cartesiano.LARGURA, cartesiano.ALTURA);
++
++		add(cartesiano);
++		label = new JLabel("ASDFASDFADS");
++		label.setForeground(Color.WHITE);
++		label.setBounds(10, -30, 100, 100);		
++
++		
++		cb = new JComboBox<String>();
++		String[] lista_cb = {"DDA", "Circunferencia"};
++				
++		for (int i = 0; i < lista_cb.length; i++)
++			cb.addItem(lista_cb[i]);
++		
++		cb.setBounds(10, 40, 100, 20);
++		add(cb);
++		
++		cb.addItemListener(new ItemListener() {			
++			@Override
++			public void itemStateChanged(ItemEvent e) {
++				
++				if (e.getStateChange() == ItemEvent.SELECTED) {					
++					
++					if (cb.getSelectedIndex() == 1) {
++						add(new PanelCircunferencia());
++					}
++				}
++				
++				
++			}
++		});
++		
++		add(label);	
++	}
++}
++
++
+diff --git src/view/Main.java src/view/Main.java
+new file mode 100644
+index 0000000..5a17290
+--- /dev/null
++++ src/view/Main.java
+@@ -0,0 +1,34 @@
++package view;
++
++import java.awt.EventQueue;
++
++import javax.swing.JFrame;
++
++public class Main extends JFrame {
++	/**
++	 * 
++	 */
++	private static final long serialVersionUID = -6782874347870569355L;
++	
++	public static Controle2D panelContent;	
++	public Main() {
++		init();
++	}
++	
++	public void init() {
++		setSize(1110, 520);
++		setLocationRelativeTo(null);
++		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
++		panelContent = new Controle2D();
++		add(panelContent);
++	}
++	
++	public static void main(String[] args) {		
++		EventQueue.invokeLater(new Runnable() {
++			@Override
++			public void run() {
++				new Main().setVisible(true);				
++			}			
++		});		
++	}
++}
+diff --git src/view/PainelNormalizacao.java src/view/PainelNormalizacao.java
+new file mode 100644
+index 0000000..5f42078
+--- /dev/null
++++ src/view/PainelNormalizacao.java
+@@ -0,0 +1,5 @@
++package view;
++
++public class PainelNormalizacao {
++
++}
+diff --git src/view/PanelCircunferencia.java src/view/PanelCircunferencia.java
+new file mode 100644
+index 0000000..74044a8
+--- /dev/null
++++ src/view/PanelCircunferencia.java
+@@ -0,0 +1,37 @@
++package view;
++
++import javax.swing.ButtonGroup;
++import javax.swing.JPanel;
++import javax.swing.JRadioButton;
++
++public class PanelCircunferencia extends JPanel {
++
++	/**
++	 * 
++	 */
++	private static final long serialVersionUID = 1852731672499692271L;
++	
++	public static JRadioButton eq_explicita, trigonometrica, ponto_medio;
++	public static  ButtonGroup grupo;
++	
++	public PanelCircunferencia() {
++		setBounds(10, 100, 200,100);
++		eq_explicita = new JRadioButton("Equação Explicita");
++		eq_explicita.setBounds(0, 100, 150, 15);
++		trigonometrica = new JRadioButton("Trigonometrica");
++		trigonometrica.setBounds(0, 115, 150, 15);
++		ponto_medio = new JRadioButton("Ponto Médio");
++		ponto_medio.setBounds(0, 130, 150, 15);
++					
++		grupo = new ButtonGroup();
++		grupo.add(eq_explicita);
++		grupo.add(trigonometrica);
++		grupo.add(ponto_medio);
++		
++		
++		
++		add(eq_explicita);
++		add(trigonometrica);
++		add(ponto_medio);
++	}
++}
+diff --git src/view/PlanoCartesiano.java src/view/PlanoCartesiano.java
+new file mode 100644
+index 0000000..4f435e4
+--- /dev/null
++++ src/view/PlanoCartesiano.java
+@@ -0,0 +1,160 @@
++package view;
++
++import java.awt.Color;
++import java.awt.Graphics;
++import java.awt.event.MouseAdapter;
++import java.awt.event.MouseEvent;
++import java.awt.event.MouseMotionAdapter;
++import java.awt.image.BufferedImage;
++import java.util.List;
++
++import javax.swing.JOptionPane;
++import javax.swing.JPanel;
++
++import algoritmos.Desenhos2D;
++
++
++
++public class PlanoCartesiano extends JPanel {
++
++	/**
++	 * 
++	 */
++	private static final long serialVersionUID = -3652299627184303562L;
++	
++	final int ALTURA = 500;
++	final int LARGURA = 800;
++	final int POS_X = 300;
++	final int POS_Y = 10;
++	private static BufferedImage plano;
++	public static List<Ponto> pontos;
++	public static Ponto xy;
++
++	
++	public PlanoCartesiano() {
++		
++		
++		addMouseMotionListener(new MouseMotionAdapter() {
++			@Override
++			public void mouseMoved(MouseEvent event) {
++				
++				int x = event.getPoint().x;
++				int y = event.getPoint().y;
++//				xy = new Ponto(x, y);
++				Controle2D.label.setText(String.valueOf((x - 400) + " " + (250 - y)));
++			}
++			@Override
++			public void mouseDragged(MouseEvent event) {
++				
++				
++	
++			}
++		});
++		
++		addMouseListener(new MouseAdapter() {
++			
++			Ponto a = null, b = null;
++			
++			@Override
++			public void mouseClicked(MouseEvent e) {
++				
++				setPixel(new Ponto(e.getPoint().x, e.getPoint().y));
++				
++				switch (Controle2D.cb.getSelectedIndex()) {
++					case 0:
++						if (a == null) {
++							a = new Ponto(e.getPoint().x, e.getPoint().y);
++						} else {
++							b = new Ponto(e.getPoint().x, e.getPoint().y);
++							pontos = new Desenhos2D().DDA(a, b);
++//							pontos = new Desenhos2D().circ_explicita(0, 0, 200);
++//							setCircunferencia();
++							a = null;
++							for (Ponto ponto : pontos) {
++								setPixel(ponto);
++							}
++						}
++						break;
++					case 1:
++						int raio = Desenhos2D.pitagoras(e.getPoint().x - 400, e.getPoint().y - 250);						
++						if (raio >= 250) {
++							JOptionPane.showMessageDialog(null, "Circunferência não pode ser calculada!");
++						} else {
++							pontos = new Desenhos2D().circ_explicita(e.getPoint().x, e.getPoint().y, raio);
++							setCircunferencia();
++						}
++						break;
++				}
++			}
++		});
++		
++		
++		
++		plano = new BufferedImage(LARGURA, ALTURA, BufferedImage.TYPE_INT_ARGB);
++		setBounds(0, 0, LARGURA, ALTURA);
++		zerarImagem();
++		
++		
++		
++		
++		
++		
++	}
++	
++	public void zerarImagem() {
++		
++		for (int i = 0; i < LARGURA; i++)
++			for (int j = 0; j < ALTURA; j++) {
++				plano.setRGB(i, j, Color.WHITE.getRGB());
++				repaint();
++		}
++		
++		coordenadas();
++	}
++	
++	private void setCircunferencia() {
++		for (Ponto ponto : pontos) {
++			setPixel(new Ponto(ponto.getX()+400, ponto.getY() + 250));
++		}
++	}
++	
++	public void coordenadas() {
++		
++		int meio_y = ALTURA/2;
++		int meio_x = LARGURA/2;
++		
++		for (int i = 0; i < ALTURA; i++) {
++			plano.setRGB(meio_x, i, Color.BLACK.getRGB());
++			repaint();
++		}
++		
++		for (int i = 0; i < LARGURA; i++) {
++			plano.setRGB(i, meio_y, Color.BLACK.getRGB());
++			repaint();
++		}
++		
++	}
++	
++	public void setPixel(Ponto pixel) {
++		plano.setRGB(pixel.getX(), pixel.getY(), Color.ORANGE.getRGB());
++		repaint();
++	}
++	
++	public List<Ponto> getPontos() {
++		return pontos;
++	}
++	
++	public BufferedImage getPlano() {
++		return plano;
++	}
++	
++	@Override
++	protected void paintComponent(Graphics g) {
++		super.paintComponent(g);
++		g.create();
++		g.drawImage(plano, 0, 0, null);
++	}
++
++	
++	
++}
+diff --git src/view/Ponto.java src/view/Ponto.java
+new file mode 100644
+index 0000000..2017ca6
+--- /dev/null
++++ src/view/Ponto.java
+@@ -0,0 +1,42 @@
++package view;
++
++public class Ponto {
++	private int x;
++	private int y;
++	private int z;
++	
++	public Ponto(int x, int y) {
++		this.x = x;
++		this.y = y;
++	}
++	
++	public Ponto(int x, int y, int z) {
++		this.x = x;
++		this.y = y;
++		this.setZ(z);
++	}
++
++	public int getX() {
++		return x;
++	}
++
++	public void setX(int x) {
++		this.x = x;
++	}
++
++	public int getY() {
++		return y;
++	}
++
++	public void setY(int y) {
++		this.y = y;
++	}
++
++	public int getZ() {
++		return z;
++	}
++
++	public void setZ(int z) {
++		this.z = z;
++	}
++}
