@@ -23,6 +23,8 @@ public class Controle2D extends JPanel {
 	public static JComboBox<String> cb;
 	public static JLabel label;
 	public static JPanel circunferencia;
+	public static JRadioButton eq_explicita, trigonometrica, ponto_medio;
+	public static  ButtonGroup grupo;
 
 	
 	public Controle2D() {
@@ -32,39 +34,9 @@ public class Controle2D extends JPanel {
 		setBounds(0, 0, 1100, 500);
 		setLayout(null);
 
-		cartesiano.setBounds(cartesiano.POS_X, cartesiano.POS_Y, cartesiano.LARGURA, cartesiano.ALTURA);
-
+		
 		add(cartesiano);
-		label = new JLabel("ASDFASDFADS");
-		label.setForeground(Color.WHITE);
-		label.setBounds(10, -30, 100, 100);		
 
-		
-		cb = new JComboBox<String>();
-		String[] lista_cb = {"DDA", "Circunferencia"};
-				
-		for (int i = 0; i < lista_cb.length; i++)
-			cb.addItem(lista_cb[i]);
-		
-		cb.setBounds(10, 40, 100, 20);
-		add(cb);
-		
-		cb.addItemListener(new ItemListener() {			
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				
-				if (e.getStateChange() == ItemEvent.SELECTED) {					
-					
-					if (cb.getSelectedIndex() == 1) {
-						add(new PanelCircunferencia());
-					}
-				}
-				
-				
-			}
-		});
-		
-		add(label);	
 	}
 }
 

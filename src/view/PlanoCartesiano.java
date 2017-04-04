@@ -24,8 +24,6 @@ public class PlanoCartesiano extends JPanel {
 	
 	final int ALTURA = 500;
 	final int LARGURA = 800;
-	final int POS_X = 300;
-	final int POS_Y = 10;
 	private static BufferedImage plano;
 	public static List<Ponto> pontos;
 	public static Ponto xy;
@@ -45,9 +43,6 @@ public class PlanoCartesiano extends JPanel {
 			}
 			@Override
 			public void mouseDragged(MouseEvent event) {
-				
-				
-	
 			}
 		});
 		

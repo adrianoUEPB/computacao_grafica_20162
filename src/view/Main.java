@@ -20,7 +20,8 @@ public class Main extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panelContent = new Controle2D();
-		add(panelContent);
+//		panelContent.label.setLocation(10, 180);
+		getContentPane().add(panelContent);
 	}
 	
 	public static void main(String[] args) {		
