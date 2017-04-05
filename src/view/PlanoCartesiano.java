@@ -38,8 +38,8 @@ public class PlanoCartesiano extends JPanel {
 				
 				int x = event.getPoint().x;
 				int y = event.getPoint().y;
-//				xy = new Ponto(x, y);
-				Controle2D.label.setText(String.valueOf((x - 400) + " " + (250 - y)));
+				Principal.label_x.setText(String.valueOf(x - 400));
+				Principal.label_y.setText(String.valueOf(250 - y)); 
 			}
 			@Override
 			public void mouseDragged(MouseEvent event) {
@@ -55,19 +55,31 @@ public class PlanoCartesiano extends JPanel {
 				
 				setPixel(new Ponto(e.getPoint().x, e.getPoint().y));
 				
-				switch (Controle2D.cb.getSelectedIndex()) {
+				switch (Principal.comboBox.getSelectedIndex()) {
 					case 0:
 						if (a == null) {
 							a = new Ponto(e.getPoint().x, e.getPoint().y);
 						} else {
 							b = new Ponto(e.getPoint().x, e.getPoint().y);
-							pontos = new Desenhos2D().DDA(a, b);
-//							pontos = new Desenhos2D().circ_explicita(0, 0, 200);
-//							setCircunferencia();
-							a = null;
-							for (Ponto ponto : pontos) {
-								setPixel(ponto);
-							}
+							try {
+								if (Principal.rdbtnDda.isSelected()) {
+									JOptionPane.showMessageDialog(null, "DDA");
+									pontos = new Desenhos2D().DDA(a, b);
+								} else if(Principal.rdbtnPontoMdio_1.isSelected()){
+									JOptionPane.showMessageDialog(null, "PONTO MEDIO");
+									pontos = new Desenhos2D().retaPontoMedio(a, b);
+								} else {
+									
+								}
+								
+								a = null;
+								
+								for (Ponto ponto : pontos)
+									setPixel(ponto);
+							} catch (NullPointerException e1) {
+								JOptionPane.showMessageDialog(null, "Selecione o algoritmo!");
+							} 
+							
 						}
 						break;
 					case 1:

@@ -14,7 +14,7 @@ public class Desenhos2D {
 	}
 	
 	public List<Ponto> DDA(Ponto a, Ponto b) {
-		
+		pontos.clear();
 		int xa, ya, xb, yb;
 		xa = a.getX();
 		ya = a.getY();
@@ -46,6 +46,45 @@ public class Desenhos2D {
 		return pontos;
 	}
 	
+	
+	public List<Ponto> retaPontoMedio(Ponto a, Ponto b) {
+		pontos.clear();
+		int xa, ya, xb, yb;
+		xa = a.getX();
+		ya = a.getY();
+		xb = b.getX();
+		yb = b.getY();
+		
+		int dx = Math.abs(xb - xa), dy = Math.abs(yb - ya);
+		int p = 2 * dy - dx;
+		int twoDy = 2 * dy, twoDyDx = 2 * (dy - dx);
+		int x, y;
+		
+		if (xa > xb) {
+			x = xb;
+			y = yb;
+			xb = xa;
+		} else {
+			x = xa;
+			y = ya;
+		}
+		
+		pontos.add(new Ponto(x, y));
+		
+		while (x < xb) {
+			x++;
+			if (p < 0) {
+				p += twoDy;
+			} else {
+				y++;
+				p += twoDyDx;
+			}
+			pontos.add(new Ponto(x, y));
+		}
+			
+		return pontos;
+	}
+	
 	public List<Ponto> circ_explicita(int x, int y, int raio) {//Mï¿½todo explicita
 		pontos.clear();
 		
@@ -57,6 +96,12 @@ public class Desenhos2D {
 		return pontos;
 	}
 	
+	/**
+	 * Método calcula o raio da circunfência para testar se irá desenhar a circunferência
+	 * @param a
+	 * @param b
+	 * @return raio
+	 */
 	public static int pitagoras(int a, int b) {
 		return (int) Math.sqrt((a*a) + (b*b));
 	}
