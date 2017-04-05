@@ -63,13 +63,9 @@ public class PlanoCartesiano extends JPanel {
 							b = new Ponto(e.getPoint().x, e.getPoint().y);
 							try {
 								if (Principal.rdbtnDda.isSelected()) {
-									JOptionPane.showMessageDialog(null, "DDA");
 									pontos = new Desenhos2D().DDA(a, b);
 								} else if(Principal.rdbtnPontoMdio_1.isSelected()){
-									JOptionPane.showMessageDialog(null, "PONTO MEDIO");
 									pontos = new Desenhos2D().retaPontoMedio(a, b);
-								} else {
-									
 								}
 								
 								a = null;
@@ -87,8 +83,17 @@ public class PlanoCartesiano extends JPanel {
 						if (raio >= 250) {
 							JOptionPane.showMessageDialog(null, "Circunferência não pode ser calculada!");
 						} else {
-							pontos = new Desenhos2D().circ_explicita(e.getPoint().x, e.getPoint().y, raio);
-							setCircunferencia();
+							if (Principal.rdbtnEquaoExplicita.isSelected()) {
+								pontos = new Desenhos2D().circ_explicita(e.getPoint().x, e.getPoint().y, raio);
+								setCircunferencia();
+							} else if(Principal.rdbtnPontoMdio.isSelected()) {
+								pontos = new Desenhos2D().CircunferenciaPontoMedio(raio);
+								setCircunferencia(); 
+							} else if(Principal.rdbtnTrigonometrica.isSelected()) {
+								pontos = new Desenhos2D().circ_trigonometrica(e.getPoint().x, e.getPoint().y, raio);
+								setCircunferencia(); 
+							}
+							
 						}
 						break;
 				}

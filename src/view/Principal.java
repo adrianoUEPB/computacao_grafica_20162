@@ -17,7 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import javafx.scene.control.ComboBox;
+
 
 public class Principal extends JFrame {
 
@@ -97,19 +97,19 @@ public class Principal extends JFrame {
 		rdbtnDda.setBounds(6, 7, 109, 23);
 		panel_circunferencia.add(rdbtnDda);
 		
-		rdbtnPontoMdio_1 = new JRadioButton("PONTO MÉDIO");
+		rdbtnPontoMdio_1 = new JRadioButton("PONTO Mï¿½DIO");
 		rdbtnPontoMdio_1.setBackground(Color.DARK_GRAY);
 		rdbtnPontoMdio_1.setForeground(Color.WHITE);
 		rdbtnPontoMdio_1.setBounds(6, 32, 109, 23);
 		panel_circunferencia.add(rdbtnPontoMdio_1);
 		
-		rdbtnEquaoExplicita = new JRadioButton("EQUAÇÃO EXPLICITA");
+		rdbtnEquaoExplicita = new JRadioButton("EQUAï¿½ï¿½O EXPLICITA");
 		rdbtnEquaoExplicita.setForeground(Color.WHITE);
 		rdbtnEquaoExplicita.setBackground(Color.DARK_GRAY);
 		rdbtnEquaoExplicita.setBounds(6, 7, 152, 23);
 		
 		
-		rdbtnPontoMdio = new JRadioButton("PONTO MÉDIO");
+		rdbtnPontoMdio = new JRadioButton("PONTO Mï¿½DIO");
 		rdbtnPontoMdio.setBackground(Color.DARK_GRAY);
 		rdbtnPontoMdio.setForeground(Color.WHITE);
 		rdbtnPontoMdio.setBounds(6, 32, 152, 23);

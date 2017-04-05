@@ -1,5 +1,6 @@
 package algoritmos;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import view.Ponto;
@@ -97,13 +98,67 @@ public class Desenhos2D {
 	}
 	
 	/**
-	 * Método calcula o raio da circunfência para testar se irá desenhar a circunferência
+	 * Mï¿½todo calcula o raio da circunfï¿½ncia para testar se irï¿½ desenhar a circunferï¿½ncia
 	 * @param a
 	 * @param b
 	 * @return raio
 	 */
 	public static int pitagoras(int a, int b) {
 		return (int) Math.sqrt((a*a) + (b*b));
+	}
+	//Simetria de 8 pontos
+	private void simetria_8(int x, int y){
+		pontos.add(new Ponto(x, y));
+		pontos.add(new Ponto(x,-y));
+		pontos.add(new Ponto(-x, y));
+		pontos.add(new Ponto(-x, -y));
+		pontos.add(new Ponto( y,  x));
+		pontos.add(new Ponto( y, -x));
+		pontos.add(new Ponto(-y,  x));
+		pontos.add(new Ponto(-y, -x));
+	}
+	
+	//Ponto Medio
+	public List<Ponto> CircunferenciaPontoMedio(int raio){
+		pontos.clear();		
+		int x, y, d;
+		/* Valores iniciais */
+		
+		x = 0;
+		y = raio;
+		d = 1 - raio;
+		
+		//Setando os pixels da posicao inicial
+		simetria_8(x, y);
+		
+		while (y > x){
+			
+			if (d < 0){
+				/* Selecione E */
+				d = d + 2 * x + 3;
+				x++;
+			}else{
+				/* Selecione SE */
+				d = d + 2 * (x - y) + 5;
+				x++;
+				y--;
+			}
+			
+			//seta os pixeis atuais
+			simetria_8(x, y);
+		}
+		
+		return pontos;		
+	}
+	
+	public List<Ponto> circ_trigonometrica(int x, int y, int raio){//Mï¿½todo trigonomï¿½trico
+		pontos.clear();
+		
+		for (int i = -raio; i <= raio; i++) {
+			simetria_8((int) (raio*(double) Math.cos(Math.toRadians(i))), (int) (raio* (double) Math.sin(Math.toRadians(i))));
+		}
+
+		return pontos;
 	}
 	
 	
