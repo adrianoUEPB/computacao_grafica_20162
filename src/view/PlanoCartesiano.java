@@ -57,6 +57,9 @@ public class PlanoCartesiano extends JPanel {
 				
 				switch (Principal.comboBox.getSelectedIndex()) {
 					case 0:
+						setPixel(new Ponto(e.getPoint().x, e.getPoint().y));
+						break;
+					case 1:
 						if (a == null) {
 							a = new Ponto(e.getPoint().x, e.getPoint().y);
 						} else {
@@ -66,10 +69,8 @@ public class PlanoCartesiano extends JPanel {
 									pontos = new Desenhos2D().DDA(a, b);
 								} else if(Principal.rdbtnPontoMdio_1.isSelected()){
 									pontos = new Desenhos2D().retaPontoMedio(a, b);
-								}
-								
-								a = null;
-								
+								}								
+								a = null;								
 								for (Ponto ponto : pontos)
 									setPixel(ponto);
 							} catch (NullPointerException e1) {
@@ -78,24 +79,24 @@ public class PlanoCartesiano extends JPanel {
 							
 						}
 						break;
-					case 1:
+					case 2:
 						int raio = Desenhos2D.pitagoras(e.getPoint().x - 400, e.getPoint().y - 250);						
 						if (raio >= 250) {
-							JOptionPane.showMessageDialog(null, "Circunferência não pode ser calculada!");
+							JOptionPane.showMessageDialog(null, "A CIRCUNFERENCIA NAO PODE SER CALCULADA!");
 						} else {
 							if (Principal.rdbtnEquaoExplicita.isSelected()) {
-								pontos = new Desenhos2D().circ_explicita(e.getPoint().x, e.getPoint().y, raio);
+								pontos = new Desenhos2D().CircunferenciaEqExplicita(e.getPoint().x, e.getPoint().y, raio);
 								setCircunferencia();
 							} else if(Principal.rdbtnPontoMdio.isSelected()) {
 								pontos = new Desenhos2D().CircunferenciaPontoMedio(raio);
 								setCircunferencia(); 
 							} else if(Principal.rdbtnTrigonometrica.isSelected()) {
-								pontos = new Desenhos2D().circ_trigonometrica(e.getPoint().x, e.getPoint().y, raio);
+								pontos = new Desenhos2D().CircunferenciaTrigonometrica(e.getPoint().x, e.getPoint().y, raio);
 								setCircunferencia(); 
-							}
-							
+							}							
 						}
 						break;
+
 				}
 			}
 		});
@@ -111,6 +112,12 @@ public class PlanoCartesiano extends JPanel {
 		
 		
 		
+	}
+	
+	public void CalcularElipse(int x, int y) {
+		zerarImagem();
+		pontos = new Desenhos2D().ElipsePontoMedio(x, y);
+		setCircunferencia();
 	}
 	
 	public void zerarImagem() {
@@ -130,7 +137,7 @@ public class PlanoCartesiano extends JPanel {
 		}
 	}
 	
-	public void coordenadas() {
+	private void coordenadas() {
 		
 		int meio_y = ALTURA/2;
 		int meio_x = LARGURA/2;
@@ -166,7 +173,5 @@ public class PlanoCartesiano extends JPanel {
 		g.create();
 		g.drawImage(plano, 0, 0, null);
 	}
-
-	
 	
 }

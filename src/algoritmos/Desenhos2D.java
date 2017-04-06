@@ -1,6 +1,5 @@
 package algoritmos;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import view.Ponto;
@@ -14,6 +13,12 @@ public class Desenhos2D {
 			pontos = new ArrayList<>();
 	}
 	
+	/**
+	 * Calculo da circunferencia atraves do algoritmo DDA
+	 * @param a do tipo Ponto
+	 * @param b do tipo Ponto
+	 * @return Lista de pontos
+	 */
 	public List<Ponto> DDA(Ponto a, Ponto b) {
 		pontos.clear();
 		int xa, ya, xb, yb;
@@ -47,7 +52,12 @@ public class Desenhos2D {
 		return pontos;
 	}
 	
-	
+	/**
+	 * Calculo da reta pelo ponto medio
+	 * @param a do tipo Ponto
+	 * @param b do tipo Ponto
+	 * @return Lista de pontos
+	 */
 	public List<Ponto> retaPontoMedio(Ponto a, Ponto b) {
 		pontos.clear();
 		int xa, ya, xb, yb;
@@ -86,7 +96,14 @@ public class Desenhos2D {
 		return pontos;
 	}
 	
-	public List<Ponto> circ_explicita(int x, int y, int raio) {//Mï¿½todo explicita
+	/**
+	 * Calculo da circunferencia pela equacao explicita, a qual deixa a circunferencia com falhas
+	 * @param x
+	 * @param y
+	 * @param raio
+	 * @return Lista de pontos
+	 */
+	public List<Ponto> CircunferenciaEqExplicita(int x, int y, int raio) {
 		pontos.clear();
 		
 		for (int i = -raio; i < raio; i++) {
@@ -98,15 +115,132 @@ public class Desenhos2D {
 	}
 	
 	/**
-	 * Mï¿½todo calcula o raio da circunfï¿½ncia para testar se irï¿½ desenhar a circunferï¿½ncia
+	 * Calculo da circunferencia pelo ponto medio
+	 * @param raio
+	 * @return Lista de pontos
+	 */
+	public List<Ponto> CircunferenciaPontoMedio(int raio){
+		pontos.clear();		
+		int x, y, d;
+		
+		x = 0;
+		y = raio;
+		d = 1 - raio;
+		
+		simetria_8(x, y);
+		
+		while (y > x){
+			
+			if (d < 0){
+				/* Seleciona E */
+				d = d + 2 * x + 3;
+				x++;
+			}else{
+				/* Seleciona SE */
+				d = d + 2 * (x - y) + 5;
+				x++;
+				y--;
+			}
+			
+			simetria_8(x, y);
+		}
+		
+		return pontos;		
+	}
+	
+	
+	/**
+	 * Calcula os pontos usando a simetria de 8 pontos, porém eviando os pontos de acordo com a função trigonometrica
+	 * @param x
+	 * @param y
+	 * @param raio
+	 * @return Lista de pontos
+	 */
+	public List<Ponto> CircunferenciaTrigonometrica(int x, int y, int raio){
+		pontos.clear();
+		
+		for (int i = -raio; i <= raio; i++) {
+			simetria_8((int) (raio*(double) Math.cos(Math.toRadians(i))), (int) (raio* (double) Math.sin(Math.toRadians(i))));
+		}
+		return pontos;
+	}
+	
+	/**
+	 * Algoritmo para calculo da elipse pelo ponto medio
 	 * @param a
 	 * @param b
-	 * @return raio
+	 * @return Lista de pontos
+	 */
+	public List<Ponto> ElipsePontoMedio(int a, int b){
+		pontos.clear();
+		int x = 0;
+		int y = 0;
+		double d1 = 0; 
+		double d2 = 0;
+		
+		x = 0;
+		y = b;
+		d1 = b * b - a * a * b + a * a / 4.0;
+		
+		pontosElipse(x, y);
+		
+		while(a * a * (y - 0.5) > b * b * (x + 1)){
+			
+			if (d1 < 0){
+				d1 = d1 + b * b * (2 * x + 3);
+				x++;
+			}else{
+				d1 = d1 + b * b * (2 * x + 3) + a * a * (-2 * y + 2);
+				x++;
+				y--;
+			}
+			pontosElipse(x, y);
+		}
+		
+		d2 = b * b * (x + 0.5) * (x + 0.5) + a * a * (y - 1) * (y - 1) - a * a * b * b;
+		while(y > 0){
+			 
+			if (d2 < 0){
+				d2 = d2 + b * b * (2 * x + 2) + a * a * (-2 * y + 3);
+				x++;
+				y--;
+			}else{
+				d2 = d2 + a * a * (-2 * y + 3);
+				y--;
+			}
+			pontosElipse(x, y);
+		}
+		
+		return pontos;		
+	}
+	
+	/**
+	 * Calculo dos pontos da elipse
+	 * @param x
+	 * @param y
+	 */
+	private void pontosElipse(int x, int y) {		
+		pontos.add(new Ponto(x, y)); 
+		pontos.add(new Ponto(x, -y)); 
+		pontos.add(new Ponto(-x, y));
+		pontos.add(new Ponto(-x, -y)); 			
+	}
+	
+	/**
+	 * Metodo calcula o raio da circunferencia a partir dos pontos recebidos
+	 * @param a
+	 * @param b
+	 * @return raio calculado pela funcao
 	 */
 	public static int pitagoras(int a, int b) {
 		return (int) Math.sqrt((a*a) + (b*b));
 	}
-	//Simetria de 8 pontos
+	
+	/**
+	 * Calcula os novos pontos e adiciona na lista de pontos da classe.
+	 * @param x
+	 * @param y
+	 */
 	private void simetria_8(int x, int y){
 		pontos.add(new Ponto(x, y));
 		pontos.add(new Ponto(x,-y));
@@ -116,49 +250,6 @@ public class Desenhos2D {
 		pontos.add(new Ponto( y, -x));
 		pontos.add(new Ponto(-y,  x));
 		pontos.add(new Ponto(-y, -x));
-	}
-	
-	//Ponto Medio
-	public List<Ponto> CircunferenciaPontoMedio(int raio){
-		pontos.clear();		
-		int x, y, d;
-		/* Valores iniciais */
-		
-		x = 0;
-		y = raio;
-		d = 1 - raio;
-		
-		//Setando os pixels da posicao inicial
-		simetria_8(x, y);
-		
-		while (y > x){
-			
-			if (d < 0){
-				/* Selecione E */
-				d = d + 2 * x + 3;
-				x++;
-			}else{
-				/* Selecione SE */
-				d = d + 2 * (x - y) + 5;
-				x++;
-				y--;
-			}
-			
-			//seta os pixeis atuais
-			simetria_8(x, y);
-		}
-		
-		return pontos;		
-	}
-	
-	public List<Ponto> circ_trigonometrica(int x, int y, int raio){//Mï¿½todo trigonomï¿½trico
-		pontos.clear();
-		
-		for (int i = -raio; i <= raio; i++) {
-			simetria_8((int) (raio*(double) Math.cos(Math.toRadians(i))), (int) (raio* (double) Math.sin(Math.toRadians(i))));
-		}
-
-		return pontos;
 	}
 	
 	

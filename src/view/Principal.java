@@ -16,6 +16,11 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
+import algoritmos.Desenhos2D;
+
+import javax.swing.JButton;
 
 
 
@@ -28,6 +33,7 @@ public class Principal extends JFrame {
 	public static JLabel label_x, label_y;
 	public static JComboBox<String> comboBox;
 	public static JRadioButton rdbtnDda, rdbtnPontoMdio_1, rdbtnEquaoExplicita, rdbtnPontoMdio, rdbtnTrigonometrica;
+	private JTextField tf_raio_x, tf_raio_y;
 
 	/**
 	 * Launch the application.
@@ -80,7 +86,7 @@ public class Principal extends JFrame {
 		getContentPane().add(label_y);
 		
 		comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"RETA", "CIRCUNFERENCIA"}));
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"PIXEL", "RETA", "CIRCUNFERENCIA", "ELIPSE"}));
 		comboBox.setBounds(10, 109, 155, 20);
 		getContentPane().add(comboBox);
 		
@@ -91,23 +97,47 @@ public class Principal extends JFrame {
 		getContentPane().add(panel_circunferencia);
 		panel_circunferencia.setLayout(null);
 		
+		JButton btnCalcular = new JButton("Calcular");
+		btnCalcular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				plano.zerarImagem();
+				plano.CalcularElipse(Integer.parseInt(tf_raio_x.getText()), Integer.parseInt(tf_raio_y.getText()));
+			}
+		});
+		btnCalcular.setBounds(10, 63, 89, 23);
+		
+		JLabel raio_x = new JLabel("Raio X");
+		raio_x.setForeground(Color.WHITE);
+		raio_x.setBounds(10, 11, 46, 14);
+
+		
+		JLabel raio_y = new JLabel("Raio Y");
+		raio_y.setForeground(Color.WHITE);
+		raio_y.setBounds(10, 36, 46, 14);
+
+		
+		tf_raio_x = new JTextField();
+		tf_raio_x.setBounds(66, 8, 86, 20);
+		tf_raio_x.setColumns(10);
+		
+		tf_raio_y = new JTextField();
+		tf_raio_y.setBounds(66, 33, 86, 20);
+		tf_raio_y.setColumns(10);
+		
 		rdbtnDda = new JRadioButton("DDA");
 		rdbtnDda.setBackground(Color.DARK_GRAY);
 		rdbtnDda.setForeground(Color.WHITE);
 		rdbtnDda.setBounds(6, 7, 109, 23);
-		panel_circunferencia.add(rdbtnDda);
 		
 		rdbtnPontoMdio_1 = new JRadioButton("PONTO MEDIO");
 		rdbtnPontoMdio_1.setBackground(Color.DARK_GRAY);
 		rdbtnPontoMdio_1.setForeground(Color.WHITE);
 		rdbtnPontoMdio_1.setBounds(6, 32, 109, 23);
-		panel_circunferencia.add(rdbtnPontoMdio_1);
 		
 		rdbtnEquaoExplicita = new JRadioButton("EQUACAO EXPLICITA");
 		rdbtnEquaoExplicita.setForeground(Color.WHITE);
 		rdbtnEquaoExplicita.setBackground(Color.DARK_GRAY);
 		rdbtnEquaoExplicita.setBounds(6, 7, 152, 23);
-		
 		
 		rdbtnPontoMdio = new JRadioButton("PONTO MEDIO");
 		rdbtnPontoMdio.setBackground(Color.DARK_GRAY);
@@ -127,23 +157,61 @@ public class Principal extends JFrame {
 		group.add(rdbtnPontoMdio);
 		group.add(rdbtnPontoMdio_1);
 		group.add(rdbtnDda);
-		
+
 		comboBox.addItemListener(new ItemListener() {			
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				if (e.getItem().equals("CIRCUNFERENCIA")) {
+				if (e.getItem().equals("PIXEL")) {
+					plano.zerarImagem();
+					panel_circunferencia.remove(raio_x);
+					panel_circunferencia.remove(tf_raio_x);
+					panel_circunferencia.remove(raio_y);
+					panel_circunferencia.remove(tf_raio_y);
+					panel_circunferencia.remove(btnCalcular);
 					panel_circunferencia.remove(rdbtnPontoMdio_1);
 					panel_circunferencia.remove(rdbtnDda);
+					panel_circunferencia.remove(rdbtnEquaoExplicita);
+					panel_circunferencia.remove(rdbtnPontoMdio);
+					panel_circunferencia.remove(rdbtnTrigonometrica);					
+					panel_circunferencia.repaint();
+				} else if (e.getItem().equals("CIRCUNFERENCIA")) {
+					plano.zerarImagem();
 					panel_circunferencia.add(rdbtnEquaoExplicita);
 					panel_circunferencia.add(rdbtnPontoMdio);
 					panel_circunferencia.add(rdbtnTrigonometrica);
+					panel_circunferencia.remove(raio_x);
+					panel_circunferencia.remove(tf_raio_x);
+					panel_circunferencia.remove(raio_y);
+					panel_circunferencia.remove(btnCalcular);
+					panel_circunferencia.remove(tf_raio_y);
+					panel_circunferencia.remove(rdbtnPontoMdio_1);
+					panel_circunferencia.remove(rdbtnDda);			
 					panel_circunferencia.repaint();
 				} else if (e.getItem().equals("RETA")) {
+					plano.zerarImagem();
+					panel_circunferencia.remove(raio_x);
+					panel_circunferencia.remove(tf_raio_x);
+					panel_circunferencia.remove(raio_y);
+					panel_circunferencia.remove(tf_raio_y);
+					panel_circunferencia.remove(btnCalcular);
 					panel_circunferencia.remove(rdbtnEquaoExplicita);
 					panel_circunferencia.remove(rdbtnPontoMdio);
 					panel_circunferencia.remove(rdbtnTrigonometrica);
 					panel_circunferencia.add(rdbtnPontoMdio_1);
 					panel_circunferencia.add(rdbtnDda);
+					panel_circunferencia.repaint();
+				} else if (e.getItem().equals("ELIPSE")){
+					plano.zerarImagem();
+					panel_circunferencia.add(raio_x);
+					panel_circunferencia.add(tf_raio_x);
+					panel_circunferencia.add(raio_y);
+					panel_circunferencia.add(tf_raio_y);
+					panel_circunferencia.add(btnCalcular);
+					panel_circunferencia.remove(rdbtnEquaoExplicita);
+					panel_circunferencia.remove(rdbtnPontoMdio);
+					panel_circunferencia.remove(rdbtnTrigonometrica);
+					panel_circunferencia.remove(rdbtnPontoMdio_1);
+					panel_circunferencia.remove(rdbtnDda);
 					panel_circunferencia.repaint();
 				}
 			}
