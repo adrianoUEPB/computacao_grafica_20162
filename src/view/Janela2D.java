@@ -24,7 +24,7 @@ import javax.swing.JButton;
 
 
 
-public class Principal extends JFrame {
+public class Janela2D extends JFrame {
 
 	/**
 	 * 
@@ -42,7 +42,7 @@ public class Principal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new Principal();					
+					new Janela2D();					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -53,7 +53,7 @@ public class Principal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Principal() {
+	public Janela2D() {
 		getContentPane().setBackground(Color.DARK_GRAY);
 		getContentPane().setLayout(null);
 		

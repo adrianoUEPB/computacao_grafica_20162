@@ -38,8 +38,8 @@ public class PlanoCartesiano extends JPanel {
 				
 				int x = event.getPoint().x;
 				int y = event.getPoint().y;
-				Principal.label_x.setText(String.valueOf(x - 400));
-				Principal.label_y.setText(String.valueOf(250 - y)); 
+				Janela2D.label_x.setText(String.valueOf(x - 400));
+				Janela2D.label_y.setText(String.valueOf(250 - y)); 
 			}
 			@Override
 			public void mouseDragged(MouseEvent event) {
@@ -55,7 +55,7 @@ public class PlanoCartesiano extends JPanel {
 				
 				setPixel(new Ponto(e.getPoint().x, e.getPoint().y));
 				
-				switch (Principal.comboBox.getSelectedIndex()) {
+				switch (Janela2D.comboBox.getSelectedIndex()) {
 					case 0:
 						setPixel(new Ponto(e.getPoint().x, e.getPoint().y));
 						break;
@@ -65,9 +65,9 @@ public class PlanoCartesiano extends JPanel {
 						} else {
 							b = new Ponto(e.getPoint().x, e.getPoint().y);
 							try {
-								if (Principal.rdbtnDda.isSelected()) {
+								if (Janela2D.rdbtnDda.isSelected()) {
 									pontos = new Desenhos2D().DDA(a, b);
-								} else if(Principal.rdbtnPontoMdio_1.isSelected()){
+								} else if(Janela2D.rdbtnPontoMdio_1.isSelected()){
 									pontos = new Desenhos2D().retaPontoMedio(a, b);
 								}								
 								a = null;								
@@ -84,13 +84,13 @@ public class PlanoCartesiano extends JPanel {
 						if (raio >= 250) {
 							JOptionPane.showMessageDialog(null, "A CIRCUNFERENCIA NAO PODE SER CALCULADA!");
 						} else {
-							if (Principal.rdbtnEquaoExplicita.isSelected()) {
+							if (Janela2D.rdbtnEquaoExplicita.isSelected()) {
 								pontos = new Desenhos2D().CircunferenciaEqExplicita(e.getPoint().x, e.getPoint().y, raio);
 								setCircunferencia();
-							} else if(Principal.rdbtnPontoMdio.isSelected()) {
+							} else if(Janela2D.rdbtnPontoMdio.isSelected()) {
 								pontos = new Desenhos2D().CircunferenciaPontoMedio(raio);
 								setCircunferencia(); 
-							} else if(Principal.rdbtnTrigonometrica.isSelected()) {
+							} else if(Janela2D.rdbtnTrigonometrica.isSelected()) {
 								pontos = new Desenhos2D().CircunferenciaTrigonometrica(e.getPoint().x, e.getPoint().y, raio);
 								setCircunferencia(); 
 							}							
