@@ -150,7 +150,7 @@ public class Desenhos2D {
 	
 	
 	/**
-	 * Calcula os pontos usando a simetria de 8 pontos, porém eviando os pontos de acordo com a função trigonometrica
+	 * Calcula os pontos usando a simetria de 8 pontos, porï¿½m eviando os pontos de acordo com a funï¿½ï¿½o trigonometrica
 	 * @param x
 	 * @param y
 	 * @param raio
@@ -252,5 +252,35 @@ public class Desenhos2D {
 		pontos.add(new Ponto(-y, -x));
 	}
 	
+	public List<Ponto> quadrado(int x, int y) {
+		
+		pontos.clear();
+						
+		List<Ponto> r1 = this.DDA(new Ponto(0, 0), new Ponto(x, 0));
+		List<Ponto> r2 = this.DDA(new Ponto(x, 0), new Ponto(x, y-1));
+		List<Ponto> r3 = this.DDA(new Ponto(x, y), new Ponto(0, y));
+		List<Ponto> r4 = this.DDA(new Ponto(0, y), new Ponto(0, 0));		
+			
+		pontos.addAll(r1);
+		pontos.addAll(r1);
+		pontos.addAll(r2);
+		pontos.addAll(r3);
+		pontos.addAll(r4);
+		return pontos;
+	}
+	
+	public List<Ponto> retangulo(int x1, int y1, int x2, int y2) {
+		pontos.clear();
+		List<Ponto> r1 = this.DDA(new Ponto(x1, y1), new Ponto(x2, y1));
+		List<Ponto> r2 = this.DDA(new Ponto(x2, y1), new Ponto(x2, y2));
+		List<Ponto> r3 = this.DDA(new Ponto(2, y2+1), new Ponto(x1, y2+1));
+		List<Ponto> r4 = this.DDA(new Ponto(x1, y2), new Ponto(x1, y1));		
+
+		pontos.addAll(r1);
+		pontos.addAll(r2);
+		pontos.addAll(r3);
+		pontos.addAll(r4);
+		return pontos;
+	}
 	
 }

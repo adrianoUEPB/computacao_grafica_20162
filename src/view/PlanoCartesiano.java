@@ -114,12 +114,22 @@ public class PlanoCartesiano extends JPanel {
 		
 	}
 	
+	/**
+	 * Os parâmetros são as coordenadas dos raios em x e em y
+	 * O método chama a função da ElipsePontoMedio passando os parâmetros, após receber os pontos
+	 * desenha como setCircunferência
+	 * @param x
+	 * @param y
+	 */
 	public void CalcularElipse(int x, int y) {
 		zerarImagem();
 		pontos = new Desenhos2D().ElipsePontoMedio(x, y);
 		setCircunferencia();
 	}
 	
+	/**
+	 * Limpa todo o plano carteziano, logo após recoloca as coordenadas
+	 */
 	public void zerarImagem() {
 		
 		for (int i = 0; i < LARGURA; i++)
@@ -130,32 +140,42 @@ public class PlanoCartesiano extends JPanel {
 		
 		coordenadas();
 	}
-	
+	/**
+	 * Método seta os pixels no plano cartesiano, é utilizado para a elipse e para os demais algoritmos
+	 * da circunferência
+	 */
 	private void setCircunferencia() {
 		for (Ponto ponto : pontos) {
 			setPixel(new Ponto(ponto.getX()+400, ponto.getY() + 250));
 		}
 	}
 	
+	
+	/**
+	 * Método privado sem retorno, realiza os calculos para poder setar as coordenadas
+	 */
 	private void coordenadas() {
 		
 		int meio_y = ALTURA/2;
 		int meio_x = LARGURA/2;
 		
 		for (int i = 0; i < ALTURA; i++) {
-			plano.setRGB(meio_x, i, Color.BLACK.getRGB());
+			plano.setRGB(meio_x, i, Color.RED.getRGB());
 			repaint();
 		}
 		
 		for (int i = 0; i < LARGURA; i++) {
-			plano.setRGB(i, meio_y, Color.BLACK.getRGB());
+			plano.setRGB(i, meio_y, Color.RED.getRGB());
 			repaint();
 		}
 		
 	}
-	
+	/**
+	 * Não há retorno, este método chama o metodo setRGB do BufferedImage para setar o pixel no painel
+	 * @param pixel
+	 */
 	public void setPixel(Ponto pixel) {
-		plano.setRGB(pixel.getX(), pixel.getY(), Color.ORANGE.getRGB());
+		plano.setRGB(pixel.getX(), pixel.getY(), Color.BLACK.getRGB());
 		repaint();
 	}
 	
