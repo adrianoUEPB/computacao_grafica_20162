@@ -86,16 +86,16 @@ public class Janela2D extends JFrame {
 		getContentPane().add(label_y);
 		
 		comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"PIXEL", "RETA", "CIRCUNFERENCIA", "ELIPSE"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"PIXEL", "RETA", "CIRCUNFERENCIA", "ELIPSE"}));
 		comboBox.setBounds(10, 109, 155, 20);
 		getContentPane().add(comboBox);
 		
-		JPanel panel_opcoes = new JPanel();
-		panel_opcoes.setBackground(Color.DARK_GRAY);
-		panel_opcoes.setForeground(Color.DARK_GRAY);
-		panel_opcoes.setBounds(10, 140, 180, 97);
-		getContentPane().add(panel_opcoes);
-		panel_opcoes.setLayout(null);
+		JPanel panel_circunferencia = new JPanel();
+		panel_circunferencia.setBackground(Color.DARK_GRAY);
+		panel_circunferencia.setForeground(Color.DARK_GRAY);
+		panel_circunferencia.setBounds(10, 140, 180, 97);
+		getContentPane().add(panel_circunferencia);
+		panel_circunferencia.setLayout(null);
 		
 		JButton btnCalcular = new JButton("Calcular");
 		btnCalcular.addActionListener(new ActionListener() {
@@ -163,69 +163,56 @@ public class Janela2D extends JFrame {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getItem().equals("PIXEL")) {
 					plano.zerarImagem();
-					panel_opcoes.remove(raio_x);
-					panel_opcoes.remove(tf_raio_x);
-					panel_opcoes.remove(raio_y);
-					panel_opcoes.remove(tf_raio_y);
-					panel_opcoes.remove(btnCalcular);
-					panel_opcoes.remove(rdbtnPontoMdio_1);
-					panel_opcoes.remove(rdbtnDda);
-					panel_opcoes.remove(rdbtnEquaoExplicita);
-					panel_opcoes.remove(rdbtnPontoMdio);
-					panel_opcoes.remove(rdbtnTrigonometrica);					
-					panel_opcoes.repaint();
+					panel_circunferencia.remove(raio_x);
+					panel_circunferencia.remove(tf_raio_x);
+					panel_circunferencia.remove(raio_y);
+					panel_circunferencia.remove(tf_raio_y);
+					panel_circunferencia.remove(btnCalcular);
+					panel_circunferencia.remove(rdbtnPontoMdio_1);
+					panel_circunferencia.remove(rdbtnDda);
+					panel_circunferencia.remove(rdbtnEquaoExplicita);
+					panel_circunferencia.remove(rdbtnPontoMdio);
+					panel_circunferencia.remove(rdbtnTrigonometrica);					
+					panel_circunferencia.repaint();
 				} else if (e.getItem().equals("CIRCUNFERENCIA")) {
 					plano.zerarImagem();
-					panel_opcoes.add(rdbtnEquaoExplicita);
-					panel_opcoes.add(rdbtnPontoMdio);
-					panel_opcoes.add(rdbtnTrigonometrica);
-					panel_opcoes.remove(raio_x);
-					panel_opcoes.remove(tf_raio_x);
-					panel_opcoes.remove(raio_y);
-					panel_opcoes.remove(btnCalcular);
-					panel_opcoes.remove(tf_raio_y);
-					panel_opcoes.remove(rdbtnPontoMdio_1);
-					panel_opcoes.remove(rdbtnDda);			
-					panel_opcoes.repaint();
+					panel_circunferencia.add(rdbtnEquaoExplicita);
+					panel_circunferencia.add(rdbtnPontoMdio);
+					panel_circunferencia.add(rdbtnTrigonometrica);
+					panel_circunferencia.remove(raio_x);
+					panel_circunferencia.remove(tf_raio_x);
+					panel_circunferencia.remove(raio_y);
+					panel_circunferencia.remove(btnCalcular);
+					panel_circunferencia.remove(tf_raio_y);
+					panel_circunferencia.remove(rdbtnPontoMdio_1);
+					panel_circunferencia.remove(rdbtnDda);			
+					panel_circunferencia.repaint();
 				} else if (e.getItem().equals("RETA")) {
 					plano.zerarImagem();
-					panel_opcoes.remove(raio_x);
-					panel_opcoes.remove(tf_raio_x);
-					panel_opcoes.remove(raio_y);
-					panel_opcoes.remove(tf_raio_y);
-					panel_opcoes.remove(btnCalcular);
-					panel_opcoes.remove(rdbtnEquaoExplicita);
-					panel_opcoes.remove(rdbtnPontoMdio);
-					panel_opcoes.remove(rdbtnTrigonometrica);
-					panel_opcoes.add(rdbtnPontoMdio_1);
-					panel_opcoes.add(rdbtnDda);
-					panel_opcoes.repaint();
+					panel_circunferencia.remove(raio_x);
+					panel_circunferencia.remove(tf_raio_x);
+					panel_circunferencia.remove(raio_y);
+					panel_circunferencia.remove(tf_raio_y);
+					panel_circunferencia.remove(btnCalcular);
+					panel_circunferencia.remove(rdbtnEquaoExplicita);
+					panel_circunferencia.remove(rdbtnPontoMdio);
+					panel_circunferencia.remove(rdbtnTrigonometrica);
+					panel_circunferencia.add(rdbtnPontoMdio_1);
+					panel_circunferencia.add(rdbtnDda);
+					panel_circunferencia.repaint();
 				} else if (e.getItem().equals("ELIPSE")){
 					plano.zerarImagem();
-					panel_opcoes.add(raio_x);
-					panel_opcoes.add(tf_raio_x);
-					panel_opcoes.add(raio_y);
-					panel_opcoes.add(tf_raio_y);
-					panel_opcoes.add(btnCalcular);
-					panel_opcoes.remove(rdbtnEquaoExplicita);
-					panel_opcoes.remove(rdbtnPontoMdio);
-					panel_opcoes.remove(rdbtnTrigonometrica);
-					panel_opcoes.remove(rdbtnPontoMdio_1);
-					panel_opcoes.remove(rdbtnDda);
-					panel_opcoes.repaint();
-				} else if (e.getItem().equals("RETANGULO")){
-					plano.zerarImagem();
-					panel_opcoes.remove(raio_x);
-					panel_opcoes.remove(tf_raio_x);
-					panel_opcoes.remove(raio_y);
-					panel_opcoes.remove(tf_raio_y);
-					panel_opcoes.remove(btnCalcular);
-					panel_opcoes.remove(rdbtnPontoMdio_1);
-					panel_opcoes.remove(rdbtnDda);
-					panel_opcoes.remove(rdbtnEquaoExplicita);
-					panel_opcoes.remove(rdbtnPontoMdio);
-					panel_opcoes.remove(rdbtnTrigonometrica);					
-					panel_opcoes.repaint();
+					panel_circunferencia.add(raio_x);
+					panel_circunferencia.add(tf_raio_x);
+					panel_circunferencia.add(raio_y);
+					panel_circunferencia.add(tf_raio_y);
+					panel_circunferencia.add(btnCalcular);
+					panel_circunferencia.remove(rdbtnEquaoExplicita);
+					panel_circunferencia.remove(rdbtnPontoMdio);
+					panel_circunferencia.remove(rdbtnTrigonometrica);
+					panel_circunferencia.remove(rdbtnPontoMdio_1);
+					panel_circunferencia.remove(rdbtnDda);
+					panel_circunferencia.repaint();
 				}
 			}
 		});
