@@ -2,9 +2,6 @@ package algoritmos;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JOptionPane;
-
 import model.Matriz;
 import model.Ponto;
 
@@ -173,30 +170,7 @@ public class Transformacao {
 		return matriz;
 	}
 	
-	private double[][] matrizEscala(double sx, double sy) {
-		double[][] matriz = new double[3][3];
-		if (sx == 0) {
-			sx = 1;
-		}
-		if (sy == 0) {
-			sy = 1;
-		}
-		matriz[0][0] = sx;
-		matriz[1][0] = 0;
-		matriz[2][0] = 0;
 
-		matriz[0][1] = 0;
-		matriz[1][1] = sy;
-		matriz[2][1] = 0;
-
-		matriz[0][2] = 0;
-		matriz[1][2] = 0;
-		matriz[2][2] = 1;
-
-		return matriz;
-	}
-
-	
 	/**
 	 * Matriz de cisalhamento
 	 * 	1	a 	0
@@ -274,7 +248,7 @@ public class Transformacao {
 	 * @param y
 	 * @return retorna uma lista de pontos para ser plotados na tela
 	 */
-	public List<Ponto> escala(List<Ponto> pontos, double x, double y) {
+	public List<Ponto> escala(List<Ponto> pontos, int x, int y) {
 		List<Ponto> list = new ArrayList<Ponto>();
 		try {
 			double[][] matriz = this.gerarMatrizFigura(pontos, 3, pontos.size()+1); 
@@ -313,7 +287,6 @@ public class Transformacao {
 	
 		List<Ponto> lista = new ArrayList<Ponto>();
 		try {
-			double[][] matriz = this.gerarMatrizFigura(pontos, 3, pontos.size()); 
 	
 			// Ponto de origem.
 			final int translacaoX = pontos.get(0).getX();
