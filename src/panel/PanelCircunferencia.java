@@ -1,4 +1,4 @@
-package view;
+package panel;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;

@@ -21,6 +21,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import algoritmos.Desenhos2D;
+import panel.PlanoCartesiano;
 
 import javax.swing.JButton;
 

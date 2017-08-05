@@ -1,4 +1,4 @@
-package view;
+package panel;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import algoritmos.Desenhos2D;
+import model.Ponto;
+import view.Janela2D;
 
 
 

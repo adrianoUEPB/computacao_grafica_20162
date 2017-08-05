@@ -1,4 +1,4 @@
-package view;
+package panel;
 
 import java.awt.Color;
 import java.awt.Panel;

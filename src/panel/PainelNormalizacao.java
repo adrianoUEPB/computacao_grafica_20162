@@ -1,4 +1,4 @@
-package view;
+package panel;
 
 public class PainelNormalizacao {
 

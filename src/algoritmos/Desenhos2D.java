@@ -2,7 +2,8 @@ package algoritmos;
 
 import java.util.ArrayList;
 import java.util.List;
-import view.Ponto;
+
+import model.Ponto;
 
 public class Desenhos2D {
 	
@@ -61,10 +62,10 @@ public class Desenhos2D {
 	public List<Ponto> retaPontoMedio(Ponto a, Ponto b) {
 		pontos.clear();
 		int xa, ya, xb, yb;
-		xa = a.getX();
-		ya = a.getY();
-		xb = b.getX();
-		yb = b.getY();
+		xa = a.getX()+400;
+		ya = 250 - a.getY();
+		xb = b.getX() + 400;
+		yb = 250 - b.getY();
 		
 		int dx = Math.abs(xb - xa), dy = Math.abs(yb - ya);
 		int p = 2 * dy - dx;
