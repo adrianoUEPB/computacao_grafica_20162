@@ -27,7 +27,7 @@ import javax.swing.JButton;
 
 
 
-public class Janela2D extends JFrame {
+public class MenuDeOp extends JFrame {
 
 	/**
 	 * 
@@ -40,25 +40,10 @@ public class Janela2D extends JFrame {
 	private JPanel panel_menu;
 	private JButton btn_calc_reta, btn_calc_circ, btn_calc_elipse, btn_calc_quad;
 
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					new Janela2D();					
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
 	/**
 	 * Create the frame.
 	 */
-	public Janela2D() {
+	public MenuDeOp() {
 		getContentPane().setBackground(Color.DARK_GRAY);
 		getContentPane().setLayout(null);
 		
