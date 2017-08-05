@@ -22,10 +22,10 @@ public class Desenhos2D {
 	public List<Ponto> DDA(Ponto a, Ponto b) {
 		pontos.clear();
 		int xa, ya, xb, yb;
-		xa = a.getX();
-		ya = a.getY();
-		xb = b.getX();
-		yb = b.getY();
+		xa = a.getX()+400;
+		ya = 250 - a.getY();
+		xb = b.getX() + 400;
+		yb = 250 - b.getY();
 		
 		int dx = xb - xa, dy = yb - ya, steps;
 		float xInc, yInc, x = xa, y = ya;
@@ -103,7 +103,7 @@ public class Desenhos2D {
 	 * @param raio
 	 * @return Lista de pontos
 	 */
-	public List<Ponto> CircunferenciaEqExplicita(int x, int y, int raio) {
+	public List<Ponto> CircunferenciaEqExplicita(int raio) {
 		pontos.clear();
 		
 		for (int i = -raio; i < raio; i++) {
@@ -156,7 +156,7 @@ public class Desenhos2D {
 	 * @param raio
 	 * @return Lista de pontos
 	 */
-	public List<Ponto> CircunferenciaTrigonometrica(int x, int y, int raio){
+	public List<Ponto> CircunferenciaTrigonometrica(int raio){
 		pontos.clear();
 		
 		for (int i = -raio; i <= raio; i++) {
@@ -254,19 +254,64 @@ public class Desenhos2D {
 	
 	public List<Ponto> quadrado(int x, int y) {
 		
-		pontos.clear();
-						
-		List<Ponto> r1 = this.DDA(new Ponto(0, 0), new Ponto(x, 0));
-		List<Ponto> r2 = this.DDA(new Ponto(x, 0), new Ponto(x, y-1));
-		List<Ponto> r3 = this.DDA(new Ponto(x, y), new Ponto(0, y));
-		List<Ponto> r4 = this.DDA(new Ponto(0, y), new Ponto(0, 0));		
+//		pontos.clear();
+		
+		List<Ponto> quadrado = new ArrayList<>();
+		
+		List<Ponto> reta_1 = this.DDA(new Ponto(0, 0), new Ponto(x, 0));
+		quadrado.addAll(reta_1);
+		System.out.println("Entrou na reta 1");
+		for (Ponto ponto : reta_1) {
+			System.out.println(ponto.getX() +" "+ ponto.getY());
+		}
+		List<Ponto> reta_2 = this.DDA(new Ponto(x, 0), new Ponto(x, y-1));
+		quadrado.addAll(reta_2);
+		System.out.println("Entrou na reta 2");
+		for (Ponto ponto : reta_2) {
+			System.out.println(ponto.getX() +" "+ ponto.getY());
+		}
+		List<Ponto> reta_3 = this.DDA(new Ponto(x, y), new Ponto(0, y));
+		quadrado.addAll(reta_3);
+		System.out.println("Entrou na reta 3");
+		for (Ponto ponto : reta_3) {
+			System.out.println(ponto.getX() +" "+ ponto.getY());
+		}
+		List<Ponto> reta_4 = this.DDA(new Ponto(0, y), new Ponto(0, 0));
+		quadrado.addAll(reta_4);
+		System.out.println("Entrou na reta 4");
+		for (Ponto ponto : reta_4) {
+			System.out.println(ponto.getX() +" "+ ponto.getY());
+		}
 			
-		pontos.addAll(r1);
-		pontos.addAll(r1);
-		pontos.addAll(r2);
-		pontos.addAll(r3);
-		pontos.addAll(r4);
-		return pontos;
+		
+		
+		
+		
+		System.out.println("Depois de adicionar todos os pontos");
+		System.out.println("Entrou na reta 1");
+		for (Ponto ponto : reta_1) {
+			System.out.println(ponto.getX() +" "+ ponto.getY());
+		}
+		System.out.println("Entrou na reta 2");
+		for (Ponto ponto : reta_2) {
+			System.out.println(ponto.getX() +" "+ ponto.getY());
+		}
+		System.out.println("Entrou na reta 3");
+		for (Ponto ponto : reta_3) {
+			System.out.println(ponto.getX() +" "+ ponto.getY());
+		}
+		System.out.println("Entrou na reta 4");
+		for (Ponto ponto : reta_4) {
+			System.out.println(ponto.getX() +" "+ ponto.getY());
+		}
+		
+		System.out.println("Entrou no geral");
+		for (Ponto ponto : pontos) {
+			System.out.println(ponto.getX() +" "+ ponto.getY());
+		}
+		
+		
+		return quadrado;
 	}
 	
 	public List<Ponto> retangulo(int x1, int y1, int x2, int y2) {
@@ -280,6 +325,7 @@ public class Desenhos2D {
 		pontos.addAll(r2);
 		pontos.addAll(r3);
 		pontos.addAll(r4);
+
 		return pontos;
 	}
 	

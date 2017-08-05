@@ -22,8 +22,8 @@ public class PlanoCartesiano extends JPanel {
 	 */
 	private static final long serialVersionUID = -3652299627184303562L;
 	
-	final int ALTURA = 500;
-	final int LARGURA = 800;
+	final static int ALTURA = 500;
+	final static int LARGURA = 800;
 	private static BufferedImage plano;
 	public static List<Ponto> pontos;
 	public static Ponto xy;
@@ -59,44 +59,6 @@ public class PlanoCartesiano extends JPanel {
 					case 0:
 						setPixel(new Ponto(e.getPoint().x, e.getPoint().y));
 						break;
-					case 1:
-						if (a == null) {
-							a = new Ponto(e.getPoint().x, e.getPoint().y);
-						} else {
-							b = new Ponto(e.getPoint().x, e.getPoint().y);
-							try {
-								if (Janela2D.rdbtnDda.isSelected()) {
-									pontos = new Desenhos2D().DDA(a, b);
-								} else if(Janela2D.rdbtnPontoMdio_1.isSelected()){
-									pontos = new Desenhos2D().retaPontoMedio(a, b);
-								}								
-								a = null;								
-								for (Ponto ponto : pontos)
-									setPixel(ponto);
-							} catch (NullPointerException e1) {
-								JOptionPane.showMessageDialog(null, "Selecione o algoritmo!");
-							} 
-							
-						}
-						break;
-					case 2:
-						int raio = Desenhos2D.pitagoras(e.getPoint().x - 400, e.getPoint().y - 250);						
-						if (raio >= 250) {
-							JOptionPane.showMessageDialog(null, "A CIRCUNFERENCIA NAO PODE SER CALCULADA!");
-						} else {
-							if (Janela2D.rdbtnEquaoExplicita.isSelected()) {
-								pontos = new Desenhos2D().CircunferenciaEqExplicita(e.getPoint().x, e.getPoint().y, raio);
-								setCircunferencia();
-							} else if(Janela2D.rdbtnPontoMdio.isSelected()) {
-								pontos = new Desenhos2D().CircunferenciaPontoMedio(raio);
-								setCircunferencia(); 
-							} else if(Janela2D.rdbtnTrigonometrica.isSelected()) {
-								pontos = new Desenhos2D().CircunferenciaTrigonometrica(e.getPoint().x, e.getPoint().y, raio);
-								setCircunferencia(); 
-							}							
-						}
-						break;
-
 				}
 			}
 		});
@@ -114,6 +76,33 @@ public class PlanoCartesiano extends JPanel {
 		
 	}
 	
+	public void calcularReta(int x1, int y1, int x2, int y2) throws NullPointerException, NumberFormatException {
+		if (Janela2D.rdbtnDda.isSelected()) {
+			pontos = new Desenhos2D().DDA(new Ponto(x1, y1), new Ponto(x2, y2));
+		} else if(Janela2D.rdbtnPontoMdio_1.isSelected()){
+			pontos = new Desenhos2D().retaPontoMedio(new Ponto(x1, y1), new Ponto(x2, y2));
+		}								
+				
+		for (Ponto ponto : pontos)
+			setPixel(ponto);
+	}
+	
+	public void calcularCircunferencia(int raio) throws NullPointerException, NumberFormatException, Exception {
+		if (raio > 250)
+			throw new Exception();
+		
+		if (Janela2D.rdbtnEquaoExplicita.isSelected()) {
+			pontos = new Desenhos2D().CircunferenciaEqExplicita(raio);
+			setCircunferencia();
+		} else if(Janela2D.rdbtnPontoMdio.isSelected()) {
+			pontos = new Desenhos2D().CircunferenciaPontoMedio(raio);
+			setCircunferencia(); 
+		} else if(Janela2D.rdbtnTrigonometrica.isSelected()) {
+			pontos = new Desenhos2D().CircunferenciaTrigonometrica(raio);
+			setCircunferencia(); 
+		}
+	}
+	
 	/**
 	 * Os parâmetros são as coordenadas dos raios em x e em y
 	 * O método chama a função da ElipsePontoMedio passando os parâmetros, após receber os pontos
@@ -125,6 +114,14 @@ public class PlanoCartesiano extends JPanel {
 		zerarImagem();
 		pontos = new Desenhos2D().ElipsePontoMedio(x, y);
 		setCircunferencia();
+	}
+	
+	public void calcularQuadrado(int x, int y){
+		zerarImagem();
+		pontos = new Desenhos2D().quadrado(x, y);
+		for (Ponto ponto: pontos) {
+			setPixel(ponto);
+		}
 	}
 	
 	/**
