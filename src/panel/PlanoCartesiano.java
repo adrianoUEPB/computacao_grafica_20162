@@ -7,15 +7,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.util.List;
-
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import algoritmos.Desenhos2D;
 import model.Ponto;
 import view.MenuDeOp;
-
-
 
 public class PlanoCartesiano extends JPanel {
 
@@ -24,8 +19,10 @@ public class PlanoCartesiano extends JPanel {
 	 */
 	private static final long serialVersionUID = -3652299627184303562L;
 	
-	final static int ALTURA = 500;
-	final static int LARGURA = 800;
+	public final static int ALTURA = 500;
+	public final static int LARGURA = 800;
+	public final static int MEIO_X = LARGURA/2;
+	public final static int MEIO_Y = ALTURA/2;
 	private static BufferedImage plano;
 	public static List<Ponto> pontos;
 	public static Ponto xy;
@@ -40,8 +37,8 @@ public class PlanoCartesiano extends JPanel {
 				
 				int x = event.getPoint().x;
 				int y = event.getPoint().y;
-				MenuDeOp.label_x.setText(String.valueOf(x - 400));
-				MenuDeOp.label_y.setText(String.valueOf(250 - y)); 
+				MenuDeOp.label_x.setText(String.valueOf(x - PlanoCartesiano.MEIO_X));
+				MenuDeOp.label_y.setText(String.valueOf(PlanoCartesiano.MEIO_Y - y)); 
 			}
 			@Override
 			public void mouseDragged(MouseEvent event) {
@@ -49,13 +46,8 @@ public class PlanoCartesiano extends JPanel {
 		});
 		
 		addMouseListener(new MouseAdapter() {
-			
-			Ponto a = null, b = null;
-			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				setPixel(new Ponto(e.getPoint().x, e.getPoint().y));
 				
 				switch (MenuDeOp.comboBox.getSelectedIndex()) {
 					case 0:
@@ -70,12 +62,6 @@ public class PlanoCartesiano extends JPanel {
 		plano = new BufferedImage(LARGURA, ALTURA, BufferedImage.TYPE_INT_ARGB);
 		setBounds(0, 0, LARGURA, ALTURA);
 		zerarImagem();
-		
-		
-		
-		
-		
-		
 	}
 	
 	public void calcularReta(int x1, int y1, int x2, int y2) throws NullPointerException, NumberFormatException {
@@ -90,7 +76,7 @@ public class PlanoCartesiano extends JPanel {
 	}
 	
 	public void calcularCircunferencia(int raio) throws NullPointerException, NumberFormatException, Exception {
-		if (raio > 250)
+		if (raio > PlanoCartesiano.MEIO_X || raio > PlanoCartesiano.MEIO_Y)
 			throw new Exception();
 		
 		if (MenuDeOp.rdbtnEquaoExplicita.isSelected()) {

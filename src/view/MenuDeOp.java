@@ -1,34 +1,26 @@
 package view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-
 import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-
-import algoritmos.Desenhos2D;
 import panel.PlanoCartesiano;
-
 import javax.swing.JButton;
-
-
+import javax.swing.border.BevelBorder;
+import javax.swing.SwingConstants;
 
 public class MenuDeOp extends JFrame {
-
 	/**
 	 * 
 	 */
@@ -39,16 +31,34 @@ public class MenuDeOp extends JFrame {
 	private JTextField tf_raio, tf_raio_x, tf_raio_y, tf_altura, tf_largura, tf_x1, tf_y1, tf_x2, tf_y2;
 	private JPanel panel_menu;
 	private JButton btn_calc_reta, btn_calc_circ, btn_calc_elipse, btn_calc_quad;
+	private PlanoCartesiano plano;
+	private JLabel lblTranslao;
 
 	/**
 	 * Create the frame.
 	 */
-	public MenuDeOp() {
+	public MenuDeOp() {		
+		
+		
 		getContentPane().setBackground(Color.DARK_GRAY);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		getContentPane().setLayout(null);
 		
-		PlanoCartesiano plano = new PlanoCartesiano();
-		plano.setBounds(283, 11, 800, 500);
+		this.initTransformacoes();
+		this.initOpcoesDesenho();
+		
+		this.initCoordenadas();
+		
+		setVisible(true);
+	}
+	
+	/**
+	 * Inicializa o painel de coordenadas e as labels das coordenadas
+	 */
+	private void initCoordenadas() {
+		plano = new PlanoCartesiano();
+		plano.setBounds(193, 12, 800, 500);
 		getContentPane().add(plano);	
 		
 		JLabel lblDcx = new JLabel("DCX");
@@ -74,20 +84,27 @@ public class MenuDeOp extends JFrame {
 		label_y.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 14));
 		label_y.setBounds(66, 57, 46, 14);
 		getContentPane().add(label_y);
-		
+	}
+	
+	/**
+	 * Inicializa as opções de desenho sobre o plano cartesiano
+	 */
+	private void initOpcoesDesenho() {		
 		comboBox = new JComboBox<String>();
 		//combo box não adiciona novos itens, está estático nos 4 iniciais
 		comboBox.removeAllItems();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"PIXEL", "RETA", "CIRCUNFERENCIA", "ELIPSE", "QUADRADO"}));
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"PIXEL", "RETA", "CIRCUNFERENCIA", "ELIPSE", "QUADRADO"}));
 		comboBox.setBounds(10, 109, 155, 20);
 		getContentPane().add(comboBox);
 		
 		panel_menu = new JPanel();
 		panel_menu.setBackground(Color.DARK_GRAY);
 		panel_menu.setForeground(Color.DARK_GRAY);
-		panel_menu.setBounds(10, 140, 261, 215);
+		panel_menu.setBounds(10, 140, 171, 215);
 		getContentPane().add(panel_menu);
 		panel_menu.setLayout(null);
+		
+
 		
 	
 		raio_x = new JLabel("Raio X");
@@ -184,9 +201,9 @@ public class MenuDeOp extends JFrame {
 		group.add(rdbtnDda);
 		
 		
-		/*
-		 * Seção botões
-		 */
+/* =====================================================================================================================================
+ *                                               BOTÕES
+ */
 		btn_calc_reta = new JButton("Calcular");
 		btn_calc_reta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -254,7 +271,7 @@ public class MenuDeOp extends JFrame {
 			}
 		});
 		btn_calc_elipse.setBounds(10, 63, 100, 23);
-	
+		
 		/*
 		 *  COMENTAR
 		 */
@@ -334,11 +351,30 @@ public class MenuDeOp extends JFrame {
 				
 			}
 		});
+	}
+	
+	private void initTransformacoes() {
+		JPanel panel_transformacao = new JPanel();
+		panel_transformacao.setBackground(Color.DARK_GRAY);
+		panel_transformacao.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel_transformacao.setBounds(1005, 12, 349, 500);
+		getContentPane().add(panel_transformacao);
+		panel_transformacao.setLayout(null);
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBackground(Color.DARK_GRAY);
-		setSize(1109, 551);
-		setVisible(true);
+		JLabel lblTransformaesdE = new JLabel("TRANSFORMAÇÕES 2D e 3D");
+		lblTransformaesdE.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTransformaesdE.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 14));
+		lblTransformaesdE.setBackground(Color.DARK_GRAY);
+		lblTransformaesdE.setBounds(12, 12, 337, 36);
+		lblTransformaesdE.setForeground(Color.WHITE);
+		panel_transformacao.add(lblTransformaesdE);
 		
+		lblTranslao = new JLabel("Translação");
+		lblTranslao.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTranslao.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 14));
+		lblTranslao.setBackground(Color.DARK_GRAY);
+		lblTranslao.setForeground(Color.WHITE);
+		lblTranslao.setBounds(12, 60, 100, 15);
+		panel_transformacao.add(lblTranslao);
 	}
 }
