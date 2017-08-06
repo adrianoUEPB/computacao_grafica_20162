@@ -19,6 +19,9 @@ import panel.PlanoCartesiano;
 import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.SwingConstants;
+import java.awt.Frame;
+import javax.swing.JCheckBox;
+import javax.swing.JSeparator;
 
 public class MenuDeOp extends JFrame {
 	/**
@@ -32,24 +35,51 @@ public class MenuDeOp extends JFrame {
 	private JPanel panel_menu;
 	private JButton btn_calc_reta, btn_calc_circ, btn_calc_elipse, btn_calc_quad;
 	private PlanoCartesiano plano;
-	private JLabel lblTranslao;
+	private JTextField tf_trans_x;
+	private JTextField tf_trans_y;
+	private JTextField tf_trans_z;
+	private JLabel label_1;
+	private JTextField textField;
+	private JLabel label_2;
+	private JTextField textField_1;
+	private JLabel label_3;
+	private JTextField textField_2;
+	private JLabel label_5;
+	private JTextField textField_3;
+	private JLabel label_6;
+	private JTextField textField_4;
+	private JLabel label_7;
+	private JTextField textField_5;
+	private JLabel label_9;
+	private JTextField textField_6;
+	private JLabel label_10;
+	private JTextField textField_7;
+	private JLabel label_11;
+	private JTextField textField_8;
+	private JLabel lblReflexes;
+	private JRadioButton rb_rfly;
+	private JRadioButton rb_rflx_y;
+	private JRadioButton rb_rflxy;
+	private JRadioButton rb_rflyz;
+	private JRadioButton rb_rflxz, rb_rflx, rb_transl, rb_escala, rb_rotacao, rb_cis;
+	private JSeparator separator_1;
 
 	/**
 	 * Create the frame.
 	 */
-	public MenuDeOp() {		
+	public MenuDeOp() {
+		setExtendedState(Frame.MAXIMIZED_BOTH);
 		
 		
-		getContentPane().setBackground(Color.DARK_GRAY);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		getContentPane().setLayout(null);
+	
 		
 		this.initTransformacoes();
 		this.initOpcoesDesenho();
 		
 		this.initCoordenadas();
-		
+		getContentPane().setBackground(Color.DARK_GRAY);
 		setVisible(true);
 	}
 	
@@ -62,27 +92,27 @@ public class MenuDeOp extends JFrame {
 		getContentPane().add(plano);	
 		
 		JLabel lblDcx = new JLabel("DCX");
+		lblDcx.setBounds(10, 32, 46, 14);
 		lblDcx.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 14));
 		lblDcx.setForeground(Color.WHITE);
-		lblDcx.setBounds(10, 32, 46, 14);
 		getContentPane().add(lblDcx);
 		
 		JLabel lblDcy = new JLabel("DCY");
+		lblDcy.setBounds(10, 57, 46, 14);
 		lblDcy.setForeground(Color.WHITE);
 		lblDcy.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 14));
-		lblDcy.setBounds(10, 57, 46, 14);
 		getContentPane().add(lblDcy);
 		
 		label_x = new JLabel("0");
+		label_x.setBounds(66, 32, 46, 14);
 		label_x.setForeground(Color.WHITE);
 		label_x.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 14));
-		label_x.setBounds(66, 32, 46, 14);
 		getContentPane().add(label_x);
 		
 		label_y = new JLabel("0");
+		label_y.setBounds(66, 57, 46, 14);
 		label_y.setForeground(Color.WHITE);
 		label_y.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 14));
-		label_y.setBounds(66, 57, 46, 14);
 		getContentPane().add(label_y);
 	}
 	
@@ -91,16 +121,16 @@ public class MenuDeOp extends JFrame {
 	 */
 	private void initOpcoesDesenho() {		
 		comboBox = new JComboBox<String>();
+		comboBox.setBounds(10, 109, 155, 20);
 		//combo box não adiciona novos itens, está estático nos 4 iniciais
 		comboBox.removeAllItems();
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"PIXEL", "RETA", "CIRCUNFERENCIA", "ELIPSE", "QUADRADO"}));
-		comboBox.setBounds(10, 109, 155, 20);
 		getContentPane().add(comboBox);
 		
 		panel_menu = new JPanel();
+		panel_menu.setBounds(10, 140, 171, 215);
 		panel_menu.setBackground(Color.DARK_GRAY);
 		panel_menu.setForeground(Color.DARK_GRAY);
-		panel_menu.setBounds(10, 140, 171, 215);
 		getContentPane().add(panel_menu);
 		panel_menu.setLayout(null);
 		
@@ -354,10 +384,11 @@ public class MenuDeOp extends JFrame {
 	}
 	
 	private void initTransformacoes() {
+		getContentPane().setLayout(null);
 		JPanel panel_transformacao = new JPanel();
+		panel_transformacao.setBounds(1005, 12, 349, 317);
 		panel_transformacao.setBackground(Color.DARK_GRAY);
 		panel_transformacao.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_transformacao.setBounds(1005, 12, 349, 500);
 		getContentPane().add(panel_transformacao);
 		panel_transformacao.setLayout(null);
 		
@@ -369,12 +400,253 @@ public class MenuDeOp extends JFrame {
 		lblTransformaesdE.setForeground(Color.WHITE);
 		panel_transformacao.add(lblTransformaesdE);
 		
-		lblTranslao = new JLabel("Translação");
-		lblTranslao.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTranslao.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 14));
-		lblTranslao.setBackground(Color.DARK_GRAY);
-		lblTranslao.setForeground(Color.WHITE);
-		lblTranslao.setBounds(12, 60, 100, 15);
-		panel_transformacao.add(lblTranslao);
+		JLabel lb_x = new JLabel("X");
+		lb_x.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		lb_x.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_x.setForeground(Color.WHITE);
+		lb_x.setBounds(133, 84, 19, 14);
+		panel_transformacao.add(lb_x);
+		
+		JLabel lb_y = new JLabel("Y");
+		lb_y.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_y.setForeground(Color.WHITE);
+		lb_y.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		lb_y.setBounds(207, 84, 19, 14);
+		panel_transformacao.add(lb_y);
+		
+		JLabel lb_z = new JLabel("Z");
+		lb_z.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_z.setForeground(Color.WHITE);
+		lb_z.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		lb_z.setBounds(275, 85, 19, 14);
+		panel_transformacao.add(lb_z);
+		
+		tf_trans_x = new JTextField();
+		tf_trans_x.setBounds(162, 82, 35, 20);
+		panel_transformacao.add(tf_trans_x);
+		tf_trans_x.setColumns(10);
+		
+		tf_trans_y = new JTextField();
+		tf_trans_y.setColumns(10);
+		tf_trans_y.setBounds(230, 82, 35, 20);
+		panel_transformacao.add(tf_trans_y);
+		
+		tf_trans_z = new JTextField();
+		tf_trans_z.setColumns(10);
+		tf_trans_z.setBounds(304, 82, 35, 20);
+		panel_transformacao.add(tf_trans_z);
+		
+		label_1 = new JLabel("X");
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setForeground(Color.WHITE);
+		label_1.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		label_1.setBounds(133, 112, 19, 14);
+		panel_transformacao.add(label_1);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(162, 110, 35, 20);
+		panel_transformacao.add(textField);
+		
+		label_2 = new JLabel("Y");
+		label_2.setHorizontalAlignment(SwingConstants.CENTER);
+		label_2.setForeground(Color.WHITE);
+		label_2.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		label_2.setBounds(207, 112, 19, 14);
+		panel_transformacao.add(label_2);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(230, 110, 35, 20);
+		panel_transformacao.add(textField_1);
+		
+		label_3 = new JLabel("Z");
+		label_3.setHorizontalAlignment(SwingConstants.CENTER);
+		label_3.setForeground(Color.WHITE);
+		label_3.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		label_3.setBounds(275, 113, 19, 14);
+		panel_transformacao.add(label_3);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(304, 110, 35, 20);
+		panel_transformacao.add(textField_2);
+		
+		label_5 = new JLabel("X");
+		label_5.setHorizontalAlignment(SwingConstants.CENTER);
+		label_5.setForeground(Color.WHITE);
+		label_5.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		label_5.setBounds(133, 141, 19, 14);
+		panel_transformacao.add(label_5);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(162, 139, 35, 20);
+		panel_transformacao.add(textField_3);
+		
+		label_6 = new JLabel("Y");
+		label_6.setHorizontalAlignment(SwingConstants.CENTER);
+		label_6.setForeground(Color.WHITE);
+		label_6.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		label_6.setBounds(207, 141, 19, 14);
+		panel_transformacao.add(label_6);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(230, 139, 35, 20);
+		panel_transformacao.add(textField_4);
+		
+		label_7 = new JLabel("Z");
+		label_7.setHorizontalAlignment(SwingConstants.CENTER);
+		label_7.setForeground(Color.WHITE);
+		label_7.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		label_7.setBounds(275, 142, 19, 14);
+		panel_transformacao.add(label_7);
+		
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		textField_5.setBounds(304, 139, 35, 20);
+		panel_transformacao.add(textField_5);
+		
+		label_9 = new JLabel("X");
+		label_9.setHorizontalAlignment(SwingConstants.CENTER);
+		label_9.setForeground(Color.WHITE);
+		label_9.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		label_9.setBounds(133, 170, 19, 14);
+		panel_transformacao.add(label_9);
+		
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		textField_6.setBounds(162, 168, 35, 20);
+		panel_transformacao.add(textField_6);
+		
+		label_10 = new JLabel("Y");
+		label_10.setHorizontalAlignment(SwingConstants.CENTER);
+		label_10.setForeground(Color.WHITE);
+		label_10.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		label_10.setBounds(207, 170, 19, 14);
+		panel_transformacao.add(label_10);
+		
+		textField_7 = new JTextField();
+		textField_7.setColumns(10);
+		textField_7.setBounds(230, 168, 35, 20);
+		panel_transformacao.add(textField_7);
+		
+		label_11 = new JLabel("Z");
+		label_11.setHorizontalAlignment(SwingConstants.CENTER);
+		label_11.setForeground(Color.WHITE);
+		label_11.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		label_11.setBounds(275, 171, 19, 14);
+		panel_transformacao.add(label_11);
+		
+		textField_8 = new JTextField();
+		textField_8.setColumns(10);
+		textField_8.setBounds(304, 168, 35, 20);
+		panel_transformacao.add(textField_8);
+		
+		JButton jb_transf = new JButton("Calcular");
+		jb_transf.setBounds(133, 273, 89, 23);
+		panel_transformacao.add(jb_transf);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBackground(Color.BLACK);
+		separator.setForeground(Color.DARK_GRAY);
+		separator.setBounds(5, 195, 344, 2);
+		panel_transformacao.add(separator);
+		
+		rb_transl = new JRadioButton("Translação");
+		rb_transl.setBackground(Color.DARK_GRAY);
+		rb_transl.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		rb_transl.setForeground(Color.WHITE);
+		rb_transl.setBounds(12, 81, 109, 23);
+		panel_transformacao.add(rb_transl);
+		
+		rb_escala = new JRadioButton("Escala");
+		rb_escala.setForeground(Color.WHITE);
+		rb_escala.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		rb_escala.setBackground(Color.DARK_GRAY);
+		rb_escala.setBounds(12, 109, 109, 23);
+		panel_transformacao.add(rb_escala);
+		
+		rb_rotacao = new JRadioButton("Rotação");
+		rb_rotacao.setForeground(Color.WHITE);
+		rb_rotacao.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		rb_rotacao.setBackground(Color.DARK_GRAY);
+		rb_rotacao.setBounds(12, 166, 109, 23);
+		panel_transformacao.add(rb_rotacao);
+		
+		rb_cis = new JRadioButton("Cisalhamento");
+		rb_cis.setForeground(Color.WHITE);
+		rb_cis.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		rb_cis.setBackground(Color.DARK_GRAY);
+		rb_cis.setBounds(12, 137, 115, 23);
+		panel_transformacao.add(rb_cis);
+		
+		rb_rflx = new JRadioButton("X");
+		rb_rflx.setForeground(Color.WHITE);
+		rb_rflx.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		rb_rflx.setBackground(Color.DARK_GRAY);
+		rb_rflx.setBounds(12, 226, 43, 23);
+		panel_transformacao.add(rb_rflx);
+		
+		lblReflexes = new JLabel("Reflexões");
+		lblReflexes.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		lblReflexes.setForeground(Color.WHITE);
+		lblReflexes.setBounds(133, 205, 73, 14);
+		panel_transformacao.add(lblReflexes);
+		
+		rb_rfly = new JRadioButton("Y");
+		rb_rfly.setForeground(Color.WHITE);
+		rb_rfly.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		rb_rfly.setBackground(Color.DARK_GRAY);
+		rb_rfly.setBounds(57, 226, 43, 23);
+		panel_transformacao.add(rb_rfly);
+		
+		rb_rflx_y = new JRadioButton("X e Y");
+		rb_rflx_y.setForeground(Color.WHITE);
+		rb_rflx_y.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		rb_rflx_y.setBackground(Color.DARK_GRAY);
+		rb_rflx_y.setBounds(102, 226, 64, 23);
+		panel_transformacao.add(rb_rflx_y);
+		
+		rb_rflxy = new JRadioButton("XY");
+		rb_rflxy.setForeground(Color.WHITE);
+		rb_rflxy.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		rb_rflxy.setBackground(Color.DARK_GRAY);
+		rb_rflxy.setBounds(168, 226, 43, 23);
+		panel_transformacao.add(rb_rflxy);
+		
+		rb_rflyz = new JRadioButton("YZ");
+		rb_rflyz.setForeground(Color.WHITE);
+		rb_rflyz.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		rb_rflyz.setBackground(Color.DARK_GRAY);
+		rb_rflyz.setBounds(213, 226, 43, 23);
+		panel_transformacao.add(rb_rflyz);
+		
+		rb_rflxz = new JRadioButton("XZ");
+		rb_rflxz.setForeground(Color.WHITE);
+		rb_rflxz.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		rb_rflxz.setBackground(Color.DARK_GRAY);
+		rb_rflxz.setBounds(258, 226, 43, 23);
+		panel_transformacao.add(rb_rflxz);
+		
+		
+		ButtonGroup group = new ButtonGroup();
+		group.add(rb_rflx);
+		group.add(rb_rflx_y);
+		group.add(rb_cis);
+		group.add(rb_rotacao);
+		group.add(rb_escala);
+		group.add(rb_transl);
+		group.add(rb_rfly);
+		group.add(rb_rflxy);
+		group.add(rb_rflyz);
+		group.add(rb_rflxz);
+		
+		separator_1 = new JSeparator();
+		separator_1.setForeground(Color.DARK_GRAY);
+		separator_1.setBackground(Color.BLACK);
+		separator_1.setBounds(5, 256, 344, 2);
+		panel_transformacao.add(separator_1);
 	}
 }
