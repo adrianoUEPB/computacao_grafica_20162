@@ -19,7 +19,6 @@ public class Transformacao {
 	 * 
 	 */
 	private double[][] matrizTranslacao(int tx, int ty) {
-
 		double[][] matriz = new double[3][3];
 
 		matriz[0][0] = 1;
@@ -33,7 +32,6 @@ public class Transformacao {
 		matriz[2][0] = 0;
 		matriz[2][1] = 0;
 		matriz[2][2] = 1;
-
 		return matriz;
 	}
 	
@@ -215,9 +213,10 @@ public class Transformacao {
 	 */
 	private double[][] translacao(double[][] matriz, int x, int y) {
 		try {
-			double[][] d = Matriz.multiplicacao2D(this.matrizTranslacao(x, y), matriz);
+			
+			double[][] retorno = Matriz.multiplicacao2D(this.matrizTranslacao(x, y), matriz);
 
-			return d;
+			return retorno;
 		} catch (Exception e) {
 			System.out.println("ERRO NA TRANSLA��O");
 		}

@@ -1,25 +1,7 @@
 package model;
 
-import java.util.List;
-
 public class Matriz {
-	
-	/**
-	 * Gera a matriz de coeficientes da figura
-	 * @param lista com todos os pontos da figura
-	 * @return retorna a matriz da figura
-	 */
-	private static double[][] gerarMatriz(List<Ponto> lista) {
-		double[][] matriz = new double[3][lista.size()];
-		
-		for (int i = 0; i < lista.size(); i++) {
-			matriz[0][i] = lista.get(i).getX();
-			matriz[1][i] = lista.get(i).getY();
-			matriz[2][i] = 1;
-		}
-		return matriz;
-	}
-	
+
 	/**
 	 * Multiplicação entre matrizes 2D
 	 * @param matriz_1
@@ -53,7 +35,7 @@ public class Matriz {
 	 * @return retorna o resultado da multiplicação entre as matrizes
 	 * @throws Exception é lançado caso as matrizes não possam ser multiplicadas pela validação de linha coluna
 	 */
-	public double[][] mutiplicacao3D(double[][] matriz_1, double[][] matriz_2) throws Exception {	
+	public static double[][] multiplicacao3D(double[][] matriz_1, double[][] matriz_2) throws Exception {	
 		int col = matriz_2[0].length;
 		if (matriz_1[0].length == matriz_2.length) {
 			double[][] resultado = new double[4][matriz_2[0].length];			

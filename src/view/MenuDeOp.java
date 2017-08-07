@@ -292,7 +292,7 @@ public class MenuDeOp extends JFrame {
 		btn_calc_cubo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				plano.zerarImagem();
-					plano.calcularCubo(80, 80, 80);
+					plano.calcularCubo(20, 80, 80);
 
 				
 			}
