@@ -2,15 +2,14 @@ package algoritmos;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import model.Ponto;
 import panel.PlanoCartesiano;
 
-public class Desenhos2D {
+public class DesenhosFiguras {
 	
 	private List<Ponto> pontos;
 	
-	public Desenhos2D() {
+	public DesenhosFiguras() {
 		if (pontos== null)
 			pontos = new ArrayList<>();
 	}
@@ -24,10 +23,10 @@ public class Desenhos2D {
 	public List<Ponto> DDA(Ponto a, Ponto b) {
 		pontos.clear();
 		int xa, ya, xb, yb;
-		xa = a.getX()+ PlanoCartesiano.MEIO_X;
-		ya =  PlanoCartesiano.MEIO_Y - a.getY();
-		xb = b.getX() +  PlanoCartesiano.MEIO_X;
-		yb =  PlanoCartesiano.MEIO_Y - b.getY();
+		xa = a.getX();
+		ya = a.getY();
+		xb = b.getX();
+		yb = b.getY();
 		
 		int dx = xb - xa, dy = yb - ya, steps;
 		float xInc, yInc, x = xa, y = ya;
@@ -68,33 +67,54 @@ public class Desenhos2D {
 		xb = b.getX() +  PlanoCartesiano.MEIO_X;
 		yb =  PlanoCartesiano.MEIO_Y - b.getY();
 		
-		int dx = Math.abs(xb - xa), dy = Math.abs(yb - ya);
-		int p = 2 * dy - dx;
-		int twoDy = 2 * dy, twoDyDx = 2 * (dy - dx);
-		int x, y;
-		
-		if (xa > xb) {
-			x = xb;
-			y = yb;
-			xb = xa;
-		} else {
-			x = xa;
-			y = ya;
+		int wigth = xb - xa;
+		int height = yb - ya;
+		int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0;
+
+		if (wigth < 0) {
+			dx1 = -1;
+		} else if (wigth > 0) {
+			dx1 = 1;
 		}
-		
-		pontos.add(new Ponto(x, y));
-		
-		while (x < xb) {
-			x++;
-			if (p < 0) {
-				p += twoDy;
+
+		if (height < 0) {
+			dy1 = -1;
+		} else if (height > 0) {
+			dy1 = 1;
+		}
+
+		if (wigth < 0) {
+			dx2 = -1;
+		} else if (wigth > 0)
+			dx2 = 1;
+
+		int maior = Math.abs(wigth);
+		int menor = Math.abs(height);
+
+		if (!(maior > menor)) {
+			maior = Math.abs(height);
+			menor = Math.abs(wigth);
+			if (height < 0)
+				dy2 = -1;
+			else if (height > 0)
+				dy2 = 1;
+			dx2 = 0;
+
+		}
+		int nummero = maior + 1;
+		for (int i = 0; i <= maior; i++) {
+			pontos.add(new Ponto(xa, ya));
+			nummero += menor;
+			if (!(nummero < maior)) {
+				nummero -= maior;
+				xa += dx1;
+				ya += dy1;
 			} else {
-				y++;
-				p += twoDyDx;
+				xa += dx2;
+				ya += dy2;
 			}
-			pontos.add(new Ponto(x, y));
+
 		}
-			
 		return pontos;
 	}
 	
@@ -288,6 +308,97 @@ public class Desenhos2D {
 		pontos.addAll(r4);
 
 		return pontos;
+	}
+	
+	public List<Ponto> criarCubo(int x, int y, int z) {
+		List<Ponto> lista = new ArrayList<Ponto>();
+		// L1
+		if (x < 0) {
+			for (int i = x; i <= 0; i++) {
+				lista.add(new Ponto(i, 0, 0, 1));
+			}
+		} else {
+			for (int i = 0; i <= x; i++) {
+				lista.add(new Ponto(i, 0, 0, 1));
+			}
+		}
+		// L2
+		if (y < 0) {
+			for (int i = y; i <= 0; i++) {
+				lista.add(new Ponto(x, i, 0, 1));
+			}
+		} else {
+			for (int i = 0; i <= y; i++) {
+				lista.add(new Ponto(x, i, 0, 1));
+			}
+		}
+		// L3
+		if (x < 0) {
+			for (int i = x; i <= 0; i++) {
+				lista.add(new Ponto(i, y, 0, 1));
+			}
+		} else {
+			for (int i = 0; i <= x; i++) {
+				lista.add(new Ponto(i, y, 0, 1));
+			}
+		}
+
+		// L4
+		for (int i = 0; i <= y; i++) {
+			lista.add(new Ponto(0, i, 0, 1));
+		}
+		// L1'
+		if (x < 0) {
+			for (int i = x; i <= 0; i++) {
+				lista.add(new Ponto(i, 0, z, 1));
+			}
+		} else {
+			for (int i = 0; i <= x; i++) {
+				lista.add(new Ponto(i, 0, z, 1));
+			}
+		}
+
+		// L2'
+		for (int i = 0; i <= y; i++) {
+			lista.add(new Ponto(x, i, z, 1));
+		}
+
+		// L3'
+		if (x < 0) {
+			for (int i = x; i <= 0; i++) {
+				lista.add(new Ponto(i, y, z, 1));
+			}
+		} else {
+			for (int i = 0; i <= x; i++) {
+				lista.add(new Ponto(i, y, z, 1));
+			}
+		}
+
+		// L4'
+		for (int i = 0; i <= y; i++) {
+			lista.add(new Ponto(0, i, z, 1));
+		}
+
+		// t1
+		for (int i = 0; i <= z; i++) {
+			lista.add(new Ponto(0, 0, i, 1));
+		}
+
+		// t2
+		for (int i = 0; i <= z; i++) {
+			lista.add(new Ponto(x, 0, i, 1));
+		}
+
+		// t3
+		for (int i = 0; i <= z; i++) {
+			lista.add(new Ponto(x, y, i, 1));
+		}
+
+		// t4
+		for (int i = 0; i <= z; i++) {
+			lista.add(new Ponto(0, y, i, 1));
+		}
+		return lista;
 	}
 	
 }

@@ -8,7 +8,8 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.util.List;
 import javax.swing.JPanel;
-import algoritmos.Desenhos2D;
+import algoritmos.DesenhosFiguras;
+import algoritmos.Transformacao;
 import model.Ponto;
 import view.MenuDeOp;
 
@@ -18,9 +19,8 @@ public class PlanoCartesiano extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -3652299627184303562L;
-	
-	public final static int ALTURA = 500;
-	public final static int LARGURA = 800;
+	public final static int ALTURA = 600;
+	public final static int LARGURA = 600;
 	public final static int MEIO_X = LARGURA/2;
 	public final static int MEIO_Y = ALTURA/2;
 	private static BufferedImage plano;
@@ -51,7 +51,7 @@ public class PlanoCartesiano extends JPanel {
 				
 				switch (MenuDeOp.comboBox.getSelectedIndex()) {
 					case 0:
-						setPixel(new Ponto(e.getPoint().x, e.getPoint().y));
+						setPixel(new Ponto(e.getPoint().x - PlanoCartesiano.MEIO_X, PlanoCartesiano.MEIO_Y - e.getPoint().y));
 						break;
 				}
 			}
@@ -64,13 +64,63 @@ public class PlanoCartesiano extends JPanel {
 		zerarImagem();
 	}
 	
+	public void calcularTransformacoes(int x, int y) {
+		if (MenuDeOp.rb_transl.isSelected()) {
+			pontos = new Transformacao().translacao(pontos, x, y);		
+		} else if (MenuDeOp.rb_escala.isSelected()) {
+			pontos = new Transformacao().escala(pontos, x, y);
+		} else if (MenuDeOp.rb_cis.isSelected()) {
+			pontos = new Transformacao().cisalhamento(pontos, x, y);
+		}
+		
+		zerarImagem();
+		//Necessário o if para que seja 
+		if (MenuDeOp.comboBox.getSelectedItem().equals("ELIPSE") ||
+			MenuDeOp.comboBox.getSelectedItem().equals("CIRCUNFERENCIA")) {
+			setCircunferencia();
+		} else {
+			for (Ponto ponto : pontos)
+				setPixel(ponto);
+		}
+		
+	}
+	
+	public void calcularReflexao() {
+		if (MenuDeOp.rb_rflx.isSelected()) {
+			pontos = new Transformacao().reflexao(pontos, 0);
+		} else if (MenuDeOp.rb_rfly.isSelected()) {
+			pontos = new Transformacao().reflexao(pontos, 1);
+		} else if (MenuDeOp.rb_rflx_y.isSelected()) {
+			pontos = new Transformacao().reflexao(pontos, 2);
+		}
+		
+		zerarImagem();
+		for (Ponto ponto : pontos)
+			setPixel(ponto);
+	}
+	
+	public void calcularRotacao(double angulo) {
+		pontos = new Transformacao().rotacao(pontos, angulo);
+		zerarImagem();
+		setCircunferencia();
+	}
+	
+	/**
+	 * 
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 * @throws NullPointerException
+	 * @throws NumberFormatException
+	 */
 	public void calcularReta(int x1, int y1, int x2, int y2) throws NullPointerException, NumberFormatException {
 		if (MenuDeOp.rdbtnDda.isSelected()) {
-			pontos = new Desenhos2D().DDA(new Ponto(x1, y1), new Ponto(x2, y2));
+			pontos = new DesenhosFiguras().DDA(new Ponto(x1, y1), new Ponto(x2, y2));
 		} else if(MenuDeOp.rdbtnPontoMdio_1.isSelected()){
-			pontos = new Desenhos2D().retaPontoMedio(new Ponto(x1, y1), new Ponto(x2, y2));
+			pontos = new DesenhosFiguras().retaPontoMedio(new Ponto(x1, y1), new Ponto(x2, y2));
 		}								
-				
+			
 		for (Ponto ponto : pontos)
 			setPixel(ponto);
 	}
@@ -80,13 +130,13 @@ public class PlanoCartesiano extends JPanel {
 			throw new Exception();
 		
 		if (MenuDeOp.rdbtnEquaoExplicita.isSelected()) {
-			pontos = new Desenhos2D().CircunferenciaEqExplicita(raio);
+			pontos = new DesenhosFiguras().CircunferenciaEqExplicita(raio);
 			setCircunferencia();
 		} else if(MenuDeOp.rdbtnPontoMdio.isSelected()) {
-			pontos = new Desenhos2D().CircunferenciaPontoMedio(raio);
+			pontos = new DesenhosFiguras().CircunferenciaPontoMedio(raio);
 			setCircunferencia(); 
 		} else if(MenuDeOp.rdbtnTrigonometrica.isSelected()) {
-			pontos = new Desenhos2D().CircunferenciaTrigonometrica(raio);
+			pontos = new DesenhosFiguras().CircunferenciaTrigonometrica(raio);
 			setCircunferencia(); 
 		}
 	}
@@ -100,17 +150,47 @@ public class PlanoCartesiano extends JPanel {
 	 */
 	public void CalcularElipse(int x, int y) {
 		zerarImagem();
-		pontos = new Desenhos2D().ElipsePontoMedio(x, y);
+		pontos = new DesenhosFiguras().ElipsePontoMedio(x, y);
 		setCircunferencia();
 	}
 	
 	public void calcularQuadrado(int x, int y){
 		zerarImagem();
-		pontos = new Desenhos2D().quadrado(x, y);
+		pontos = new DesenhosFiguras().quadrado(x, y);
 		for (Ponto ponto: pontos) {
 			setPixel(ponto);
 		}
 	}
+	
+	public void calcularCubo(int x, int y, int z) {
+		zerarImagem();
+		this.eixoZ();
+		pontos = new DesenhosFiguras().criarCubo(x, y, z);
+		
+		for (Ponto ponto : pontos) {
+			try {
+				if (ponto.getZ() == 0) {
+					setPixel(ponto);
+				} else {
+					setPixel(new Ponto(ponto.getX() - ponto.getZ() / 2, ponto.getY() - ponto.getZ() / 2));
+				}
+
+			} catch (Exception e) {
+				System.out
+						.println("Erro ao povoar os valores nas 3 dimensões.");
+			}
+		}
+
+//		TelaPrincipal.panelNormalizacao.repaint();
+		
+		
+		
+//		for (Ponto ponto : pontos)
+//			setPixel(ponto);
+		
+	}
+	
+
 	
 	/**
 	 * Limpa todo o plano carteziano, logo após recoloca as coordenadas
@@ -131,7 +211,7 @@ public class PlanoCartesiano extends JPanel {
 	 */
 	private void setCircunferencia() {
 		for (Ponto ponto : pontos) {
-			setPixel(new Ponto(ponto.getX()+400, ponto.getY() + 250));
+			setPixel(new Ponto(ponto.getX(), ponto.getY()));
 		}
 	}
 	
@@ -155,13 +235,28 @@ public class PlanoCartesiano extends JPanel {
 		}
 		
 	}
+	
+	/**
+	 * Método insere no plano cartesiano a 3ª dimensão
+	 */
+	public void eixoZ() {
+		for (int j = 1; j < LARGURA - 1; j++)
+			plano.setRGB(j, LARGURA - j, Color.RED.getRGB());
+	}
+	
 	/**
 	 * Não há retorno, este método chama o metodo setRGB do BufferedImage para setar o pixel no painel
 	 * @param pixel
 	 */
 	public void setPixel(Ponto pixel) {
-		plano.setRGB(pixel.getX(), pixel.getY(), Color.BLACK.getRGB());
-		repaint();
+		try {
+			plano.setRGB(pixel.getX() + PlanoCartesiano.MEIO_X, PlanoCartesiano.MEIO_Y - pixel.getY(), Color.BLACK.getRGB());
+		} catch (ArrayIndexOutOfBoundsException e) {}
+		finally {
+			repaint();
+		}
+		
+		
 	}
 	
 	public List<Ponto> getPontos() {

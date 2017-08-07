@@ -13,8 +13,13 @@ public class Transformacao {
 	
 	/**
 	 * 
+	 * 1  0  tx 
+	 * 0  1  ty
+	 * 0  0  1 
+	 * 
 	 */
 	private double[][] matrizTranslacao(int tx, int ty) {
+
 		double[][] matriz = new double[3][3];
 
 		matriz[0][0] = 1;
@@ -69,12 +74,12 @@ public class Transformacao {
 
 		
 		// Coluna 0
-		matriz2D[0][0] = seno;
-		matriz2D[1][0] = coseno;
+		matriz2D[0][0] = Math.abs(coseno);
+		matriz2D[1][0] = seno;
 		matriz2D[2][0] = 0;
 		// Coluna 1
 		matriz2D[0][1] = -seno;
-		matriz2D[1][1] = coseno;
+		matriz2D[1][1] = Math.abs(coseno);
 		matriz2D[2][1] = 0;
 		// Coluna 2
 		matriz2D[0][2] = 0;
@@ -181,7 +186,7 @@ public class Transformacao {
 	 * @param b
 	 * @return
 	 */
-	private double[][] matrizCisalhamento(Double a, Double b) {//M�todo que gera matriz de cisalhamento
+	private double[][] matrizCisalhamento(int a, int b) {//M�todo que gera matriz de cisalhamento
 
 		double[][] matriz = new double[3][3];
 		
@@ -218,6 +223,12 @@ public class Transformacao {
 		}
 		return matriz;
 	}
+	
+	/*
+	 * =================================================================================================================================
+	 * 															CALCULOS
+	 * =================================================================================================================================
+	 */	
 
 	/**
 	 * Realiza a translação de uma chamada externa, onde são passados pontos
@@ -241,6 +252,7 @@ public class Transformacao {
 		return list;
 	}
 
+	
 	/**
 	 * Realiza a escala em uma figura ou reta, seguindo os seguintes passos: Translação para origem, aplicando a escala, translação para o ponto original
 	 * @param pontos
@@ -283,7 +295,7 @@ public class Transformacao {
 	 * @param angulo
 	 * @return
 	 */
-	public List<Ponto> rotacao(List<Ponto> pontos, int angulo) {
+	public List<Ponto> rotacao(List<Ponto> pontos, double angulo) {
 	
 		List<Ponto> lista = new ArrayList<Ponto>();
 		try {
@@ -360,7 +372,7 @@ public class Transformacao {
 	 * @param b
 	 * @return lista de pontos para serem plotados na tela
 	 */
-	public List<Ponto> cisalhamento(List<Ponto> pontos, Double a, Double b) {
+	public List<Ponto> cisalhamento(List<Ponto> pontos, int a, int b) {
 		List<Ponto> lista = new ArrayList<Ponto>();
 		try {
 			double[][] matriz = this.gerarMatrizFigura(pontos, 3, pontos.size()); 
