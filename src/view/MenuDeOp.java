@@ -29,7 +29,7 @@ public class MenuDeOp extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -6761863185579265491L;
-	
+	private boolean flag3D = false;
 	public static JLabel label_x, label_y, raio_x, raio_y, ponto_a, ponto_b, raio;
 	public static JComboBox<String> comboBox;
 	public static JRadioButton rdbtnDda, rdbtnPontoMdio_1, rdbtnEquaoExplicita, rdbtnPontoMdio, rdbtnTrigonometrica;
@@ -41,6 +41,11 @@ public class MenuDeOp extends JFrame {
 	private JLabel lblReflexes;
 	public static JRadioButton rb_rfly, rb_rflx_y, rb_rflxy, rb_rflyz, rb_rflxz, rb_rflx, rb_transl, rb_escala, rb_rotacao, rb_cis;
 	private JSeparator separator_1;
+	private JTextField tf_cubo_x;
+	private JTextField tf_cubo_y;
+	private JTextField tf_cubo_z;
+	
+	private JPanel panel_transformacao2D;
 
 	/**
 	 * Create the frame.
@@ -292,12 +297,17 @@ public class MenuDeOp extends JFrame {
 		btn_calc_cubo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				plano.zerarImagem();
-					plano.calcularCubo(20, 80, 80);
+				
+				int x = Integer.parseInt(tf_cubo_x.getText());
+				int y = Integer.parseInt(tf_cubo_y.getText());
+				int z = Integer.parseInt(tf_cubo_z.getText());
+				
+				plano.calcularCubo(x, y, z);
 
 				
 			}
 		});
-		btn_calc_cubo.setBounds(10, 63, 100, 23);		
+		btn_calc_cubo.setBounds(33, 95, 100, 23);		
 		
 		/*
 		 * Calcular elipse
@@ -311,6 +321,33 @@ public class MenuDeOp extends JFrame {
 		});
 		btn_calc_elipse.setBounds(10, 63, 100, 23);
 		
+		JLabel lblX = new JLabel("X");
+		lblX.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 12));
+		lblX.setForeground(Color.WHITE);
+		lblX.setBounds(12, 12, 26, 15);
+		
+		JLabel lby = new JLabel("Y");
+		lby.setForeground(Color.WHITE);
+		lby.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 12));
+		lby.setBounds(12, 39, 26, 15);
+		
+		JLabel lbz = new JLabel("Z");
+		lbz.setForeground(Color.WHITE);
+		lbz.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 12));
+		lbz.setBounds(12, 66, 26, 15);
+		
+		tf_cubo_x = new JTextField();
+		tf_cubo_x.setBounds(45, 10, 44, 19);
+		tf_cubo_x.setColumns(10);
+		
+		tf_cubo_y = new JTextField();
+		tf_cubo_y.setColumns(10);
+		tf_cubo_y.setBounds(45, 37, 44, 19);
+		
+		tf_cubo_z = new JTextField();
+		tf_cubo_z.setColumns(10);
+		tf_cubo_z.setBounds(45, 64, 44, 19);
+		
 		/*
 		 *  COMENTAR
 		 */
@@ -319,8 +356,10 @@ public class MenuDeOp extends JFrame {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getItem().equals("PIXEL")) {
 					this.limparMenu();
+					flag3D = false;
 				} else if (e.getItem().equals("CIRCUNFERENCIA")) {
 					this.limparMenu();
+					flag3D = false;
 					panel_menu.add(rdbtnEquaoExplicita);
 					panel_menu.add(rdbtnPontoMdio);
 					panel_menu.add(rdbtnTrigonometrica);
@@ -330,6 +369,7 @@ public class MenuDeOp extends JFrame {
 					panel_menu.repaint();
 				} else if (e.getItem().equals("RETA")) {
 					this.limparMenu();
+					flag3D = false;
 					panel_menu.add(rdbtnPontoMdio_1);
 					panel_menu.add(rdbtnDda);
 					panel_menu.add(ponto_a);
@@ -342,6 +382,7 @@ public class MenuDeOp extends JFrame {
 					panel_menu.repaint();
 				} else if (e.getItem().equals("ELIPSE")){
 					this.limparMenu();
+					flag3D = false;
 					panel_menu.add(raio_x);
 					panel_menu.add(tf_raio_x);
 					panel_menu.add(raio_y);
@@ -350,6 +391,7 @@ public class MenuDeOp extends JFrame {
 					panel_menu.repaint();
 				} else if (e.getItem().equals("QUADRADO")) {
 					this.limparMenu();
+					flag3D = false;
 					panel_menu.add(largura);
 					panel_menu.add(tf_largura);
 					panel_menu.add(altura);
@@ -358,6 +400,13 @@ public class MenuDeOp extends JFrame {
 					panel_menu.repaint();
 				} else if (e.getItem().equals("CUBO")) {
 					this.limparMenu();
+					flag3D = true;
+					panel_menu.add(lblX);
+					panel_menu.add(lby);
+					panel_menu.add(lbz);
+					panel_menu.add(tf_cubo_x);
+					panel_menu.add(tf_cubo_y);
+					panel_menu.add(tf_cubo_z);
 					panel_menu.add(btn_calc_cubo);
 					panel_menu.repaint();
 				}
@@ -390,6 +439,12 @@ public class MenuDeOp extends JFrame {
 				panel_menu.remove(rdbtnEquaoExplicita);
 				panel_menu.remove(rdbtnPontoMdio);
 				panel_menu.remove(rdbtnTrigonometrica);
+				panel_menu.remove(lblX);
+				panel_menu.remove(lby);
+				panel_menu.remove(lbz);
+				panel_menu.remove(tf_cubo_x);
+				panel_menu.remove(tf_cubo_y);
+				panel_menu.remove(tf_cubo_z);
 				panel_menu.remove(btn_calc_cubo);
 				panel_menu.repaint();
 				
@@ -399,138 +454,139 @@ public class MenuDeOp extends JFrame {
 	
 	private void initTransformacoes() {
 		getContentPane().setLayout(null);
-		JPanel panel_transformacao = new JPanel();
-		panel_transformacao.setBounds(1005, 12, 223, 343);
-		panel_transformacao.setBackground(Color.DARK_GRAY);
-		panel_transformacao.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		getContentPane().add(panel_transformacao);
-		panel_transformacao.setLayout(null);
+		panel_transformacao2D = new JPanel();
+		panel_transformacao2D.setBounds(1005, 12, 223, 343);
+		panel_transformacao2D.setBackground(Color.DARK_GRAY);
+		panel_transformacao2D.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+//		getContentPane().add(panel_transformacao2D);
+		this.addPanel2D();
+		panel_transformacao2D.setLayout(null);
 		
-		JLabel lblTransformaesdE = new JLabel("TRANSFORMAÇÕES 2D e 3D");
+		JLabel lblTransformaesdE = new JLabel("TRANSFORMAÇÕES 2D");
 		lblTransformaesdE.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTransformaesdE.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 14));
 		lblTransformaesdE.setBackground(Color.DARK_GRAY);
 		lblTransformaesdE.setBounds(5, 11, 212, 36);
 		lblTransformaesdE.setForeground(Color.WHITE);
-		panel_transformacao.add(lblTransformaesdE);
+		panel_transformacao2D.add(lblTransformaesdE);
 		
 		JLabel lb_x = new JLabel("X");
 		lb_x.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		lb_x.setHorizontalAlignment(SwingConstants.CENTER);
 		lb_x.setForeground(Color.WHITE);
 		lb_x.setBounds(133, 83, 19, 14);
-		panel_transformacao.add(lb_x);
+		panel_transformacao2D.add(lb_x);
 		
 		JLabel lb_y = new JLabel("Y");
 		lb_y.setHorizontalAlignment(SwingConstants.CENTER);
 		lb_y.setForeground(Color.WHITE);
 		lb_y.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		lb_y.setBounds(133, 110, 19, 14);
-		panel_transformacao.add(lb_y);
+		panel_transformacao2D.add(lb_y);
 		
 		JLabel lb_z = new JLabel("Z");
 		lb_z.setHorizontalAlignment(SwingConstants.CENTER);
 		lb_z.setForeground(Color.WHITE);
 		lb_z.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		lb_z.setBounds(133, 138, 19, 14);
-		panel_transformacao.add(lb_z);
+		panel_transformacao2D.add(lb_z);
 		
 		tf_transf_x = new JTextField();
 		tf_transf_x.setBounds(162, 81, 35, 20);
-		panel_transformacao.add(tf_transf_x);
+		panel_transformacao2D.add(tf_transf_x);
 		tf_transf_x.setColumns(10);
 		
 		tf_transf_y = new JTextField();
 		tf_transf_y.setColumns(10);
 		tf_transf_y.setBounds(162, 108, 35, 20);
-		panel_transformacao.add(tf_transf_y);
+		panel_transformacao2D.add(tf_transf_y);
 		
 		tf_transf_z = new JTextField();
 		tf_transf_z.setColumns(10);
 		tf_transf_z.setBounds(162, 135, 35, 20);
-		panel_transformacao.add(tf_transf_z);
+		panel_transformacao2D.add(tf_transf_z);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBackground(Color.BLACK);
 		separator.setForeground(Color.DARK_GRAY);
 		separator.setBounds(5, 195, 212, 2);
-		panel_transformacao.add(separator);
+		panel_transformacao2D.add(separator);
 		
 		rb_transl = new JRadioButton("Translação");
 		rb_transl.setBackground(Color.DARK_GRAY);
 		rb_transl.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_transl.setForeground(Color.WHITE);
 		rb_transl.setBounds(12, 66, 109, 23);
-		panel_transformacao.add(rb_transl);
+		panel_transformacao2D.add(rb_transl);
 		
 		rb_escala = new JRadioButton("Escala");
 		rb_escala.setForeground(Color.WHITE);
 		rb_escala.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_escala.setBackground(Color.DARK_GRAY);
 		rb_escala.setBounds(12, 94, 109, 23);
-		panel_transformacao.add(rb_escala);
+		panel_transformacao2D.add(rb_escala);
 		
 		rb_rotacao = new JRadioButton("Rotação");
 		rb_rotacao.setForeground(Color.WHITE);
 		rb_rotacao.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_rotacao.setBackground(Color.DARK_GRAY);
 		rb_rotacao.setBounds(12, 151, 109, 23);
-		panel_transformacao.add(rb_rotacao);
+		panel_transformacao2D.add(rb_rotacao);
 		
 		rb_cis = new JRadioButton("Cisalhamento");
 		rb_cis.setForeground(Color.WHITE);
 		rb_cis.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_cis.setBackground(Color.DARK_GRAY);
 		rb_cis.setBounds(12, 122, 115, 23);
-		panel_transformacao.add(rb_cis);
+		panel_transformacao2D.add(rb_cis);
 		
 		rb_rflx = new JRadioButton("X");
 		rb_rflx.setForeground(Color.WHITE);
 		rb_rflx.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_rflx.setBackground(Color.DARK_GRAY);
 		rb_rflx.setBounds(43, 228, 43, 23);
-		panel_transformacao.add(rb_rflx);
+		panel_transformacao2D.add(rb_rflx);
 		
 		lblReflexes = new JLabel("Reflexões");
 		lblReflexes.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		lblReflexes.setForeground(Color.WHITE);
 		lblReflexes.setBounds(79, 207, 73, 14);
-		panel_transformacao.add(lblReflexes);
+		panel_transformacao2D.add(lblReflexes);
 		
 		rb_rfly = new JRadioButton("Y");
 		rb_rfly.setForeground(Color.WHITE);
 		rb_rfly.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_rfly.setBackground(Color.DARK_GRAY);
 		rb_rfly.setBounds(88, 228, 43, 23);
-		panel_transformacao.add(rb_rfly);
+		panel_transformacao2D.add(rb_rfly);
 		
 		rb_rflx_y = new JRadioButton("X e Y");
 		rb_rflx_y.setForeground(Color.WHITE);
 		rb_rflx_y.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_rflx_y.setBackground(Color.DARK_GRAY);
 		rb_rflx_y.setBounds(133, 228, 64, 23);
-		panel_transformacao.add(rb_rflx_y);
+		panel_transformacao2D.add(rb_rflx_y);
 		
 		rb_rflxy = new JRadioButton("XY");
 		rb_rflxy.setForeground(Color.WHITE);
 		rb_rflxy.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_rflxy.setBackground(Color.DARK_GRAY);
 		rb_rflxy.setBounds(53, 254, 43, 23);
-		panel_transformacao.add(rb_rflxy);
+		panel_transformacao2D.add(rb_rflxy);
 		
 		rb_rflyz = new JRadioButton("YZ");
 		rb_rflyz.setForeground(Color.WHITE);
 		rb_rflyz.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_rflyz.setBackground(Color.DARK_GRAY);
 		rb_rflyz.setBounds(98, 254, 43, 23);
-		panel_transformacao.add(rb_rflyz);
+		panel_transformacao2D.add(rb_rflyz);
 		
 		rb_rflxz = new JRadioButton("XZ");
 		rb_rflxz.setForeground(Color.WHITE);
 		rb_rflxz.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_rflxz.setBackground(Color.DARK_GRAY);
 		rb_rflxz.setBounds(143, 254, 43, 23);
-		panel_transformacao.add(rb_rflxz);
+		panel_transformacao2D.add(rb_rflxz);
 		
 		
 		ButtonGroup group = new ButtonGroup();
@@ -549,7 +605,7 @@ public class MenuDeOp extends JFrame {
 		separator_1.setForeground(Color.DARK_GRAY);
 		separator_1.setBackground(Color.BLACK);
 		separator_1.setBounds(5, 288, 212, 2);
-		panel_transformacao.add(separator_1);
+		panel_transformacao2D.add(separator_1);
 		
 		JButton jb_transf = new JButton("Calcular");
 		jb_transf.addActionListener(new ActionListener() {
@@ -567,14 +623,17 @@ public class MenuDeOp extends JFrame {
 					plano.calcularRotacao(Double.parseDouble(tf_transf_x.getText()));
 				} else {
 					
-					int x = 0, y = 0;
+					int x = 0, y = 0, z = 0;
 					if (!tf_transf_x.getText().equals(""))
 						x = Integer.parseInt(tf_transf_x.getText());
 					
 					if (!tf_transf_y.getText().equals(""))
 						y= Integer.parseInt(tf_transf_y.getText());
 					
-					plano.calcularTransformacoes(x, y);
+					if (!tf_transf_z.getText().equals(""))
+						z= Integer.parseInt(tf_transf_z.getText());
+					
+					plano.calcularTransformacoes(x, y, z);
 				}
 				
 				
@@ -584,8 +643,18 @@ public class MenuDeOp extends JFrame {
 				
 			}
 		});
-		jb_transf.setBounds(67, 301, 89, 23);
-		panel_transformacao.add(jb_transf);
+		jb_transf.setBounds(67, 308, 119, 23);
+		panel_transformacao2D.add(jb_transf);
 		
 	}
+	
+	private void addPanel2D() {
+		getContentPane().add(panel_transformacao2D);
+	}
+	
+	private void addPanel3D() {
+		getContentPane().remove(panel_transformacao2D);
+	}
+	
+	
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import algoritmos.DesenhosFiguras;
 import algoritmos.Transformacao;
+import algoritmos.Transformacao3D;
 import model.Ponto;
 import view.MenuDeOp;
 
@@ -64,25 +65,49 @@ public class PlanoCartesiano extends JPanel {
 		zerarImagem();
 	}
 	
-	public void calcularTransformacoes(int x, int y) {
-		if (MenuDeOp.rb_transl.isSelected()) {
-			pontos = new Transformacao().translacao(pontos, x, y);		
-		} else if (MenuDeOp.rb_escala.isSelected()) {
-			pontos = new Transformacao().escala(pontos, x, y);
-		} else if (MenuDeOp.rb_cis.isSelected()) {
-			pontos = new Transformacao().cisalhamento(pontos, x, y);
-		}
+	public void calcularTransformacoes(int x, int y, int z) {
 		
-		zerarImagem();
-		//Necessário o if para que seja 
-		if (MenuDeOp.comboBox.getSelectedItem().equals("ELIPSE") ||
-			MenuDeOp.comboBox.getSelectedItem().equals("CIRCUNFERENCIA")) {
-			setCircunferencia();
+		if (MenuDeOp.comboBox.getSelectedItem().equals("CUBO")) {
+			if (MenuDeOp.rb_transl.isSelected()) {
+				pontos = new Transformacao3D().translacao(pontos, x, y, z);		
+			} else if (MenuDeOp.rb_escala.isSelected()) {
+				pontos = new Transformacao3D().escala(pontos, x, y, z);
+			} else if (MenuDeOp.rb_cis.isSelected()) {
+				if ( y == 0 && z == 0) {
+					pontos = new Transformacao3D().cisalhamentoEmX(pontos, x);
+				} else if (x == 0 && z == 0) {
+					pontos = new Transformacao3D().cisalhamentoEmY(pontos, y);
+				} else if (y == 0 && x == 0) {
+					pontos = new Transformacao3D().cisalhamentoEmZ(pontos, z);
+				}
+				
+			}
+			zerarImagem();
+			eixoZ();
+			setPixel3D();
+			
 		} else {
-			for (Ponto ponto : pontos)
-				setPixel(ponto);
+			if (MenuDeOp.rb_transl.isSelected()) {
+				pontos = new Transformacao().translacao(pontos, x, y);		
+			} else if (MenuDeOp.rb_escala.isSelected()) {
+				pontos = new Transformacao().escala(pontos, x, y);
+			} else if (MenuDeOp.rb_cis.isSelected()) {
+				pontos = new Transformacao().cisalhamento(pontos, x, y);
+			}
+			
+			zerarImagem();
+			//Necessário o if para que seja 
+			if (MenuDeOp.comboBox.getSelectedItem().equals("ELIPSE") ||
+				MenuDeOp.comboBox.getSelectedItem().equals("CIRCUNFERENCIA")) {
+				setCircunferencia();
+			} else {
+				for (Ponto ponto : pontos)
+					setPixel(ponto);
+			}
+			
 		}
 		
+
 	}
 	
 	public void calcularReflexao() {
@@ -167,6 +192,18 @@ public class PlanoCartesiano extends JPanel {
 		this.eixoZ();
 		pontos = new DesenhosFiguras().criarCubo(x, y, z);
 		
+		setPixel3D();
+
+//		TelaPrincipal.panelNormalizacao.repaint();
+		
+		
+		
+//		for (Ponto ponto : pontos)
+//			setPixel(ponto);
+		
+	}
+	
+	private void setPixel3D() {
 		for (Ponto ponto : pontos) {
 			try {
 				if (ponto.getZ() == 0) {
@@ -180,17 +217,7 @@ public class PlanoCartesiano extends JPanel {
 						.println("Erro ao povoar os valores nas 3 dimensões.");
 			}
 		}
-
-//		TelaPrincipal.panelNormalizacao.repaint();
-		
-		
-		
-//		for (Ponto ponto : pontos)
-//			setPixel(ponto);
-		
 	}
-	
-
 	
 	/**
 	 * Limpa todo o plano carteziano, logo após recoloca as coordenadas
