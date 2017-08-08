@@ -52,7 +52,7 @@ public class Main extends JFrame {
 				new Operacoes2D_3D();
 			}
 		});
-		btnOperaesd.setBounds(53, 33, 173, 23);
+		btnOperaesd.setBounds(30, 34, 222, 23);
 		contentPane.add(btnOperaesd);
 		
 		JButton btnProcessamentoDeImagens = new JButton("Processamento de Imagens");
@@ -61,7 +61,7 @@ public class Main extends JFrame {
 				new ProcessamentoDeImagens().setVisible(true);
 			}
 		});
-		btnProcessamentoDeImagens.setBounds(53, 74, 173, 23);
+		btnProcessamentoDeImagens.setBounds(30, 75, 222, 23);
 		contentPane.add(btnProcessamentoDeImagens);
 		
 		JButton btnTabelaDeCores = new JButton("Tabela de Cores");
@@ -70,7 +70,7 @@ public class Main extends JFrame {
 				new TabelaCores();
 			}
 		});
-		btnTabelaDeCores.setBounds(53, 118, 173, 23);
+		btnTabelaDeCores.setBounds(30, 119, 222, 23);
 		contentPane.add(btnTabelaDeCores);
 	}
 }

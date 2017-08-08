@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class TabelaCores extends JFrame {
@@ -57,6 +58,8 @@ public class TabelaCores extends JFrame {
 		}
 		
 		JLabel labelTabela = new JLabel("Tabela de Cores");
+		labelTabela.setForeground(Color.WHITE);
+		labelTabela.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 14));
 		labelTabela.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTabela.setBounds(10, 11, 664, 32);
 		getContentPane().add(labelTabela);
