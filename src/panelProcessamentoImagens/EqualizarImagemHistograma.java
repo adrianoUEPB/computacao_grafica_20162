@@ -100,9 +100,11 @@ public class EqualizarImagemHistograma {
 		}		
 		return matrizE2;
 	}
-//----------------------------------Classe da equaliza��o de imagens---------------------------------
-	
-	
+		/**
+		 * Equalização de imagem
+		 * @param matrizDaImagemOriginal
+		 * @return array bi-dimensional
+		 */
 		public static int[][] equalizarImagem(int matrizDaImagemOriginal [][]){		
 			float [][] matrizDeEqualizacao = new float[255][6];
 			int [][] matrizResultado = new int [matrizDaImagemOriginal.length][matrizDaImagemOriginal[0].length];

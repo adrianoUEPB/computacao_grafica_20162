@@ -73,7 +73,7 @@ public class ProcessamentoDeImagens extends JFrame{
 		getContentPane().add(panel, BorderLayout.CENTER);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		JButton btnMedia = new JButton("Filtro Media");
+		JButton btnMedia = new JButton("Filtro Média");
 		btnMedia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				painelFiltroMedia.setVisible(true);
@@ -95,7 +95,7 @@ public class ProcessamentoDeImagens extends JFrame{
 		mnFiltros.setFont(fonte);
 		menuBar.add(mnFiltros);
 		
-		JMenuItem mntmMdia = new JMenuItem("M�dia");
+		JMenuItem mntmMdia = new JMenuItem("Média");
 		mntmMdia.setFont(fonte);
 		mntmMdia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -189,12 +189,12 @@ public class ProcessamentoDeImagens extends JFrame{
 				mnFiltros.add(mntmRobertsCruzado);
 		mnFiltros.add(mntmSobel);
 		
-		JMenu mnOperadoresAritmticos = new JMenu("Operadores Aritm\u00E9ticos");
+		JMenu mnOperadoresAritmticos = new JMenu("Operadores Aritméticos");
 		mnOperadoresAritmticos.setFont(fonte);
 
 		menuBar.add(mnOperadoresAritmticos);
 		
-		JMenuItem mntmAdio = new JMenuItem("Adi\u00E7\u00E3o");
+		JMenuItem mntmAdio = new JMenuItem("Adição");
 		mntmAdio.setFont(fonte);
 
 		mntmAdio.addActionListener(new ActionListener() {
@@ -208,7 +208,7 @@ public class ProcessamentoDeImagens extends JFrame{
 		});
 		mnOperadoresAritmticos.add(mntmAdio);
 		
-		JMenuItem mntmSubtrao = new JMenuItem("Subtra\u00E7\u00E3o");
+		JMenuItem mntmSubtrao = new JMenuItem("Subtração");
 		mntmSubtrao.setFont(fonte);
 		mntmSubtrao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -221,7 +221,7 @@ public class ProcessamentoDeImagens extends JFrame{
 		});
 		mnOperadoresAritmticos.add(mntmSubtrao);
 		
-		JMenuItem mntmMultiplicao = new JMenuItem("Multiplica\u00E7\u00E3o");
+		JMenuItem mntmMultiplicao = new JMenuItem("Multiplicação");
 		mntmMultiplicao.setFont(fonte);
 		mntmMultiplicao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -233,7 +233,7 @@ public class ProcessamentoDeImagens extends JFrame{
 		});
 		mnOperadoresAritmticos.add(mntmMultiplicao);
 		
-		JMenuItem mntmDiviso = new JMenuItem("Divis\u00E3o");
+		JMenuItem mntmDiviso = new JMenuItem("Divisão");
 		mntmDiviso.setFont(fonte);
 		mntmDiviso.addActionListener(new ActionListener() {			
 			public void actionPerformed(ActionEvent e) {
@@ -246,7 +246,7 @@ public class ProcessamentoDeImagens extends JFrame{
 		});
 		mnOperadoresAritmticos.add(mntmDiviso);
 		
-		JMenu mnOperadoresLgicos = new JMenu("Operadores L\u00F3gicos");
+		JMenu mnOperadoresLgicos = new JMenu("Operadores Lógicos");
 		mnOperadoresLgicos.setFont(fonte);
 		menuBar.add(mnOperadoresLgicos);
 		
@@ -320,7 +320,7 @@ public class ProcessamentoDeImagens extends JFrame{
 		mnHistograma.add(mntmHitograma);
 		mnHistograma.add(mntmEqualizar);
 		
-		JMenu mnTransformaes = new JMenu("Transforma\u00E7\u00F5es");
+		JMenu mnTransformaes = new JMenu("Transformações");
 		mnTransformaes.setFont(fonte);
 		menuBar.add(mnTransformaes);
 		
@@ -364,7 +364,7 @@ public class ProcessamentoDeImagens extends JFrame{
 		mntmNegativo.setFont(fonte);
 		mnTransformaes.add(mntmNegativo);
 		PainelTransformacaoRotacao painelTransformacaoRotacao = new PainelTransformacaoRotacao();
-		JMenuItem mntmRotao = new JMenuItem("Rota\u00E7\u00E3o");
+		JMenuItem mntmRotao = new JMenuItem("Rotação");
 		mntmRotao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel.removeAll();
@@ -382,7 +382,7 @@ public class ProcessamentoDeImagens extends JFrame{
 		mnGatoDeArnald.setFont(fonte);
 		menuBar.add(mnGatoDeArnald);
 		
-		JMenuItem mntmGatoDeArnaldo = new JMenuItem("Gato de Arnaldo");
+		JMenuItem mntmGatoDeArnaldo = new JMenuItem("Gato de Arnald");
 		mntmGatoDeArnaldo.setFont(fonte);
 		mntmGatoDeArnaldo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

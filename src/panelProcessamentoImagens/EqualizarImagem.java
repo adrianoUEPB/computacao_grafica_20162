@@ -1,7 +1,7 @@
 package panelProcessamentoImagens;
 
 
-public class EqualizarImagem {//Classe da equaliza��o de imagen
+public class EqualizarImagem {//Classe da equalização de imagen
 	
 	
 	public static int[][] equalizarImagem(int matrizDaImagemOriginal [][]){		
@@ -9,13 +9,13 @@ public class EqualizarImagem {//Classe da equaliza��o de imagen
 		float [][] matrizDeEqualizacao = new float[255][6];
 		int [][] matrizResultado = new int [matrizDaImagemOriginal.length][matrizDaImagemOriginal[0].length];
 		
-		//inicializando o n�vel de cinza e a frequ�ncia dos n�veis de cinza
+		//inicializa níveis de frequência de cinza
 		for (int i = 0; i < matrizDeEqualizacao.length; i++) {
 			matrizDeEqualizacao[i][0] = 1000;
 			matrizDeEqualizacao[i][1] = 0;
 		}
 		
-		//Inserindo os n�veis de cinza, incrementando as suas frequ�ncias de repeti��es e calculando rK (valor do pixel / 255)
+		//Inserindo os níveis de cinza, incrementando as suas frequências de repetições e calculando rK (valor do pixel / 255)
 		for (int i = 0; i < matrizResultado.length; i++) {
 			for (int j = 0; j < matrizResultado.length; j++) {
 				matrizDeEqualizacao[matrizDaImagemOriginal[i][j]][0] = matrizDaImagemOriginal[i][j];
@@ -24,9 +24,7 @@ public class EqualizarImagem {//Classe da equaliza��o de imagen
 			}
 		}
 		
-		
 		matrizDeEqualizacao = ordenarMatriz(matrizDeEqualizacao);
-		
 		//calculando Pr(rk)
 		int contador = 0;
 		while(matrizDeEqualizacao[contador][0] != 1000){
@@ -66,9 +64,6 @@ public class EqualizarImagem {//Classe da equaliza��o de imagen
 			System.out.println();
 		}
 		
-		//printando a tabela do excel
-		System.out.println("\n");
-		System.out.print("K\t\tNk\t\trK\t\tPr(rk)\t\t\tSk\t\tRound(255 * sk)\n");
 		contador = 0;
 		while(matrizDeEqualizacao[contador][0] != 1000){
 			System.out.print(matrizDeEqualizacao[contador][0]+"\t\t"+matrizDeEqualizacao[contador][1]+"\t\t"+
@@ -89,11 +84,8 @@ public class EqualizarImagem {//Classe da equaliza��o de imagen
 				}
 				
 				matrizResultado[i][j] = (int)matrizDeEqualizacao[contador2][5];
-				
 			}
-			
 		}
-
 		return matrizResultado;
 	}
 	
@@ -123,14 +115,10 @@ public class EqualizarImagem {//Classe da equaliza��o de imagen
 					matrizDeEqualizacao[i+1][3] = variavelAuxiliar3;
 					
 					houveTroca = true;
-					
 				}
 			}
-			
 		}
 		
 		return matrizDeEqualizacao;
 	}
-	
-
 }
