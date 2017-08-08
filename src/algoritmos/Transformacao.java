@@ -24,10 +24,10 @@ public class Transformacao {
 		matriz[0][0] = 1;
 		matriz[0][1] = 0;
 		matriz[0][2] = tx;
-
+		//valor negativo, pois estava sendo invertido a translação em y
 		matriz[1][0] = 0;
 		matriz[1][1] = 1;
-		matriz[1][2] = ty;
+		matriz[1][2] = -ty;
 
 		matriz[2][0] = 0;
 		matriz[2][1] = 0;
