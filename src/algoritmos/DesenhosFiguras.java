@@ -23,10 +23,10 @@ public class DesenhosFiguras {
 	public List<Ponto> DDA(Ponto a, Ponto b) {
 		pontos.clear();
 		int xa, ya, xb, yb;
-		xa = a.getX();
-		ya = a.getY();
-		xb = b.getX();
-		yb = b.getY();
+		xa = a.getX() + PlanoCartesiano.MEIO_X;
+		ya = PlanoCartesiano.MEIO_Y - a.getY();
+		xb = b.getX() + PlanoCartesiano.MEIO_X;
+		yb = PlanoCartesiano.MEIO_Y - b.getY();
 		
 		int dx = xb - xa, dy = yb - ya, steps;
 		float xInc, yInc, x = xa, y = ya;

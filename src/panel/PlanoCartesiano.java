@@ -83,7 +83,6 @@ public class PlanoCartesiano extends JPanel {
 				
 			}
 			zerarImagem();
-			eixoZ();
 			setPixel3D();
 			
 		} else {
@@ -96,7 +95,7 @@ public class PlanoCartesiano extends JPanel {
 			}
 			
 			zerarImagem();
-			//Necessário o if para que seja 
+			//Necessário o if para que seja colocado o pixel certo na circunferência
 			if (MenuDeOp.comboBox.getSelectedItem().equals("ELIPSE") ||
 				MenuDeOp.comboBox.getSelectedItem().equals("CIRCUNFERENCIA")) {
 				setCircunferencia();
@@ -104,30 +103,74 @@ public class PlanoCartesiano extends JPanel {
 				for (Ponto ponto : pontos)
 					setPixel(ponto);
 			}
-			
 		}
-		
-
 	}
 	
+	/**
+	 * Classe reponsável por calcular as reflexões 2D e 3D
+	 */
 	public void calcularReflexao() {
 		if (MenuDeOp.rb_rflx.isSelected()) {
 			pontos = new Transformacao().reflexao(pontos, 0);
+			zerarImagem();
+			for (Ponto ponto : pontos)
+				setPixel(ponto);
+			
 		} else if (MenuDeOp.rb_rfly.isSelected()) {
 			pontos = new Transformacao().reflexao(pontos, 1);
+			zerarImagem();
+			for (Ponto ponto : pontos)
+				setPixel(ponto);
+			
 		} else if (MenuDeOp.rb_rflx_y.isSelected()) {
 			pontos = new Transformacao().reflexao(pontos, 2);
+			zerarImagem();
+			for (Ponto ponto : pontos)
+				setPixel(ponto);
+			
+		} else if (MenuDeOp.rb_rflxy.isSelected()) {
+			pontos = new Transformacao3D().reflexaoXY(pontos);
+			zerarImagem();
+			setPixel3D();
+			
+		} else if (MenuDeOp.rb_rflxz.isSelected()) {
+			pontos = new Transformacao3D().reflexaoXZ(pontos);
+			zerarImagem();
+			setPixel3D();
+			
+		} else if (MenuDeOp.rb_rflyz.isSelected()) {
+			pontos = new Transformacao3D().reflexaoYZ(pontos);
+			zerarImagem();
+			setPixel3D();
 		}
-		
-		zerarImagem();
-		for (Ponto ponto : pontos)
-			setPixel(ponto);
 	}
 	
 	public void calcularRotacao(double angulo) {
-		pontos = new Transformacao().rotacao(pontos, angulo);
 		zerarImagem();
-		setCircunferencia();
+		if (MenuDeOp.comboBox.getSelectedItem().equals("CUBO")) {
+			if(MenuDeOp.rdbtnRx.isSelected()) {
+				pontos = new Transformacao3D().rotacaoX(pontos, angulo);
+			} else if (MenuDeOp.rdbtnRy.isSelected()) {
+				pontos = new Transformacao3D().rotacaoY(pontos, angulo);
+			} else if (MenuDeOp.rdbtnRz.isSelected()) {
+				pontos = new Transformacao3D().rotacaoZ(pontos, angulo);
+			}
+			
+			setPixel3D();
+			
+			
+		} else if (MenuDeOp.comboBox.getSelectedItem().equals("ELIPSE") ||
+					MenuDeOp.comboBox.getSelectedItem().equals("CIRCUNFERENCIA")){
+			pontos = new Transformacao().rotacao(pontos, angulo);
+			setCircunferencia();
+			
+		} else {
+			pontos = new Transformacao().rotacao(pontos, angulo);
+			for (Ponto ponto : pontos) {
+				setPixel(ponto);
+			}
+		}
+		
 	}
 	
 	/**
@@ -193,23 +236,16 @@ public class PlanoCartesiano extends JPanel {
 		pontos = new DesenhosFiguras().criarCubo(x, y, z);
 		
 		setPixel3D();
-
-//		TelaPrincipal.panelNormalizacao.repaint();
-		
-		
-		
-//		for (Ponto ponto : pontos)
-//			setPixel(ponto);
-		
 	}
 	
 	private void setPixel3D() {
+		eixoZ();
 		for (Ponto ponto : pontos) {
 			try {
 				if (ponto.getZ() == 0) {
-					setPixel(ponto);
+					setPixel(new Ponto (ponto.getX() + PlanoCartesiano.MEIO_X, PlanoCartesiano.MEIO_Y - ponto.getY() ));
 				} else {
-					setPixel(new Ponto(ponto.getX() - ponto.getZ() / 2, ponto.getY() - ponto.getZ() / 2));
+					setPixel(new Ponto(ponto.getX() + PlanoCartesiano.MEIO_X - ponto.getZ() / 2, PlanoCartesiano.MEIO_Y - ponto.getY() + ponto.getZ() / 2));
 				}
 
 			} catch (Exception e) {
@@ -238,7 +274,7 @@ public class PlanoCartesiano extends JPanel {
 	 */
 	private void setCircunferencia() {
 		for (Ponto ponto : pontos) {
-			setPixel(new Ponto(ponto.getX(), ponto.getY()));
+			setPixel(new Ponto(ponto.getX() + PlanoCartesiano.MEIO_X, PlanoCartesiano.MEIO_Y - ponto.getY()));
 		}
 	}
 	
@@ -277,7 +313,7 @@ public class PlanoCartesiano extends JPanel {
 	 */
 	public void setPixel(Ponto pixel) {
 		try {
-			plano.setRGB(pixel.getX() + PlanoCartesiano.MEIO_X, PlanoCartesiano.MEIO_Y - pixel.getY(), Color.BLACK.getRGB());
+			plano.setRGB(pixel.getX(), pixel.getY(), Color.BLACK.getRGB());
 		} catch (ArrayIndexOutOfBoundsException e) {}
 		finally {
 			repaint();

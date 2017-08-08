@@ -276,7 +276,7 @@ public class Transformacao3D {
 	 * @param angulo
 	 * @return
 	 */
-	private double[][] gerarMatrizRotacaoX(int angulo) {
+	private double[][] gerarMatrizRotacaoX(double angulo) {
 		double[][] matriz = new double[4][4];
 
 		double sen = Math.sin(Math.toRadians(angulo));
@@ -314,7 +314,7 @@ public class Transformacao3D {
 	 * @param angulo
 	 * @return
 	 */
-	private double[][] gerarMatrizRotacaoY(int angulo) {
+	private double[][] gerarMatrizRotacaoY(double angulo) {
 		double[][] matriz = new double[4][4];
 
 		double sen = Math.sin(Math.toRadians(angulo));
@@ -352,7 +352,7 @@ public class Transformacao3D {
 	 * @param angulo
 	 * @return
 	 */
-	private double[][] gerarMatrizRotacaoZ(int angulo) {
+	private double[][] gerarMatrizRotacaoZ(double angulo) {
 		double[][] matriz = new double[4][4];
 
 		double sen = Math.sin(Math.toRadians(angulo));
@@ -472,7 +472,7 @@ public class Transformacao3D {
 		return list;
 	}
 
-	public List<Ponto> rotacaoX(List<Ponto> lis, int angulo) { 
+	public List<Ponto> rotacaoX(List<Ponto> lis, double angulo) { 
 
 		final int transx = lis.get(0).getX();
 		final int transy = lis.get(0).getY();
@@ -527,7 +527,7 @@ public class Transformacao3D {
 		} else return lis;	
 	}
 
-	public List<Ponto> rotacaoY(List<Ponto> lis, int angulo) { 
+	public List<Ponto> rotacaoY(List<Ponto> lis, double angulo) { 
 
 		final int transx = lis.get(0).getX();
 		final int transy = lis.get(0).getY();
@@ -580,7 +580,7 @@ public class Transformacao3D {
 		} else return lis;
 	}
 
-	public List<Ponto> rotacaoZ(List<Ponto> lis, int angulo) { 
+	public List<Ponto> rotacaoZ(List<Ponto> lis, double angulo) { 
 		double[][] matriz = new double[4][lis.size()];
 
 		final int transx = lis.get(0).getX();

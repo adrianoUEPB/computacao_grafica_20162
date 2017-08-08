@@ -20,6 +20,9 @@ import javax.swing.JTextField;
 import panel.PlanoCartesiano;
 import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
+
+import javafx.scene.Group;
+
 import javax.swing.SwingConstants;
 import java.awt.Frame;
 import javax.swing.JSeparator;
@@ -45,7 +48,10 @@ public class MenuDeOp extends JFrame {
 	private JTextField tf_cubo_y;
 	private JTextField tf_cubo_z;
 	
-	private JPanel panel_transformacao2D;
+	private JPanel panel_transformacao;
+	private JLabel lb_z, lblTransformaes2D, lblTransformaes3D;
+	private JTextField tf_angulo;
+	public static JRadioButton rdbtnRx, rdbtnRy, rdbtnRz;
 
 	/**
 	 * Create the frame.
@@ -54,16 +60,13 @@ public class MenuDeOp extends JFrame {
 		getContentPane().setLocation(-1002, -12);
 		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setMinimumSize(new Dimension(1270, 800));
-		
-		
+		getContentPane().setBackground(Color.DARK_GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	
 		
 		this.initTransformacoes();
 		this.initOpcoesDesenho();
-		
 		this.initCoordenadas();
-		getContentPane().setBackground(Color.DARK_GRAY);
+		
 		setVisible(true);
 	}
 	
@@ -118,13 +121,9 @@ public class MenuDeOp extends JFrame {
 		getContentPane().add(panel_menu);
 		panel_menu.setLayout(null);
 		
-
-		
-	
 		raio_x = new JLabel("Raio X");
 		raio_x.setForeground(Color.WHITE);
 		raio_x.setBounds(10, 11, 46, 14);
-
 		
 		raio_y = new JLabel("Raio Y");
 		raio_y.setForeground(Color.WHITE);
@@ -137,7 +136,6 @@ public class MenuDeOp extends JFrame {
 		tf_raio_y = new JTextField();
 		tf_raio_y.setBounds(66, 33, 30, 20);
 		tf_raio_y.setColumns(10);
-
 		
 		JLabel largura = new JLabel("Largura");
 		largura.setForeground(Color.WHITE);
@@ -356,20 +354,49 @@ public class MenuDeOp extends JFrame {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getItem().equals("PIXEL")) {
 					this.limparMenu();
-					flag3D = false;
+					getContentPane().remove(panel_transformacao);
+					repaint();
 				} else if (e.getItem().equals("CIRCUNFERENCIA")) {
 					this.limparMenu();
-					flag3D = false;
+					getContentPane().add(panel_transformacao);
+					panel_transformacao.remove(lb_z);
+					panel_transformacao.remove(tf_transf_z);
+					panel_transformacao.remove(rb_rflxy);
+					panel_transformacao.remove(rb_rflxz);
+					panel_transformacao.remove(rb_rflyz);
+					panel_transformacao.add(rb_rflx);
+					panel_transformacao.add(rb_rfly);
+					panel_transformacao.add(rb_rflx_y);
+					panel_transformacao.remove(rdbtnRx);
+					panel_transformacao.remove(rdbtnRy);
+					panel_transformacao.remove(rdbtnRz);
+					panel_transformacao.add(lblTransformaes2D);
+					panel_transformacao.remove(lblTransformaes3D);
+					
 					panel_menu.add(rdbtnEquaoExplicita);
 					panel_menu.add(rdbtnPontoMdio);
 					panel_menu.add(rdbtnTrigonometrica);
 					panel_menu.add(raio);
 					panel_menu.add(tf_raio);
 					panel_menu.add(btn_calc_circ);
-					panel_menu.repaint();
+					repaint();
 				} else if (e.getItem().equals("RETA")) {
 					this.limparMenu();
-					flag3D = false;
+					getContentPane().add(panel_transformacao);
+					panel_transformacao.remove(lb_z);
+					panel_transformacao.remove(tf_transf_z);
+					panel_transformacao.remove(rb_rflxy);
+					panel_transformacao.remove(rb_rflxz);
+					panel_transformacao.remove(rb_rflyz);
+					panel_transformacao.add(rb_rflx);
+					panel_transformacao.add(rb_rfly);
+					panel_transformacao.add(rb_rflx_y);
+					panel_transformacao.remove(rdbtnRx);
+					panel_transformacao.remove(rdbtnRy);
+					panel_transformacao.remove(rdbtnRz);
+					panel_transformacao.add(lblTransformaes2D);
+					panel_transformacao.remove(lblTransformaes3D);
+					
 					panel_menu.add(rdbtnPontoMdio_1);
 					panel_menu.add(rdbtnDda);
 					panel_menu.add(ponto_a);
@@ -379,28 +406,70 @@ public class MenuDeOp extends JFrame {
 					panel_menu.add(tf_y2);
 					panel_menu.add(ponto_b);
 					panel_menu.add(btn_calc_reta);
-					panel_menu.repaint();
+					repaint();
 				} else if (e.getItem().equals("ELIPSE")){
 					this.limparMenu();
-					flag3D = false;
+					getContentPane().add(panel_transformacao);
+					panel_transformacao.remove(lb_z);
+					panel_transformacao.remove(tf_transf_z);
+					panel_transformacao.remove(rb_rflxy);
+					panel_transformacao.remove(rb_rflxz);
+					panel_transformacao.remove(rb_rflyz);
+					panel_transformacao.add(rb_rflx);
+					panel_transformacao.add(rb_rfly);
+					panel_transformacao.add(rb_rflx_y);
+					panel_transformacao.remove(rdbtnRx);
+					panel_transformacao.remove(rdbtnRy);
+					panel_transformacao.remove(rdbtnRz);
+					panel_transformacao.add(lblTransformaes2D);
+					panel_transformacao.remove(lblTransformaes3D);
+					
 					panel_menu.add(raio_x);
 					panel_menu.add(tf_raio_x);
 					panel_menu.add(raio_y);
 					panel_menu.add(tf_raio_y);
 					panel_menu.add(btn_calc_elipse);
-					panel_menu.repaint();
+					repaint();
 				} else if (e.getItem().equals("QUADRADO")) {
 					this.limparMenu();
-					flag3D = false;
+					getContentPane().add(panel_transformacao);
+					panel_transformacao.remove(lb_z);
+					panel_transformacao.remove(tf_transf_z);
+					panel_transformacao.remove(rb_rflxy);
+					panel_transformacao.remove(rb_rflxz);
+					panel_transformacao.remove(rb_rflyz);
+					panel_transformacao.add(rb_rflx);
+					panel_transformacao.add(rb_rfly);
+					panel_transformacao.add(rb_rflx_y);
+					panel_transformacao.remove(rdbtnRx);
+					panel_transformacao.remove(rdbtnRy);
+					panel_transformacao.remove(rdbtnRz);
+					panel_transformacao.add(lblTransformaes2D);
+					panel_transformacao.remove(lblTransformaes3D);
+					
 					panel_menu.add(largura);
 					panel_menu.add(tf_largura);
 					panel_menu.add(altura);
 					panel_menu.add(tf_altura);
 					panel_menu.add(btn_calc_quad);
-					panel_menu.repaint();
+					repaint();
 				} else if (e.getItem().equals("CUBO")) {
 					this.limparMenu();
-					flag3D = true;
+					getContentPane().add(panel_transformacao);
+					panel_transformacao.add(lb_z);
+					panel_transformacao.add(tf_transf_z);
+					panel_transformacao.add(rb_rflxy);
+					panel_transformacao.add(rb_rflxz);
+					panel_transformacao.add(rb_rflyz);
+					panel_transformacao.remove(rb_rflx);
+					panel_transformacao.remove(rb_rfly);
+					panel_transformacao.remove(rb_rflx_y);
+					panel_transformacao.add(rdbtnRx);
+					panel_transformacao.add(rdbtnRy);
+					panel_transformacao.add(rdbtnRz);
+					panel_transformacao.remove(lblTransformaes2D);
+					panel_transformacao.add(lblTransformaes3D);
+					
 					panel_menu.add(lblX);
 					panel_menu.add(lby);
 					panel_menu.add(lbz);
@@ -408,7 +477,7 @@ public class MenuDeOp extends JFrame {
 					panel_menu.add(tf_cubo_y);
 					panel_menu.add(tf_cubo_z);
 					panel_menu.add(btn_calc_cubo);
-					panel_menu.repaint();
+					repaint();
 				}
 			}
 
@@ -446,7 +515,7 @@ public class MenuDeOp extends JFrame {
 				panel_menu.remove(tf_cubo_y);
 				panel_menu.remove(tf_cubo_z);
 				panel_menu.remove(btn_calc_cubo);
-				panel_menu.repaint();
+				repaint();
 				
 			}
 		});
@@ -454,139 +523,144 @@ public class MenuDeOp extends JFrame {
 	
 	private void initTransformacoes() {
 		getContentPane().setLayout(null);
-		panel_transformacao2D = new JPanel();
-		panel_transformacao2D.setBounds(1005, 12, 223, 343);
-		panel_transformacao2D.setBackground(Color.DARK_GRAY);
-		panel_transformacao2D.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-//		getContentPane().add(panel_transformacao2D);
-		this.addPanel2D();
-		panel_transformacao2D.setLayout(null);
+		panel_transformacao = new JPanel();
+		panel_transformacao.setBounds(1005, 12, 223, 343);
+		panel_transformacao.setBackground(Color.DARK_GRAY);
+		panel_transformacao.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel_transformacao.setLayout(null);
 		
-		JLabel lblTransformaesdE = new JLabel("TRANSFORMAÇÕES 2D");
-		lblTransformaesdE.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTransformaesdE.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 14));
-		lblTransformaesdE.setBackground(Color.DARK_GRAY);
-		lblTransformaesdE.setBounds(5, 11, 212, 36);
-		lblTransformaesdE.setForeground(Color.WHITE);
-		panel_transformacao2D.add(lblTransformaesdE);
+		
+		lblTransformaes2D = new JLabel("TRANSFORMAÇÕES 2D");
+		lblTransformaes2D.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTransformaes2D.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 14));
+		lblTransformaes2D.setBackground(Color.DARK_GRAY);
+		lblTransformaes2D.setBounds(5, 11, 212, 36);
+		lblTransformaes2D.setForeground(Color.WHITE);
+				
+		lblTransformaes3D = new JLabel("TRANSFORMAÇÕES 3D");
+		lblTransformaes3D.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTransformaes3D.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 14));
+		lblTransformaes3D.setBackground(Color.DARK_GRAY);
+		lblTransformaes3D.setBounds(5, 11, 212, 36);
+		lblTransformaes3D.setForeground(Color.WHITE);
 		
 		JLabel lb_x = new JLabel("X");
 		lb_x.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		lb_x.setHorizontalAlignment(SwingConstants.CENTER);
 		lb_x.setForeground(Color.WHITE);
-		lb_x.setBounds(133, 83, 19, 14);
-		panel_transformacao2D.add(lb_x);
+		lb_x.setBounds(133, 73, 19, 14);
+		panel_transformacao.add(lb_x);
 		
 		JLabel lb_y = new JLabel("Y");
 		lb_y.setHorizontalAlignment(SwingConstants.CENTER);
 		lb_y.setForeground(Color.WHITE);
 		lb_y.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
-		lb_y.setBounds(133, 110, 19, 14);
-		panel_transformacao2D.add(lb_y);
+		lb_y.setBounds(133, 100, 19, 14);
+		panel_transformacao.add(lb_y);
 		
-		JLabel lb_z = new JLabel("Z");
+		lb_z = new JLabel("Z");
 		lb_z.setHorizontalAlignment(SwingConstants.CENTER);
 		lb_z.setForeground(Color.WHITE);
 		lb_z.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
-		lb_z.setBounds(133, 138, 19, 14);
-		panel_transformacao2D.add(lb_z);
+		lb_z.setBounds(133, 128, 19, 14);
+		panel_transformacao.add(lb_z);
 		
 		tf_transf_x = new JTextField();
-		tf_transf_x.setBounds(162, 81, 35, 20);
-		panel_transformacao2D.add(tf_transf_x);
+		tf_transf_x.setBounds(162, 71, 35, 20);
+		panel_transformacao.add(tf_transf_x);
 		tf_transf_x.setColumns(10);
 		
 		tf_transf_y = new JTextField();
 		tf_transf_y.setColumns(10);
-		tf_transf_y.setBounds(162, 108, 35, 20);
-		panel_transformacao2D.add(tf_transf_y);
+		tf_transf_y.setBounds(162, 98, 35, 20);
+		panel_transformacao.add(tf_transf_y);
 		
 		tf_transf_z = new JTextField();
 		tf_transf_z.setColumns(10);
-		tf_transf_z.setBounds(162, 135, 35, 20);
-		panel_transformacao2D.add(tf_transf_z);
+		tf_transf_z.setBounds(162, 125, 35, 20);
+		panel_transformacao.add(tf_transf_z);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBackground(Color.BLACK);
 		separator.setForeground(Color.DARK_GRAY);
-		separator.setBounds(5, 195, 212, 2);
-		panel_transformacao2D.add(separator);
+		separator.setBounds(5, 220, 212, 2);
+		panel_transformacao.add(separator);
 		
 		rb_transl = new JRadioButton("Translação");
 		rb_transl.setBackground(Color.DARK_GRAY);
 		rb_transl.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_transl.setForeground(Color.WHITE);
 		rb_transl.setBounds(12, 66, 109, 23);
-		panel_transformacao2D.add(rb_transl);
+		panel_transformacao.add(rb_transl);
 		
 		rb_escala = new JRadioButton("Escala");
 		rb_escala.setForeground(Color.WHITE);
 		rb_escala.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_escala.setBackground(Color.DARK_GRAY);
 		rb_escala.setBounds(12, 94, 109, 23);
-		panel_transformacao2D.add(rb_escala);
+		panel_transformacao.add(rb_escala);
 		
 		rb_rotacao = new JRadioButton("Rotação");
 		rb_rotacao.setForeground(Color.WHITE);
 		rb_rotacao.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_rotacao.setBackground(Color.DARK_GRAY);
-		rb_rotacao.setBounds(12, 151, 109, 23);
-		panel_transformacao2D.add(rb_rotacao);
+		rb_rotacao.setBounds(12, 151, 80, 23);
+		panel_transformacao.add(rb_rotacao);
 		
 		rb_cis = new JRadioButton("Cisalhamento");
 		rb_cis.setForeground(Color.WHITE);
 		rb_cis.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_cis.setBackground(Color.DARK_GRAY);
 		rb_cis.setBounds(12, 122, 115, 23);
-		panel_transformacao2D.add(rb_cis);
+		panel_transformacao.add(rb_cis);
 		
 		rb_rflx = new JRadioButton("X");
 		rb_rflx.setForeground(Color.WHITE);
 		rb_rflx.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_rflx.setBackground(Color.DARK_GRAY);
-		rb_rflx.setBounds(43, 228, 43, 23);
-		panel_transformacao2D.add(rb_rflx);
+		rb_rflx.setBounds(27, 254, 43, 23);
+		panel_transformacao.add(rb_rflx);
 		
 		lblReflexes = new JLabel("Reflexões");
 		lblReflexes.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		lblReflexes.setForeground(Color.WHITE);
-		lblReflexes.setBounds(79, 207, 73, 14);
-		panel_transformacao2D.add(lblReflexes);
+		lblReflexes.setBounds(79, 233, 73, 14);
+		panel_transformacao.add(lblReflexes);
 		
 		rb_rfly = new JRadioButton("Y");
 		rb_rfly.setForeground(Color.WHITE);
 		rb_rfly.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_rfly.setBackground(Color.DARK_GRAY);
-		rb_rfly.setBounds(88, 228, 43, 23);
-		panel_transformacao2D.add(rb_rfly);
+		rb_rfly.setBounds(79, 254, 43, 23);
+		panel_transformacao.add(rb_rfly);
 		
 		rb_rflx_y = new JRadioButton("X e Y");
 		rb_rflx_y.setForeground(Color.WHITE);
 		rb_rflx_y.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_rflx_y.setBackground(Color.DARK_GRAY);
-		rb_rflx_y.setBounds(133, 228, 64, 23);
-		panel_transformacao2D.add(rb_rflx_y);
+		rb_rflx_y.setBounds(133, 254, 64, 23);
+		panel_transformacao.add(rb_rflx_y);
 		
 		rb_rflxy = new JRadioButton("XY");
 		rb_rflxy.setForeground(Color.WHITE);
 		rb_rflxy.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_rflxy.setBackground(Color.DARK_GRAY);
-		rb_rflxy.setBounds(53, 254, 43, 23);
-		panel_transformacao2D.add(rb_rflxy);
+		rb_rflxy.setBounds(27, 254, 43, 23);
+		panel_transformacao.add(rb_rflxy);
 		
 		rb_rflyz = new JRadioButton("YZ");
 		rb_rflyz.setForeground(Color.WHITE);
 		rb_rflyz.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_rflyz.setBackground(Color.DARK_GRAY);
-		rb_rflyz.setBounds(98, 254, 43, 23);
-		panel_transformacao2D.add(rb_rflyz);
+		rb_rflyz.setBounds(78, 254, 43, 23);
+		panel_transformacao.add(rb_rflyz);
 		
 		rb_rflxz = new JRadioButton("XZ");
 		rb_rflxz.setForeground(Color.WHITE);
 		rb_rflxz.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
 		rb_rflxz.setBackground(Color.DARK_GRAY);
-		rb_rflxz.setBounds(143, 254, 43, 23);
-		panel_transformacao2D.add(rb_rflxz);
+		rb_rflxz.setBounds(133, 254, 43, 23);
+		panel_transformacao.add(rb_rflxz);
 		
 		
 		ButtonGroup group = new ButtonGroup();
@@ -605,7 +679,7 @@ public class MenuDeOp extends JFrame {
 		separator_1.setForeground(Color.DARK_GRAY);
 		separator_1.setBackground(Color.BLACK);
 		separator_1.setBounds(5, 288, 212, 2);
-		panel_transformacao2D.add(separator_1);
+		panel_transformacao.add(separator_1);
 		
 		JButton jb_transf = new JButton("Calcular");
 		jb_transf.addActionListener(new ActionListener() {
@@ -620,9 +694,8 @@ public class MenuDeOp extends JFrame {
 					MenuDeOp.rb_rflyz.isSelected()) {
 					plano.calcularReflexao();
 				} else if (MenuDeOp.rb_rotacao.isSelected()) {
-					plano.calcularRotacao(Double.parseDouble(tf_transf_x.getText()));
+					plano.calcularRotacao(Double.parseDouble(tf_angulo.getText()));
 				} else {
-					
 					int x = 0, y = 0, z = 0;
 					if (!tf_transf_x.getText().equals(""))
 						x = Integer.parseInt(tf_transf_x.getText());
@@ -635,26 +708,48 @@ public class MenuDeOp extends JFrame {
 					
 					plano.calcularTransformacoes(x, y, z);
 				}
-				
-				
-				
-				
-				
-				
 			}
 		});
 		jb_transf.setBounds(67, 308, 119, 23);
-		panel_transformacao2D.add(jb_transf);
+		panel_transformacao.add(jb_transf);
+		
+		tf_angulo = new JTextField();
+		tf_angulo.setBounds(162, 153, 35, 20);
+		panel_transformacao.add(tf_angulo);
+		tf_angulo.setColumns(10);
+		
+		JLabel lb_angulo = new JLabel("Angulo");
+		lb_angulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_angulo.setForeground(Color.WHITE);
+		lb_angulo.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		lb_angulo.setBounds(98, 148, 64, 28);
+		panel_transformacao.add(lb_angulo);
+		
+		rdbtnRx = new JRadioButton("Rx");
+		rdbtnRx.setForeground(Color.WHITE);
+		rdbtnRx.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		rdbtnRx.setBackground(Color.DARK_GRAY);
+		rdbtnRx.setBounds(22, 177, 43, 23);
+		
+		rdbtnRy = new JRadioButton("Ry");
+		rdbtnRy.setForeground(Color.WHITE);
+		rdbtnRy.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		rdbtnRy.setBackground(Color.DARK_GRAY);
+		rdbtnRy.setBounds(67, 177, 43, 23);
+		
+		rdbtnRz = new JRadioButton("Rz");
+		rdbtnRz.setForeground(Color.WHITE);
+		rdbtnRz.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 12));
+		rdbtnRz.setBackground(Color.DARK_GRAY);
+		rdbtnRz.setBounds(119, 177, 43, 23);
+		
+		
+		ButtonGroup group3 = new ButtonGroup();
+		group3.add(rdbtnRx);
+		group3.add(rdbtnRy);
+		group3.add(rdbtnRz);
+		
 		
 	}
-	
-	private void addPanel2D() {
-		getContentPane().add(panel_transformacao2D);
-	}
-	
-	private void addPanel3D() {
-		getContentPane().remove(panel_transformacao2D);
-	}
-	
-	
 }
+
