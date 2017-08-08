@@ -16,6 +16,10 @@ import algoritmosProcessamentoImagens.*;
 
 public class PainelOperacaoAritmeticaDivisao extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	PanellDaImagem panelDaImagem1 = new PanellDaImagem();
 	PanellDaImagem panelDaImagem2 = new PanellDaImagem();
 	ProcessamentoImagensOperacoesAritmeticas panelDaImagem3 = new ProcessamentoImagensOperacoesAritmeticas();
@@ -73,7 +77,7 @@ public class PainelOperacaoAritmeticaDivisao extends JPanel {
 						repaint();
 					}					
 				}catch(Exception erro){  				        
-					JOptionPane.showMessageDialog(null, "Não foi possivel carregar a imagem.");  				        
+					JOptionPane.showMessageDialog(null, "Nï¿½o foi possivel carregar a imagem.");  				        
 				}    				
 			}
 		});
@@ -95,7 +99,7 @@ public class PainelOperacaoAritmeticaDivisao extends JPanel {
 						repaint();
 					}					
 				}catch(Exception erro){  				        
-					JOptionPane.showMessageDialog(null, "Não foi possivel carregar a imagem.");  				        
+					JOptionPane.showMessageDialog(null, "Nï¿½o foi possivel carregar a imagem.");  				        
 				}    				
 			}
 		});
@@ -105,7 +109,7 @@ public class PainelOperacaoAritmeticaDivisao extends JPanel {
 		add(bntSelecionarImagem2);
 		
 		
-		JButton botaoMedia = new JButton("Divisãoo");
+		JButton botaoMedia = new JButton("Divisï¿½oo");
 		botaoMedia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent eventoDeMouse){	
 				panelDaImagem3.inserirImagemNoPainelOperacaoAritmeticaDivisao(panelDaImagem1.altura, 

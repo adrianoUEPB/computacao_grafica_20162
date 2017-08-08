@@ -23,6 +23,10 @@ import algoritmosProcessamentoImagens.ProcessamentoImagensGraficoHistograma;
 
 public class PainelEqualizarHistograma extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	PanellDaImagem panelDaImagem1 = new PanellDaImagem();
 	PanellDaImagem panelDaImagem2 = new PanellDaImagem();
 	ProcessamentoImagemGraficoHistogramaMatriz graficoHistograma2 = new ProcessamentoImagemGraficoHistogramaMatriz();

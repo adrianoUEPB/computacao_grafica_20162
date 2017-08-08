@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageFilter;
 import java.io.IOException;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
@@ -14,6 +12,10 @@ import javax.swing.border.LineBorder;
 public class ProcessamentoImagensOperadoresLogicos extends JPanel{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public ProcessamentoImagensOperadoresLogicos() {		
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBounds(new Rectangle(0, 0, 250, 250));

@@ -16,6 +16,10 @@ import javax.swing.JTextField;
 import algoritmosProcessamentoImagens.*;
 
 public class PainelTransformacaoLogaritmica extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	PanellDaImagem panelDaImagem1 = new PanellDaImagem();
 	ProcessamentoImagensTransformacaoGammaLogaritmoNegativo panelDaImagem2 = new ProcessamentoImagensTransformacaoGammaLogaritmoNegativo();
 	JTextField TxtConstante;
@@ -63,7 +67,7 @@ public class PainelTransformacaoLogaritmica extends JPanel {
 						repaint();
 					}					
 				}catch(Exception erro){  				        
-					JOptionPane.showMessageDialog(null, "Não foi possivel carregar a imagem.");  				        
+					JOptionPane.showMessageDialog(null, "Nï¿½o foi possivel carregar a imagem.");  				        
 				}    				
 			}
 	
@@ -85,7 +89,7 @@ public class PainelTransformacaoLogaritmica extends JPanel {
 		add(labelGamma);
 		
 
-		JButton bntGama = new JButton("Transformação Logaritmica");
+		JButton bntGama = new JButton("Transformaï¿½ï¿½o Logaritmica");
 		bntGama.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent eventoDeMouse){	
 				TxtConstante.setText(TxtConstante.getText().replace(",", "."));

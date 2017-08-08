@@ -5,17 +5,18 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import algoritmosProcessamentoImagens.*;
 
 public class PainelTransformacaoNegativa extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	PanellDaImagem panelDaImagem1 = new PanellDaImagem();
 	ProcessamentoImagensTransformacaoGammaLogaritmoNegativo panelDaImagem2 = new ProcessamentoImagensTransformacaoGammaLogaritmoNegativo();
 	public PainelTransformacaoNegativa(){
@@ -30,7 +31,7 @@ public class PainelTransformacaoNegativa extends JPanel {
 		add(panelSuperior);
 		panelSuperior.setLayout(null);
 
-		JLabel labelFiltroMedia = new JLabel("Transformação Negativa");
+		JLabel labelFiltroMedia = new JLabel("Transformaï¿½ï¿½o Negativa");
 		labelFiltroMedia.setBackground(Color.DARK_GRAY);
 		labelFiltroMedia.setForeground(Color.WHITE);
 		labelFiltroMedia.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 24));
@@ -62,7 +63,7 @@ public class PainelTransformacaoNegativa extends JPanel {
 						repaint();
 					}					
 				}catch(Exception erro){  				        
-					JOptionPane.showMessageDialog(null, "Não foi possivel carregar a imagem.");  				        
+					JOptionPane.showMessageDialog(null, "Nï¿½o foi possivel carregar a imagem.");  				        
 				}    				
 			}
 	
@@ -72,7 +73,7 @@ public class PainelTransformacaoNegativa extends JPanel {
 		botaoSelecionarImagem.setBounds(10, 340, 245, 35);
 		add(botaoSelecionarImagem);
 
-		JButton bntGama = new JButton("Transformação Negativa");
+		JButton bntGama = new JButton("Transformaï¿½ï¿½o Negativa");
 		bntGama.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent eventoDeMouse){					
 				panelDaImagem2.inserirImagemNotransformacaoNegativa(panelDaImagem1.altura, 

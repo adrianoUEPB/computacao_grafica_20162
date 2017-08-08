@@ -8,15 +8,16 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-
-
 public class ProcessamentoImagensGraficoHistograma extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final String COMENTARIO = "#";
 	private static final String P2 = "P2";	
 	public int[][] matrizImagem;
@@ -67,8 +68,6 @@ public class ProcessamentoImagensGraficoHistograma extends JPanel{
         String [] pixels;
         int[] frequencia = new int[255];        
         int linha1 = 0;
-        int quantidade = 0;
-        
         /*A linha onde refere-se ao valor maximo que o pixel pode ter eh ignorado*/
         linha=imagem.readLine();
         linha=imagem.readLine();
@@ -77,7 +76,6 @@ public class ProcessamentoImagensGraficoHistograma extends JPanel{
         	for(int i = 0;i<pixels.length;i++){
         		matrizImagem[linha1][i] = Integer.parseInt(pixels[i]);
         		frequencia[Integer.parseInt(pixels[i])]++;
-        		quantidade++;
         	}
         	linha1++;
         	linha=imagem.readLine();

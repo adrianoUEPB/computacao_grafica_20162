@@ -18,6 +18,10 @@ import algoritmosProcessamentoImagens.ProcessamentoImagensGraficoHistograma;
 
 
 public class PainelHistograma extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	PanellDaImagem panelDaImagem1 = new PanellDaImagem();
 	BufferedImage imagem;
 	public PainelHistograma(){

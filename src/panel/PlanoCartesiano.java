@@ -12,7 +12,7 @@ import algoritmos.DesenhosFiguras;
 import algoritmos.Transformacao;
 import algoritmos.Transformacao3D;
 import model.Ponto;
-import view.MenuDeOp;
+import view.Operacoes2D_3D;
 
 public class PlanoCartesiano extends JPanel {
 
@@ -38,8 +38,8 @@ public class PlanoCartesiano extends JPanel {
 				
 				int x = event.getPoint().x;
 				int y = event.getPoint().y;
-				MenuDeOp.label_x.setText(String.valueOf(x - PlanoCartesiano.MEIO_X));
-				MenuDeOp.label_y.setText(String.valueOf(PlanoCartesiano.MEIO_Y - y)); 
+				Operacoes2D_3D.label_x.setText(String.valueOf(x - PlanoCartesiano.MEIO_X));
+				Operacoes2D_3D.label_y.setText(String.valueOf(PlanoCartesiano.MEIO_Y - y)); 
 			}
 			@Override
 			public void mouseDragged(MouseEvent event) {
@@ -50,7 +50,7 @@ public class PlanoCartesiano extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				switch (MenuDeOp.comboBox.getSelectedIndex()) {
+				switch (Operacoes2D_3D.comboBox.getSelectedIndex()) {
 					case 0:
 						setPixel(new Ponto(e.getPoint().x - PlanoCartesiano.MEIO_X, PlanoCartesiano.MEIO_Y - e.getPoint().y));
 						break;
@@ -67,12 +67,12 @@ public class PlanoCartesiano extends JPanel {
 	
 	public void calcularTransformacoes(int x, int y, int z) {
 		
-		if (MenuDeOp.comboBox.getSelectedItem().equals("CUBO")) {
-			if (MenuDeOp.rb_transl.isSelected()) {
+		if (Operacoes2D_3D.comboBox.getSelectedItem().equals("CUBO")) {
+			if (Operacoes2D_3D.rb_transl.isSelected()) {
 				pontos = new Transformacao3D().translacao(pontos, x, y, z);		
-			} else if (MenuDeOp.rb_escala.isSelected()) {
+			} else if (Operacoes2D_3D.rb_escala.isSelected()) {
 				pontos = new Transformacao3D().escala(pontos, x, y, z);
-			} else if (MenuDeOp.rb_cis.isSelected()) {
+			} else if (Operacoes2D_3D.rb_cis.isSelected()) {
 				if ( y == 0 && z == 0) {
 					pontos = new Transformacao3D().cisalhamentoEmX(pontos, x);
 				} else if (x == 0 && z == 0) {
@@ -86,18 +86,18 @@ public class PlanoCartesiano extends JPanel {
 			setPixel3D();
 			
 		} else {
-			if (MenuDeOp.rb_transl.isSelected()) {
+			if (Operacoes2D_3D.rb_transl.isSelected()) {
 				pontos = new Transformacao().translacao(pontos, x, y);		
-			} else if (MenuDeOp.rb_escala.isSelected()) {
+			} else if (Operacoes2D_3D.rb_escala.isSelected()) {
 				pontos = new Transformacao().escala(pontos, x, y);
-			} else if (MenuDeOp.rb_cis.isSelected()) {
+			} else if (Operacoes2D_3D.rb_cis.isSelected()) {
 				pontos = new Transformacao().cisalhamento(pontos, x, y);
 			}
 			
 			zerarImagem();
 			//Necessário o if para que seja colocado o pixel certo na circunferência
-			if (MenuDeOp.comboBox.getSelectedItem().equals("ELIPSE") ||
-				MenuDeOp.comboBox.getSelectedItem().equals("CIRCUNFERENCIA")) {
+			if (Operacoes2D_3D.comboBox.getSelectedItem().equals("ELIPSE") ||
+				Operacoes2D_3D.comboBox.getSelectedItem().equals("CIRCUNFERENCIA")) {
 				setCircunferencia();
 			} else {
 				for (Ponto ponto : pontos)
@@ -110,35 +110,35 @@ public class PlanoCartesiano extends JPanel {
 	 * Classe reponsável por calcular as reflexões 2D e 3D
 	 */
 	public void calcularReflexao() {
-		if (MenuDeOp.rb_rflx.isSelected()) {
+		if (Operacoes2D_3D.rb_rflx.isSelected()) {
 			pontos = new Transformacao().reflexao(pontos, 0);
 			zerarImagem();
 			for (Ponto ponto : pontos)
 				setPixel(ponto);
 			
-		} else if (MenuDeOp.rb_rfly.isSelected()) {
+		} else if (Operacoes2D_3D.rb_rfly.isSelected()) {
 			pontos = new Transformacao().reflexao(pontos, 1);
 			zerarImagem();
 			for (Ponto ponto : pontos)
 				setPixel(ponto);
 			
-		} else if (MenuDeOp.rb_rflx_y.isSelected()) {
+		} else if (Operacoes2D_3D.rb_rflx_y.isSelected()) {
 			pontos = new Transformacao().reflexao(pontos, 2);
 			zerarImagem();
 			for (Ponto ponto : pontos)
 				setPixel(ponto);
 			
-		} else if (MenuDeOp.rb_rflxy.isSelected()) {
+		} else if (Operacoes2D_3D.rb_rflxy.isSelected()) {
 			pontos = new Transformacao3D().reflexaoXY(pontos);
 			zerarImagem();
 			setPixel3D();
 			
-		} else if (MenuDeOp.rb_rflxz.isSelected()) {
+		} else if (Operacoes2D_3D.rb_rflxz.isSelected()) {
 			pontos = new Transformacao3D().reflexaoXZ(pontos);
 			zerarImagem();
 			setPixel3D();
 			
-		} else if (MenuDeOp.rb_rflyz.isSelected()) {
+		} else if (Operacoes2D_3D.rb_rflyz.isSelected()) {
 			pontos = new Transformacao3D().reflexaoYZ(pontos);
 			zerarImagem();
 			setPixel3D();
@@ -147,20 +147,20 @@ public class PlanoCartesiano extends JPanel {
 	
 	public void calcularRotacao(double angulo) {
 		zerarImagem();
-		if (MenuDeOp.comboBox.getSelectedItem().equals("CUBO")) {
-			if(MenuDeOp.rdbtnRx.isSelected()) {
+		if (Operacoes2D_3D.comboBox.getSelectedItem().equals("CUBO")) {
+			if(Operacoes2D_3D.rdbtnRx.isSelected()) {
 				pontos = new Transformacao3D().rotacaoX(pontos, angulo);
-			} else if (MenuDeOp.rdbtnRy.isSelected()) {
+			} else if (Operacoes2D_3D.rdbtnRy.isSelected()) {
 				pontos = new Transformacao3D().rotacaoY(pontos, angulo);
-			} else if (MenuDeOp.rdbtnRz.isSelected()) {
+			} else if (Operacoes2D_3D.rdbtnRz.isSelected()) {
 				pontos = new Transformacao3D().rotacaoZ(pontos, angulo);
 			}
 			
 			setPixel3D();
 			
 			
-		} else if (MenuDeOp.comboBox.getSelectedItem().equals("ELIPSE") ||
-					MenuDeOp.comboBox.getSelectedItem().equals("CIRCUNFERENCIA")){
+		} else if (Operacoes2D_3D.comboBox.getSelectedItem().equals("ELIPSE") ||
+					Operacoes2D_3D.comboBox.getSelectedItem().equals("CIRCUNFERENCIA")){
 			pontos = new Transformacao().rotacao(pontos, angulo);
 			setCircunferencia();
 			
@@ -183,9 +183,9 @@ public class PlanoCartesiano extends JPanel {
 	 * @throws NumberFormatException
 	 */
 	public void calcularReta(int x1, int y1, int x2, int y2) throws NullPointerException, NumberFormatException {
-		if (MenuDeOp.rdbtnDda.isSelected()) {
+		if (Operacoes2D_3D.rdbtnDda.isSelected()) {
 			pontos = new DesenhosFiguras().DDA(new Ponto(x1, y1), new Ponto(x2, y2));
-		} else if(MenuDeOp.rdbtnPontoMdio_1.isSelected()){
+		} else if(Operacoes2D_3D.rdbtnPontoMdio_1.isSelected()){
 			pontos = new DesenhosFiguras().retaPontoMedio(new Ponto(x1, y1), new Ponto(x2, y2));
 		}								
 			
@@ -197,13 +197,13 @@ public class PlanoCartesiano extends JPanel {
 		if (raio > PlanoCartesiano.MEIO_X || raio > PlanoCartesiano.MEIO_Y)
 			throw new Exception();
 		
-		if (MenuDeOp.rdbtnEquaoExplicita.isSelected()) {
+		if (Operacoes2D_3D.rdbtnEquaoExplicita.isSelected()) {
 			pontos = new DesenhosFiguras().CircunferenciaEqExplicita(raio);
 			setCircunferencia();
-		} else if(MenuDeOp.rdbtnPontoMdio.isSelected()) {
+		} else if(Operacoes2D_3D.rdbtnPontoMdio.isSelected()) {
 			pontos = new DesenhosFiguras().CircunferenciaPontoMedio(raio);
 			setCircunferencia(); 
-		} else if(MenuDeOp.rdbtnTrigonometrica.isSelected()) {
+		} else if(Operacoes2D_3D.rdbtnTrigonometrica.isSelected()) {
 			pontos = new DesenhosFiguras().CircunferenciaTrigonometrica(raio);
 			setCircunferencia(); 
 		}

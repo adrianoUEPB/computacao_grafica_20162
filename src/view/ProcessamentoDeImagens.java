@@ -69,8 +69,9 @@ public class ProcessamentoDeImagens extends JFrame{
 		panel.setBounds(0, 102, 194, 618);
 		getContentPane().add(panel);
 		panel.setLayout(null);
-
+		setLocationRelativeTo(null);
 		getContentPane().add(panel, BorderLayout.CENTER);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JButton btnMedia = new JButton("Filtro Media");
 		btnMedia.addActionListener(new ActionListener() {
@@ -397,29 +398,4 @@ public class ProcessamentoDeImagens extends JFrame{
 		setSize(971,660);
 		
 	}
-	   public static void main(String args[]) {
-
-	        try {
-	            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-	                if ("Nimbus".equals(info.getName())) {
-	                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-	                    break;
-	                }
-	            }
-	        } catch (ClassNotFoundException ex) {
-	            java.util.logging.Logger.getLogger(ProcessamentoDeImagens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	        } catch (InstantiationException ex) {
-	            java.util.logging.Logger.getLogger(ProcessamentoDeImagens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	        } catch (IllegalAccessException ex) {
-	            java.util.logging.Logger.getLogger(ProcessamentoDeImagens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-	            java.util.logging.Logger.getLogger(ProcessamentoDeImagens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	        }
-
-	        java.awt.EventQueue.invokeLater(new Runnable() {
-	            public void run() {
-	                new ProcessamentoDeImagens().setVisible(true);
-	            }
-	        });
-	    }
 }

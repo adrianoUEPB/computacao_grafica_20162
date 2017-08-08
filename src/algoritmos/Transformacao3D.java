@@ -581,8 +581,6 @@ public class Transformacao3D {
 	}
 
 	public List<Ponto> rotacaoZ(List<Ponto> lis, double angulo) { 
-		double[][] matriz = new double[4][lis.size()];
-
 		final int transx = lis.get(0).getX();
 		final int transy = lis.get(0).getY();
 		final int transz = lis.get(0).getZ();

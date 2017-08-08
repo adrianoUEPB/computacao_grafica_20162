@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,19 +19,14 @@ import javax.swing.JTextField;
 import panel.PlanoCartesiano;
 import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
-
-import javafx.scene.Group;
-
 import javax.swing.SwingConstants;
-import java.awt.Frame;
 import javax.swing.JSeparator;
 
-public class MenuDeOp extends JFrame {
+public class Operacoes2D_3D extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6761863185579265491L;
-	private boolean flag3D = false;
 	public static JLabel label_x, label_y, raio_x, raio_y, ponto_a, ponto_b, raio;
 	public static JComboBox<String> comboBox;
 	public static JRadioButton rdbtnDda, rdbtnPontoMdio_1, rdbtnEquaoExplicita, rdbtnPontoMdio, rdbtnTrigonometrica;
@@ -56,12 +50,12 @@ public class MenuDeOp extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MenuDeOp() {
+	public Operacoes2D_3D() {
 		getContentPane().setLocation(-1002, -12);
-		setExtendedState(Frame.MAXIMIZED_BOTH);
-		setMinimumSize(new Dimension(1270, 800));
+		setLocationRelativeTo(null);
+		setSize(new Dimension(1050, 680));
 		getContentPane().setBackground(Color.DARK_GRAY);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		this.initTransformacoes();
 		this.initOpcoesDesenho();
@@ -111,7 +105,7 @@ public class MenuDeOp extends JFrame {
 		comboBox.setBounds(10, 109, 155, 20);
 		//combo box não adiciona novos itens, está estático nos 4 iniciais
 		comboBox.removeAllItems();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"PIXEL", "RETA", "CIRCUNFERENCIA", "ELIPSE", "QUADRADO", "CUBO"}));
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"PIXEL", "RETA", "CIRCUNFERENCIA", "ELIPSE", "QUADRADO", "CUBO"}));
 		getContentPane().add(comboBox);
 		
 		panel_menu = new JPanel();
@@ -524,7 +518,7 @@ public class MenuDeOp extends JFrame {
 	private void initTransformacoes() {
 		getContentPane().setLayout(null);
 		panel_transformacao = new JPanel();
-		panel_transformacao.setBounds(1005, 12, 223, 343);
+		panel_transformacao.setBounds(800, 12, 223, 343);
 		panel_transformacao.setBackground(Color.DARK_GRAY);
 		panel_transformacao.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel_transformacao.setLayout(null);
@@ -686,14 +680,14 @@ public class MenuDeOp extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				
-				if (MenuDeOp.rb_rflx.isSelected() ||
-					MenuDeOp.rb_rfly.isSelected() ||
-					MenuDeOp.rb_rflx_y.isSelected()||
-					MenuDeOp.rb_rflxy.isSelected() ||
-					MenuDeOp.rb_rflxz.isSelected() ||
-					MenuDeOp.rb_rflyz.isSelected()) {
+				if (Operacoes2D_3D.rb_rflx.isSelected() ||
+					Operacoes2D_3D.rb_rfly.isSelected() ||
+					Operacoes2D_3D.rb_rflx_y.isSelected()||
+					Operacoes2D_3D.rb_rflxy.isSelected() ||
+					Operacoes2D_3D.rb_rflxz.isSelected() ||
+					Operacoes2D_3D.rb_rflyz.isSelected()) {
 					plano.calcularReflexao();
-				} else if (MenuDeOp.rb_rotacao.isSelected()) {
+				} else if (Operacoes2D_3D.rb_rotacao.isSelected()) {
 					plano.calcularRotacao(Double.parseDouble(tf_angulo.getText()));
 				} else {
 					int x = 0, y = 0, z = 0;

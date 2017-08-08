@@ -13,8 +13,10 @@ import javax.swing.border.LineBorder;
 
 public class ProcessamentoImagemGraficoHistogramaMatriz extends JPanel {
 
-	private static final String COMENTARIO = "#";
-	private static final String P2 = "P2";	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public int altura;
 	public int largura;
 	private static BufferedImage imagemO;

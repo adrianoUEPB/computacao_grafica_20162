@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,11 +12,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import algoritmosProcessamentoImagens.*;
 
 public class PainelTransformacaoRotacao extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	PanellDaImagem panelDaImagem1 = new PanellDaImagem();
 	public static ProcessamentoImagensTransformacaoGammaLogaritmoNegativo panelDaImagem2 = new ProcessamentoImagensTransformacaoGammaLogaritmoNegativo();
 	public PainelTransformacaoRotacao(){
@@ -83,8 +84,8 @@ public class PainelTransformacaoRotacao extends JPanel {
 		add(labelGamma);
 		
 		
-		JComboBox comboBoxRotacao = new JComboBox();
-		comboBoxRotacao.setModel(new DefaultComboBoxModel(new String[] {"", "90", "120", "180"}));
+		JComboBox<String> comboBoxRotacao = new JComboBox<String>();
+		comboBoxRotacao.setModel(new DefaultComboBoxModel<String>(new String[] {"", "90", "120", "180"}));
 		comboBoxRotacao.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 18));
 
 		comboBoxRotacao.setBounds(574, 115, 174, 41);

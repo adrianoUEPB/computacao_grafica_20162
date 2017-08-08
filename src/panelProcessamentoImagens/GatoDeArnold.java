@@ -1,17 +1,7 @@
 package panelProcessamentoImagens;
 
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.Timer;
-
-import algoritmosProcessamentoImagens.ProcessamentoDeImagemGatoDeArnaldo;
 
 public class GatoDeArnold {
 
@@ -98,10 +88,10 @@ public class GatoDeArnold {
 
 		icon = new ImageIcon(this.getArnoldImage().geraBuffer());
 		label = new JLabel(icon);
-		painelGatoDeArnold.panelDaImagem2.removeAll();
-		painelGatoDeArnold.panelDaImagem2.add(label);
-		painelGatoDeArnold.panelDaImagem2.validate();
-		painelGatoDeArnold.panelDaImagem2.repaint();
+		PainelGatoDeArnold.panelDaImagem2.removeAll();
+		PainelGatoDeArnold.panelDaImagem2.add(label);
+		PainelGatoDeArnold.panelDaImagem2.validate();
+		PainelGatoDeArnold.panelDaImagem2.repaint();
 
 		label.setBounds(0, 0, 256, 256);
 
@@ -115,9 +105,9 @@ public class GatoDeArnold {
 			this.icon.setImage(this.getArnoldImage().geraBuffer());
 			this.label.setIcon(this.icon);
 
-			painelGatoDeArnold.panelDaImagem2.add(label);
-			painelGatoDeArnold.panelDaImagem2.validate();
-			painelGatoDeArnold.panelDaImagem2.repaint();
+			PainelGatoDeArnold.panelDaImagem2.add(label);
+			PainelGatoDeArnold.panelDaImagem2.validate();
+			PainelGatoDeArnold.panelDaImagem2.repaint();
 
 			try {
 				Thread.sleep(100);

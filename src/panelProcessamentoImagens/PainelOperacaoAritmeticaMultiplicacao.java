@@ -2,24 +2,22 @@ package panelProcessamentoImagens;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import algoritmosProcessamentoImagens.*;
 
 public class PainelOperacaoAritmeticaMultiplicacao extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	PanellDaImagem panelDaImagem1 = new PanellDaImagem();
 	PanellDaImagem panelDaImagem2 = new PanellDaImagem();
 	ProcessamentoImagensOperacoesAritmeticas panelDaImagem3 = new ProcessamentoImagensOperacoesAritmeticas();
@@ -76,7 +74,7 @@ public class PainelOperacaoAritmeticaMultiplicacao extends JPanel {
 						repaint();
 					}					
 				}catch(Exception erro){  				        
-					JOptionPane.showMessageDialog(null, "Não foi possivel carregar a imagem.");  				        
+					JOptionPane.showMessageDialog(null, "Nï¿½o foi possivel carregar a imagem.");  				        
 				}    				
 			}
 		});
@@ -100,7 +98,7 @@ public class PainelOperacaoAritmeticaMultiplicacao extends JPanel {
 						repaint();
 					}					
 				}catch(Exception erro){  				        
-					JOptionPane.showMessageDialog(null, "Não foi possivel carregar a imagem.");  				        
+					JOptionPane.showMessageDialog(null, "Nï¿½o foi possivel carregar a imagem.");  				        
 				}    				
 			}
 		});
@@ -110,7 +108,7 @@ public class PainelOperacaoAritmeticaMultiplicacao extends JPanel {
 		add(bntSelecionarImagem2);
 		
 		
-		JButton bntMultiplicacao = new JButton("Multiplicação");
+		JButton bntMultiplicacao = new JButton("Multiplicaï¿½ï¿½o");
 		bntMultiplicacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent eventoDeMouse){	
 				panelDaImagem3.inserirImagemNoPainelOperacaoAritmeticaMultiplicacao(panelDaImagem1.altura, 

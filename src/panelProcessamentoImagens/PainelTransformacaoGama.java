@@ -16,6 +16,10 @@ import javax.swing.JTextField;
 import algoritmosProcessamentoImagens.*;
 
 public class PainelTransformacaoGama extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	PanellDaImagem panelDaImagem1 = new PanellDaImagem();
 	ProcessamentoImagensTransformacaoGammaLogaritmoNegativo panelDaImagem2 = new ProcessamentoImagensTransformacaoGammaLogaritmoNegativo();
 	JTextField TxtGama;
@@ -31,7 +35,7 @@ public class PainelTransformacaoGama extends JPanel {
 		add(panelSuperior);
 		panelSuperior.setLayout(null);
 
-		JLabel labelFiltroMedia = new JLabel("Transformação Gama");
+		JLabel labelFiltroMedia = new JLabel("Transformaï¿½ï¿½o Gama");
 		labelFiltroMedia.setBackground(Color.DARK_GRAY);
 		labelFiltroMedia.setForeground(Color.WHITE);
 		labelFiltroMedia.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 24));
@@ -63,7 +67,7 @@ public class PainelTransformacaoGama extends JPanel {
 						repaint();
 					}					
 				}catch(Exception erro){  				        
-					JOptionPane.showMessageDialog(null, "Não foi possivel carregar a imagem.");  				        
+					JOptionPane.showMessageDialog(null, "Nï¿½o foi possivel carregar a imagem.");  				        
 				}    				
 			}
 	
@@ -90,7 +94,7 @@ public class PainelTransformacaoGama extends JPanel {
 		add(labelC);
 		
 
-		JButton bntGama = new JButton("Transformação Gama");
+		JButton bntGama = new JButton("Transformaï¿½ï¿½o Gama");
 		bntGama.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent eventoDeMouse){	
 				TxtGama.setText(TxtGama.getText().replace(",", "."));

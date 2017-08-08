@@ -15,6 +15,10 @@ import javax.swing.JPanel;
 import algoritmosProcessamentoImagens.*;
 
 public class PainelFiltroPrewitt extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	PanellDaImagem panelDaImagem1 = new PanellDaImagem();
 	ProcessamentoImagensFiltros panelDaImagem2 = new ProcessamentoImagensFiltros();
 	
@@ -63,7 +67,7 @@ public class PainelFiltroPrewitt extends JPanel {
 						repaint();
 					}					
 				}catch(Exception erro){  				        
-					JOptionPane.showMessageDialog(null, "Não foi possivel carregar a imagem.");  				        
+					JOptionPane.showMessageDialog(null, "Nï¿½o foi possivel carregar a imagem.");  				        
 				}    				
 			}
 		});

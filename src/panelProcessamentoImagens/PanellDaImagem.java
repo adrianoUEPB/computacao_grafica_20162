@@ -15,7 +15,10 @@ import javax.swing.border.LineBorder;
 
 public class PanellDaImagem extends JPanel {
 
-	private String caminhoDaImagem = "";
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final String COMENTARIO = "#";
 	private static final String P2 = "P2";
 	

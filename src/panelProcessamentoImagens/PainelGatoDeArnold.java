@@ -15,6 +15,10 @@ import javax.swing.JPanel;
 import algoritmosProcessamentoImagens.*;
 
 public class PainelGatoDeArnold extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	PanellDaImagem panelDaImagem1 = new PanellDaImagem();
 	public static ProcessamentoDeImagemGatoDeArnaldo panelDaImagem2 = new ProcessamentoDeImagemGatoDeArnaldo();
 	
@@ -85,7 +89,7 @@ public class PainelGatoDeArnold extends JPanel {
 
 				} catch (Exception erro) {
 					JOptionPane.showMessageDialog(null,
-							"Não foi possivel carregar a imagem.");
+							"Nï¿½o foi possivel carregar a imagem.");
 				} 				
 			}
 		});

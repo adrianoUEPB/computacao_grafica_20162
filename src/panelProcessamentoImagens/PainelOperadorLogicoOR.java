@@ -2,24 +2,22 @@ package panelProcessamentoImagens;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import algoritmosProcessamentoImagens.*;
 
 public class PainelOperadorLogicoOR extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	PanellDaImagem panelDaImagem1 = new PanellDaImagem();
 	PanellDaImagem panelDaImagem2 = new PanellDaImagem();
 	ProcessamentoImagensOperadoresLogicos panelDaImagem3 = new ProcessamentoImagensOperadoresLogicos();
@@ -39,7 +37,7 @@ public class PainelOperadorLogicoOR extends JPanel {
 		panelSuperior.setLayout(null);
 
 
-		JLabel labelFiltroMedia = new JLabel("Operação Lógica OR");
+		JLabel labelFiltroMedia = new JLabel("Operaï¿½ï¿½o Lï¿½gica OR");
 		labelFiltroMedia.setBackground(Color.DARK_GRAY);
 		labelFiltroMedia.setForeground(Color.WHITE);
 		labelFiltroMedia.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 24));
@@ -76,7 +74,7 @@ public class PainelOperadorLogicoOR extends JPanel {
 						repaint();
 					}					
 				}catch(Exception erro){  				        
-					JOptionPane.showMessageDialog(null, "Não foi possivel carregar a imagem.");  				        
+					JOptionPane.showMessageDialog(null, "Nï¿½o foi possivel carregar a imagem.");  				        
 				}    				
 			}
 		});
@@ -100,7 +98,7 @@ public class PainelOperadorLogicoOR extends JPanel {
 						repaint();
 					}					
 				}catch(Exception erro){  				        
-					JOptionPane.showMessageDialog(null, "Não foi possivel carregar a imagem.");  				        
+					JOptionPane.showMessageDialog(null, "Nï¿½o foi possivel carregar a imagem.");  				        
 				}    				
 			}
 		});

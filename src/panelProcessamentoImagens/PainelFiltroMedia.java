@@ -2,23 +2,22 @@ package panelProcessamentoImagens;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import algoritmosProcessamentoImagens.*;
 
 public class PainelFiltroMedia extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	PanellDaImagem panelDaImagem1 = new PanellDaImagem();
 	ProcessamentoImagensFiltros panelDaImagem2 = new ProcessamentoImagensFiltros();
 	

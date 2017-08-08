@@ -16,6 +16,10 @@ import algoritmosProcessamentoImagens.*;
 
 public class PainelOperadorLogicoXOR extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	PanellDaImagem panelDaImagem1 = new PanellDaImagem();
 	PanellDaImagem panelDaImagem2 = new PanellDaImagem();
 	ProcessamentoImagensOperadoresLogicos panelDaImagem3 = new ProcessamentoImagensOperadoresLogicos();
@@ -35,7 +39,7 @@ public class PainelOperadorLogicoXOR extends JPanel {
 		panelSuperior.setLayout(null);
 
 
-		JLabel labelFiltroMedia = new JLabel("Operação Lógica XOR");
+		JLabel labelFiltroMedia = new JLabel("Operaï¿½ï¿½o Lï¿½gica XOR");
 		labelFiltroMedia.setBackground(Color.DARK_GRAY);
 		labelFiltroMedia.setForeground(Color.WHITE);
 		labelFiltroMedia.setFont(new Font("Segoe UI Symbol", Font.BOLD | Font.ITALIC, 24));
@@ -71,7 +75,7 @@ public class PainelOperadorLogicoXOR extends JPanel {
 						repaint();
 					}					
 				}catch(Exception erro){  				        
-					JOptionPane.showMessageDialog(null, "Não foi possivel carregar a imagem.");  				        
+					JOptionPane.showMessageDialog(null, "Nï¿½o foi possivel carregar a imagem.");  				        
 				}    				
 			}
 		});
@@ -95,7 +99,7 @@ public class PainelOperadorLogicoXOR extends JPanel {
 						repaint();
 					}					
 				}catch(Exception erro){  				        
-					JOptionPane.showMessageDialog(null, "Não foi possivel carregar a imagem.");  				        
+					JOptionPane.showMessageDialog(null, "Nï¿½o foi possivel carregar a imagem.");  				        
 				}    				
 			}
 		});

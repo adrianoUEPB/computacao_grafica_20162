@@ -40,9 +40,7 @@ public class ProcessamentoDeImagemGatoDeArnaldo extends JPanel {
 	public void geraImagemDoGatoDeArnald(int alturaDaImagem1, int larguraDaImagem1, int matrizDaImagem1[][]) throws Exception{
 		        int altura = alturaDaImagem1;
         int largura = larguraDaImagem1;        
-        imagemGatoDeArnold = new BufferedImage(altura, largura, BufferedImage.TYPE_INT_RGB);               
-        int matrizInput [][] = matrizDaImagem1;
-        int matrizResultado [][] = new int [altura][largura];      
+        imagemGatoDeArnold = new BufferedImage(altura, largura, BufferedImage.TYPE_INT_RGB);      
 	}
 	
 	@Override
